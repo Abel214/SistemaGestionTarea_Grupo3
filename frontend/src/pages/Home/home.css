@@ -1,0 +1,272 @@
+/* Home.css */
+
+/* Contenedor principal */
+.login-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  padding-top: 120px
+}
+
+/* Tarjeta principal */
+.login-card {
+  width: 100%;
+  max-width: 450px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  border: none;
+  background: rgba(42, 42, 42, 0.95) !important;
+  backdrop-filter: blur(10px);
+}
+
+.login-card .ant-card-body {
+  padding: 40px;
+  background: transparent;
+}
+
+/* Header */
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-logo {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(45deg, #52c41a, #389e0d);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  font-size: 24px;
+  color: white;
+}
+
+.login-title {
+  margin: 0 !important;
+  color: white !important;
+  font-weight: bold;
+}
+
+/* Información de autenticación */
+.auth-info {
+  margin-bottom: 30px;
+}
+
+.auth-description {
+  color: #e0e0e0 !important;
+  margin-bottom: 20px;
+}
+
+.auth-description strong {
+  color: white;
+}
+
+/* Tarjetas de método de autenticación */
+.auth-method-card {
+  cursor: pointer;
+  border: 1px solid #404040 !important;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  background: rgba(64, 64, 64, 0.3) !important;
+}
+
+.auth-method-card:hover {
+  border-color: #52c41a !important;
+  background: rgba(82, 196, 26, 0.1) !important;
+}
+
+.auth-method-card.active {
+  border: 2px solid #52c41a !important;
+  background: rgba(82, 196, 26, 0.15) !important;
+}
+
+.auth-method-card .ant-card-body {
+  background: transparent;
+}
+
+.auth-icon {
+  color: #52c41a;
+  font-size: 18px;
+}
+
+.auth-method-title {
+  color: white !important;
+}
+
+.auth-method-description {
+  color: #b0b0b0 !important;
+  font-size: 12px;
+}
+
+/* Formulario de login */
+.login-form {
+  margin-top: 20px;
+}
+
+.login-input {
+  border-radius: 8px;
+  background: rgba(64, 64, 64, 0.3) !important;
+  border: 1px solid #404040 !important;
+  color: white !important;
+}
+
+.login-input:hover {
+  border-color: #52c41a !important;
+}
+
+.login-input:focus {
+  border-color: #52c41a !important;
+  box-shadow: 0 0 0 2px rgba(82, 196, 26, 0.2) !important;
+}
+
+.login-input input {
+  background: transparent !important;
+  color: white !important;
+}
+
+.login-input input::placeholder {
+  color: #888 !important;
+}
+
+.input-icon {
+  color: #52c41a;
+}
+
+/* Botón de login */
+.login-button {
+  background: linear-gradient(45deg, #52c41a, #389e0d) !important;
+  border: none !important;
+  border-radius: 8px;
+  height: 48px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white !important;
+}
+
+.login-button:hover {
+  background: linear-gradient(45deg, #389e0d, #237804) !important;
+}
+
+.login-button:focus {
+  background: linear-gradient(45deg, #52c41a, #389e0d) !important;
+}
+
+/* Divisores */
+.login-divider {
+  margin: 30px 0;
+  border-top: 1px solid #404040;
+}
+
+.login-divider .ant-divider-inner-text {
+  color: #888;
+}
+
+/* Opciones adicionales */
+.additional-options {
+  text-align: center;
+}
+
+.section-title {
+  color: white !important;
+  margin-bottom: 15px;
+}
+
+.social-button {
+  border-radius: 8px;
+  background: rgba(64, 64, 64, 0.3) !important;
+  border: 1px solid #404040 !important;
+  color: #e0e0e0 !important;
+}
+
+.social-button:hover {
+  border-color: #52c41a !important;
+  background: rgba(82, 196, 26, 0.1) !important;
+  color: white !important;
+}
+
+/* Sección de registro */
+.register-section {
+  text-align: center;
+}
+
+.register-link {
+  color: #52c41a !important;
+  font-weight: bold;
+  padding: 0;
+}
+
+.register-link:hover {
+  color: #389e0d !important;
+}
+
+/* Nota importante */
+.important-note {
+  margin-top: 30px;
+  padding: 15px;
+  background: rgba(82, 196, 26, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(82, 196, 26, 0.3);
+}
+
+.note-text {
+  color: #b7eb8f !important;
+  font-size: 13px;
+}
+
+.note-text strong {
+  color: #52c41a;
+}
+
+/* Estilos adicionales para Ant Design */
+.ant-input-affix-wrapper {
+  background: rgba(64, 64, 64, 0.3) !important;
+  border: 1px solid #404040 !important;
+  color: white !important;
+}
+
+.ant-input-affix-wrapper:hover {
+  border-color: #52c41a !important;
+}
+
+.ant-input-affix-wrapper-focused {
+  border-color: #52c41a !important;
+  box-shadow: 0 0 0 2px rgba(82, 196, 26, 0.2) !important;
+}
+
+.ant-input-password {
+  background: transparent !important;
+  color: white !important;
+}
+
+.ant-input-password input {
+  background: transparent !important;
+  color: white !important;
+}
+
+.ant-input-password-icon {
+  color: #888 !important;
+}
+
+.ant-input-password-icon:hover {
+  color: #52c41a !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-container {
+    padding: 10px;
+  }
+
+  .login-card .ant-card-body {
+    padding: 30px 20px;
+  }
+
+  .login-card {
+    max-width: 100%;
+  }
+}
