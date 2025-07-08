@@ -1,0 +1,85 @@
+/* Importamos las variables globales */
+@import './variables.css';
+
+/* Importamos la fuente Montserrat con display swap para mejorar CLS */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap&display=swap');
+
+/* Reseteo básico y configuración global */
+html, body, #root {
+  margin: 0;
+  font-family: var(--font-family-primary);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+}
+
+body {
+  color: var(--color-gray-900);
+  background-color: var(--color-gray-50);
+  overflow-x: hidden;
+  /* Removing default padding-top, will be added by Header component when needed */
+  padding-top: 0;
+}
+
+/* Clase especial para páginas con header transparente */
+body.transparent-header {
+  padding-top: 0; /* Eliminar el padding superior para mostrar el contenido detrás del header transparente */
+}
+
+/* Clase para páginas con header normal */
+body.with-header {
+  padding-top: var(--header-height);
+}
+
+/* Agregar un contenedor para el main content que reserve espacio para footer/header */
+.main-content {
+  min-height: calc(100vh - var(--footer-height));
+}
+
+/* Optimización de imágenes para evitar CLS */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevenir CLS al cargar fuentes */
+html {
+  font-display: swap;
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-primary);
+  transition: color var(--transition-normal);
+}
+
+/* Clases utilitarias de texto */
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-light {
+  color: var(--color-white);
+}
+
+.text-dark {
+  color: var(--color-gray-900);
+}
+
+.text-center {
+  text-align: center;
+}
+
+/* Clases utilitarias para márgenes y espaciado */
+.m-0 { margin: 0; }
+.mt-1 { margin-top: var(--spacing-xs); }
+.mt-2 { margin-top: var(--spacing-sm); }
+.mt-3 { margin-top: var(--spacing-md); }
+.mt-4 { margin-top: var(--spacing-lg); }
+.mb-1 { margin-bottom: var(--spacing-xs); }
+.mb-2 { margin-bottom: var(--spacing-sm); }
+.mb-3 { margin-bottom: var(--spacing-md); }
+.mb-4 { margin-bottom: var(--spacing-lg); }
+.my-1 { margin-top: var(--spacing-xs); margin-bottom: var(--spacing-xs); }
+.my-2 { margin-top: var(--spacing-sm); margin-bottom: var(--spacing-sm); }
+.my-3 { margin-top: var(--spacing-md); margin-bottom: var(--spacing-md); }

@@ -1,0 +1,116 @@
+:root {
+  /* Paleta de colores principal (Azules) */
+  --color-primary: #173559; /* Azul oscuro principal */
+  --color-primary-dark: #06142a; /* Azul aún más oscuro */
+  --color-primary-light: #dce0e6; /* Azul claro para acentos */
+  
+  /* Azules adicionales para la interfaz */
+  --color-blue-dark: #10284b;
+  --color-blue-medium: #1b3666;
+  --color-blue-light: #3e5a99;
+  --color-blue-pale: #fffdfd;
+  --color-blue-very-light: #f1f5fa;
+  
+  /* Marrones y terrosos (opcional, puedes eliminarlos si no se usan) */
+  --color-brown-light: #D3C5AA;
+  --color-sand: #F5EFE0;
+  
+  /* Verdes (puedes mantenerlos para estados de éxito, etc.) */
+  --color-green-dark: #153D32;
+  --color-green-medium: #2e7d32;
+  --color-green-light: #dce0e6;
+  --color-green-pale: #e8f5e9;
+  --color-green-very-light: #f1f8e9;
+  
+  /* Verdes claros adicionales para la nueva paleta */
+  --color-light-green: #8bc34a;
+  --color-light-green-dark: #689f38;
+  --color-light-green-light: #9ccc65;
+  --color-light-green-pale: #f1f8e9;
+  
+  /* Escala de grises */
+  --color-white: #dce0e6;
+  --color-gray-50: #f8f9fa;
+  --color-gray-100: #f0f0f0;
+  --color-gray-200: #e0e0e0;
+  --color-gray-300: #cccccc;
+  --color-gray-400: #999999;
+  --color-gray-500: #7f8c8d;
+  --color-gray-600: #666666;
+  --color-gray-700: #555555;
+  --color-gray-800: #444444;
+  --color-gray-900: #333333;
+  --color-black: #000000;
+  
+  /* Colores para estados y alertas */
+  --color-error: #c62828;
+  --color-error-light: #ffebee;
+  --color-warning: #ff9800;
+  --color-warning-light: #fff3e0;
+  --color-info: #2196f3;
+  --color-success: #388e3c;
+  
+  /* Colores para gráficos específicos */
+  --color-chart-gradient-1: #0C2342;
+  --color-chart-gradient-2: #3e5a99;
+  --color-chart-gradient-3: #e3eafe;
+  --color-chart-gradient-4: #fdae61;
+  --color-chart-gradient-5: #d73027;
+  
+  /* Tipografía */
+  --font-family-primary: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  --font-family-secondary: 'Arial', sans-serif;
+  
+  /* Tamaños de fuente */
+  --font-size-xs: 0.75rem;    /* 12px */
+  --font-size-sm: 0.875rem;   /* 14px */
+  --font-size-base: 1rem;     /* 16px */
+  --font-size-md: 1.125rem;   /* 18px */
+  --font-size-lg: 1.25rem;    /* 20px */
+  --font-size-xl: 1.5rem;     /* 24px */
+  --font-size-2xl: 1.8rem;    /* 28.8px */
+  --font-size-3xl: 2rem;      /* 32px */
+  --font-size-4xl: 2.5rem;    /* 40px */
+  --font-size-5xl: 3rem;      /* 48px */
+  --font-size-hero: 4.5rem;   /* 72px */
+  
+  /* Espaciado */
+  --spacing-xs: 0.25rem;      /* 4px */
+  --spacing-sm: 0.5rem;       /* 8px */
+  --spacing-md: 1rem;         /* 16px */
+  --spacing-lg: 1.5rem;       /* 24px */
+  --spacing-xl: 2rem;         /* 32px */
+  --spacing-2xl: 2.5rem;      /* 40px */
+  --spacing-3xl: 3rem;        /* 48px */
+  
+  /* Bordes y radios */
+  --border-radius-sm: 4px;
+  --border-radius-md: 8px;
+  --border-radius-lg: 15px;
+  --border-radius-xl: 20px;
+  --border-radius-circle: 50%;
+  
+  /* Sombras */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-button: 0 4px 12px rgba(12, 35, 66, 0.3);
+  
+  /* Transiciones */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+  
+  /* Z-indices */
+  --z-index-dropdown: 100;
+  --z-index-sticky: 200;
+  --z-index-fixed: 500;
+  --z-index-modal: 1000;
+  --z-index-tooltip: 1500;
+  
+  /* Dimensiones de componentes específicos */
+  --header-height: 64px;
+  --footer-height: 300px;
+  --mobile-header-height: 56px;
+}
