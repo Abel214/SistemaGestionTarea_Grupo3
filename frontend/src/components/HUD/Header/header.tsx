@@ -20,7 +20,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
   const navigate = useNavigate();
   const { user, isAuthenticated, logout } = useAuth();
   const mobileMenuRef = useRef<HTMLDivElement>(null);
-  
+
   // Handle scroll events to adjust header transparency
   useEffect(() => {
     const handleScroll = () => {
@@ -47,7 +47,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
     } else {
       document.body.classList.remove('transparent-header');
     }
-    
+
     // Cleanup para asegurarnos de quitar la clase cuando el componente se desmonte
     return () => {
       document.body.classList.remove('transparent-header');
@@ -58,7 +58,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [location.pathname]);
-  
+
   // Cerrar menú al hacer clic fuera
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -68,24 +68,24 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
     };
 
     document.addEventListener('mousedown', handleClickOutside);
-    
+
     // Prevenir scroll cuando el menú está abierto
     if (mobileMenuOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
-    
+
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.body.style.overflow = '';
     };
   }, [mobileMenuOpen]);
-  
+
   const toggleMobileMenu = () => {
     setMobileMenuOpen(!mobileMenuOpen);
   };
-  
+
   const closeMobileMenu = () => {
     setMobileMenuOpen(false);
   };
@@ -113,16 +113,16 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
 
   // Determinar clase CSS según la prop transparent y estado de scroll
   const headerClass = `main-header${transparent ? ' transparent' : ''}${scrolled && transparent ? ' scrolled' : ''}`;
-  
+
   // Mobile menu portal element
   const mobileMenuPortal = (
     <>
-      <div 
-        className={`mobile-menu-backdrop ${mobileMenuOpen ? 'open' : ''}`} 
+      <div
+        className={`mobile-menu-backdrop ${mobileMenuOpen ? 'open' : ''}`}
         onClick={closeMobileMenu}
       />
-      <nav 
-        ref={mobileMenuRef} 
+      <nav
+        ref={mobileMenuRef}
         className={`mobile-side-menu ${mobileMenuOpen ? 'open' : ''}`}
         style={{ zIndex: 9999 }} // Inline style to ensure proper z-index
       >
@@ -135,11 +135,11 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
             className="mobile-menu-close"
           />
         </div>
-        
+
         {isAuthenticated && (
           <div className="mobile-user-section">
-            <Avatar 
-              icon={<UserOutlined />} 
+            <Avatar
+              icon={<UserOutlined />}
               className="mobile-user-avatar"
               style={{ backgroundColor: 'var(--color-blue-light)' }}
             />
@@ -148,7 +148,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
             </span>
           </div>
         )}
-        
+
         <div className="mobile-menu-items">
           <Link
             to="/"
@@ -158,19 +158,19 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
             Inicio
           </Link>
           <Link
-            to="/geovisor"
-            className={`mobile-menu-item ${location.pathname.includes('/geovisor') ? 'active' : ''}`}
+            to="/usuarios"
+            className={`mobile-menu-item ${location.pathname.includes('/usuarios') ? 'active' : ''}`}
             onClick={closeMobileMenu}
           >
             Usuarios
           </Link>
-          
+
             <Link
-              to="/library"
-              className={`mobile-menu-item ${location.pathname.includes('/library') ? 'active' : ''}`}
+              to="/docente"
+              className={`mobile-menu-item ${location.pathname.includes('/docente') ? 'active' : ''}`}
               onClick={closeMobileMenu}
             >
-              Biblioteca
+              Docente
             </Link>
 
           <Link
@@ -180,7 +180,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
           >
             Nosotros
           </Link>
-          
+
           {isAuthenticated ? (
             <>
               <Link
@@ -222,10 +222,10 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
       </nav>
     </>
   );
-  
+
   return (
     <>
-      <AntHeader 
+      <AntHeader
         className={headerClass}
         style={{
           position: 'fixed',
@@ -251,7 +251,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
               <span className="app-name">Gestion De Tareas</span>
             </Link>
           </div>
-          
+
           {/* Menú de navegación */}
           <div className="menu-section">
             {/* Menú desktop */}
@@ -263,17 +263,17 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
                 Inicio
               </Link>
               <Link
-                to="/geovisor"
-                className={`menu-item ${location.pathname.includes('/geovisor') ? 'active' : ''}`}
+                to="/usuarios"
+                className={`menu-item ${location.pathname.includes('/usuarios') ? 'active' : ''}`}
               >
-                Tareas
+                Usuarios
               </Link>
 
               <Link
-                to="/library"
-                className={`menu-item ${location.pathname.includes('/library') ? 'active' : ''}`}
+                to="/docente"
+                className={`menu-item ${location.pathname.includes('/docente') ? 'active' : ''}`}
               >
-                Biblioteca
+                Docente
               </Link>
 
               <Link
@@ -282,21 +282,21 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
               >
                 Nosotros
               </Link>
-              
+
               {/* Usuario o botones de autenticación */}
               {isAuthenticated ? (
-                <Dropdown 
-                  menu={{ items: userMenuItems }} 
-                  placement="bottomRight" 
+                <Dropdown
+                  menu={{ items: userMenuItems }}
+                  placement="bottomRight"
                   arrow
                   trigger={['click']}
                 >
                   <div className="user-profile-menu">
-                    <Avatar 
-                      size="small" 
-                      icon={<UserOutlined />} 
+                    <Avatar
+                      size="small"
+                      icon={<UserOutlined />}
                       className="user-avatar"
-                      style={{ backgroundColor: 'var(--color-blue-light)' }} 
+                      style={{ backgroundColor: 'var(--color-blue-light)' }}
                     />
                     <span className="username-display">
                       {user?.first_name || 'Usuario'}
@@ -320,7 +320,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
                 </>
               )}
             </nav>
-            
+
             {/* Botón menú móvil */}
             <Button
               className="mobile-menu-button"
@@ -331,7 +331,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
             />
           </div>
         </div>
-        
+
         {/* Render mobile menu using portal to ensure it's at the root level */}
         {createPortal(mobileMenuPortal, document.body)}
       </AntHeader>

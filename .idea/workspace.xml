@@ -5,19 +5,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d759a3b-26b5-43ef-bf38-02f2258f1aca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/backend/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/tareas/services.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/backend/tareas/signals.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Calificaciones/controller.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Calificaciones/routes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Registro/controller.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Registro/routes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Tareas/controller.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/Tareas/routes.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/index.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/public/vite.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/assets/react.svg" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Inicio/inicio.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Inicio/inicio.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/sidebar/sidebar.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/sidebar/sidebar.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/InicioAdmin/inicioAdmin.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/InicioAdmin/inicioAdmin.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/InicioDocente/inicioDocente.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/Usuarios/usuarios.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/Usuarios/usuarios.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/HUD/Header/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HUD/Header/header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/HUD/Header/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HUD/Header/header.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/layouts/Main_Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/layouts/Main_Layout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/routes/AppRoutes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/routes/AppRoutes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles/variables.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/variables.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,12 +32,27 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Abel214"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Abel214/SistemaGestionTarea_Grupo3.git",
+    "accountId": "722843c5-07a4-4f52-b620-203af863f60c"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -48,11 +67,13 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;feature/Usuarios&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Usuario iTC/Sport22/SistemaGestionTarea_Grupo3/backend&quot;,
+    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\LENOVO\\Desktop\\Universidad\\Ciclo6\\Procesos de software\\Sistemas_GestionTareas\\SistemaGestionTarea_Grupo3\\frontend\\node_modules\\typescript\\lib&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -67,8 +88,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PY-241.17011.127" />
-        <option value="bundled-python-sdk-48aec45f0201-7e9c3bbb6e34-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.17011.127" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-PY-242.23726.102" />
+        <option value="bundled-python-sdk-5e1850174b45-399fe30bd8c1-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-242.23726.102" />
       </set>
     </attachedChunks>
   </component>
@@ -82,6 +103,7 @@
       <updated>1751848777221</updated>
       <workItem from="1751848778279" duration="8802000" />
       <workItem from="1751929910002" duration="24000" />
+      <workItem from="1752259006701" duration="19428000" />
     </task>
     <servers />
   </component>

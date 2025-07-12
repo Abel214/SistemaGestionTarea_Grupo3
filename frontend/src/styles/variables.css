@@ -29,7 +29,7 @@
   --color-light-green-pale: #f1f8e9;
   
   /* Escala de grises */
-  --color-white: #dce0e6;
+  --color-white: rgb(255, 255, 255);
   --color-gray-50: #f8f9fa;
   --color-gray-100: #f0f0f0;
   --color-gray-200: #e0e0e0;

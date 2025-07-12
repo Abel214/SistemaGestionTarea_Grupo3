@@ -1,0 +1,204 @@
+/* UserForm.css */
+
+/* Contenedor principal */
+.userform-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #222223 0%, #222223 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+
+}
+
+/* Tarjeta principal */
+.userform-card {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+  border: none;
+  background: rgb(255, 255, 255);
+  backdrop-filter: blur(5px);
+}
+
+.userform-card .ant-card-body {
+  padding: 40px;
+  background: transparent;
+}
+
+/* Header */
+.userform-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.userform-icon {
+  font-size: 48px;
+  color: #132e55;
+  margin-bottom: 10px;
+}
+
+.userform-title {
+  margin: 0 !important;
+  color: #333 !important;
+  font-weight: bold;
+}
+
+/* Información */
+.userform-info {
+  margin-bottom: 30px;
+}
+
+.userform-description {
+  color: #666 !important;
+  text-align: center;
+  font-size: 14px;
+}
+
+.userform-description strong {
+  color: #333;
+}
+
+/* Formulario */
+.userform-form {
+  width: 100%;
+}
+
+.userform-input {
+  border-radius: 8px;
+  background: transparent !important;
+  border: 1px solid #d9d9d9 !important;
+  color: #333 !important;
+}
+
+.userform-input:hover {
+  border-color: #949ba5 !important;
+}
+
+.userform-input:focus {
+  border-color: #737693 !important;
+  box-shadow: 0 0 0 2px rgba(102, 126, 234, 0.2) !important;
+}
+
+.userform-input input {
+  background: transparent !important;
+  color: #333 !important;
+}
+
+.userform-input input::placeholder {
+  color: #aaa !important;
+}
+
+.input-icon {
+  color: #b7bbd1;
+}
+
+/* Select */
+.userform-select .ant-select-selector {
+  border-radius: 8px !important;
+  height: 40px !important;
+  display: flex;
+  align-items: center;
+}
+
+.userform-select .ant-select-selection-placeholder {
+  color: #aaa !important;
+}
+
+/* DatePicker */
+.userform-datepicker {
+  border-radius: 8px !important;
+}
+
+/* Botón de registro */
+.userform-button {
+  background: linear-gradient(45deg, #52c41a, #389e0d) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  height: 50px;
+  font-size: 16px;
+  font-weight: bold;
+  color: white !important;
+  margin-top: 20px;
+}
+
+.userform-button:hover {
+   background: linear-gradient(45deg, #389e0d, #237804) !important;
+}
+
+.userform-button:focus {
+   background: linear-gradient(45deg, #389e0d, #237804) !important;
+}
+
+/* Nota informativa */
+.userform-note {
+  margin-top: 30px;
+  padding: 15px;
+  background: #222223;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  text-align: center;
+}
+
+.note-text {
+  color: #666 !important;
+  font-size: 13px;
+}
+
+.note-text strong {
+  color: rgba(236, 24, 24, 0.6);
+}
+
+
+
+.ant-input-password {
+  background: transparent !important;
+  color: #333 !important;
+}
+
+.ant-input-password input {
+  background: transparent !important;
+  color: #333 !important;
+}
+
+.ant-input-password-icon {
+  color: #aaa !important;
+}
+
+.ant-input-password-icon:hover {
+  color: #667eea !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .userform-container {
+    padding: 10px;
+  }
+
+  .userform-card .ant-card-body {
+    padding: 30px 20px;
+  }
+
+  .userform-card {
+    max-width: 100%;
+  }
+
+  .userform-title {
+    font-size: 20px !important;
+  }
+}
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .register-card {
+    padding: var(--spacing-lg);
+    max-width: 90%;
+  }
+  
+  .back-button {
+    top: 10px;
+    left: 10px;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
