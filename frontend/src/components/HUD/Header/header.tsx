@@ -203,11 +203,11 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
           ) : (
             <>
               <Link
-                to="/login"
-                className={`mobile-menu-item ${location.pathname === '/login' ? 'active' : ''}`}
+                to="/estudiante"
+                className={`mobile-menu-item ${location.pathname === '/estudiante' ? 'active' : ''}`}
                 onClick={closeMobileMenu}
               >
-                Iniciar Sesión
+                Estudiante
               </Link>
               <Link
                 to="/register"
@@ -266,7 +266,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
                 to="/usuarios"
                 className={`menu-item ${location.pathname.includes('/usuarios') ? 'active' : ''}`}
               >
-                Usuarios
+                
               </Link>
 
               <Link
@@ -306,10 +306,10 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
               ) : (
                 <>
                   <Link
-                    to="/login"
-                    className={`menu-item ${location.pathname === '/login' ? 'active' : ''}`}
+                    to="/estudiante"
+                    className={`menu-item ${location.pathname === '/estudiante' ? 'active' : ''}`}
                   >
-                    Iniciar Sesión
+                    Estudiante
                   </Link>
                   <Link
                     to="/register"

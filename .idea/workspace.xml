@@ -5,23 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d759a3b-26b5-43ef-bf38-02f2258f1aca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Inicio/inicio.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Inicio/inicio.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/sidebar/sidebar.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/sidebar/sidebar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/InicioAdmin/inicioAdmin.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/InicioAdmin/inicioAdmin.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/InicioDocente/inicioDocente.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/Usuarios/usuarios.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/Usuarios/usuarios.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Inicio/cardMateria/cardMateria.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/InicioEstudiante/inicioEstudiante.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/HUD/Header/header.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HUD/Header/header.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/HUD/Footer/footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HUD/Footer/footer.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/HUD/Footer/footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HUD/Footer/footer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/HUD/Header/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HUD/Header/header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/layouts/Main_Layout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/layouts/Main_Layout.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/Home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Home/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Inicio/inicio.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Inicio/inicio.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/Inicio/inicio.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Inicio/inicio.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/sidebar/sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/sidebar/sidebar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/routes/AppRoutes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/routes/AppRoutes.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles/variables.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles/variables.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,8 +26,8 @@
       <list>
         <option value="Python Script" />
         <option value="TypeScript File" />
-        <option value="TypeScript JSX File" />
         <option value="CSS File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -103,7 +96,7 @@
       <updated>1751848777221</updated>
       <workItem from="1751848778279" duration="8802000" />
       <workItem from="1751929910002" duration="24000" />
-      <workItem from="1752259006701" duration="19428000" />
+      <workItem from="1752259006701" duration="31685000" />
     </task>
     <servers />
   </component>
