@@ -1,5 +1,5 @@
 import React from 'react';
-import Inicio from "../../components/Inicio/inicio";
+import MateriaVista from "../../../components/Inicio/materiaVista/materiaVista";
 import { GraduationCap, BookOpen, FileText, Calendar, Clock, CheckCircle } from 'lucide-react';
 
 function DashboardEstudiante() {
@@ -159,9 +159,9 @@ function DashboardEstudiante() {
 
   return (
 
-      <Inicio
-        userType="student"
-        userName="Estudiante"
+      <MateriaVista
+        userType="studentMateria"
+        userName="Luis Medina"
         userEmail="estudiante@uni.com"
         imagenesMateria={imagenesMateria}
         sections={sections}

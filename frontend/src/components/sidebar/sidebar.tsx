@@ -5,7 +5,8 @@ import {
   FileText,
   CheckSquare,
   MessageCircle,
-  Settings
+  Settings,
+  Calendar,
 } from 'lucide-react';
 
 export const getDashboardConfig = (userType) => {
@@ -48,8 +49,21 @@ export const getDashboardConfig = (userType) => {
        bottomItems: [
         { id: 'settings', label: 'Configuración', icon: Settings },
       ]
-    }
+    },
+    studentMateria: {
+      title: 'Panel Materia Del Estudiante',
+      menuItems: [
+        { id: 'dashboard', label: 'Menu Principal', icon: Home },
+        { id: 'subjects', label: 'Asignaturas', icon: Book },
+        { id: 'calendar', label: 'Calendario', icon: Calendar },
+      ],
+       bottomItems: [
+        { id: 'settings', label: 'Configuración', icon: Settings },
+      ]
+    },
+
   };
+
 
   return configs[userType] || configs.student;
 };

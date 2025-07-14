@@ -3,9 +3,10 @@ import { User, ChevronDown, Search } from 'lucide-react';
 import { getDashboardConfig } from '../sidebar/sidebar';
 import SubjectCard from './cardMateria/cardMateria';
 import './inicio.css';
+import { useNavigate } from 'react-router-dom';
 
 const DashboardPanel = ({
-  userType = 'teacher',
+  userType = '',
   userName = 'Alyce Maldonado',
   userEmail = 'alycemaldonado@uni.com',
   imagenesMateria = {},

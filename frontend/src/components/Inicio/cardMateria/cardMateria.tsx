@@ -1,7 +1,12 @@
 import React from 'react';
-
+import {useNavigate} from "react-router-dom";
 const SubjectCard = ({ subject, isTeacher, imagen }) => {
-  return (
+  const navigate = useNavigate();
+
+    const handleButtonClick = () => {
+        navigate(`/materia`);
+    };
+    return (
     <div className="subject-card-large">
       <div className="subject-card-image">
         {imagen ? (
@@ -34,7 +39,9 @@ const SubjectCard = ({ subject, isTeacher, imagen }) => {
             {subject.description || 'Se enfoca en la gestión de contenido, estudiantes y evaluaciones de la materia.'}
           </p>
         )}
-        <button className="subject-button">
+        <button className="subject-button"
+          onClick={handleButtonClick}
+        >
           {isTeacher ? 'Gestionar Materia' : 'Ir a Materia'}
         </button>
       </div>
