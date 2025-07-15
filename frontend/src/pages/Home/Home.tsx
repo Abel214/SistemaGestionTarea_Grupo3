@@ -29,7 +29,7 @@ function Home() {
   };
 
   return (
-   <Layout>
+    <Layout>
 
     <div className="login-container">
       <Card className="login-card">
@@ -82,7 +82,7 @@ function Home() {
                   <Text className="auth-method-description">
                     Para usuarios que aún no forman parte de la comunidad universitaria.
                   </Text>
-                </div>
+              </div>
               </Space>
             </Card>
           </Space>
@@ -135,7 +135,7 @@ function Home() {
             type="link"
             size="large"
             className="register-link"
-          >
+                >
             Crear nueva cuenta
           </Button>
         </div>
@@ -147,9 +147,9 @@ function Home() {
           </Text>
         </div>
       </Card>
-    </div>
-  </Layout>
-  );
+      </div>
+    </Layout>
+);
 }
 
 export default Home;

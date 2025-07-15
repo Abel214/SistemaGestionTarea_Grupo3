@@ -169,24 +169,6 @@ body {
     font-size: var(--font-size-xs);
     padding-top: 14px;
   }
-
-  .plant-2 {
-    width: 200px;
-    /* Ajusta el tamaño de la planta */
-    bottom: -20px;
-    /* Ajusta la posición vertical */
-    right: 20px;
-    /* Ajusta la posición horizontal */
-  }
-
-  .plant-3 {
-    width: 240px;
-    /* Ajusta el tamaño de la planta */
-    bottom: -30px;
-    /* Ajusta la posición vertical */
-    left: -50px;
-    /* Ajusta la posición horizontal */
-  }
 }
 
 /* Responsive: Móviles */
@@ -248,23 +230,6 @@ body {
     margin-bottom: 6px;
   }
 
-  .plant-2 {
-    width: 100px;
-    /* Ajusta el tamaño de la planta */
-    bottom: -10px;
-    /* Ajusta la posición vertical */
-    right: 10px;
-    /* Ajusta la posición horizontal */
-  }
-
-  .plant-3 {
-    width: 100px;
-    /* Ajusta el tamaño de la planta */
-    bottom: -20px;
-    /* Ajusta la posición vertical */
-    left: -30px;
-    /* Ajusta la posición horizontal */
-  }
 }
 
 /* Extra small devices */
@@ -285,55 +250,6 @@ body {
     font-size: 0.7rem;
   }
 
-  .plant-2 {
-    width: 50px;
-    /* Ajusta el tamaño de la planta */
-    bottom: -5px;
-    /* Ajusta la posición vertical */
-    right: 5px;
-    /* Ajusta la posición horizontal */
-  }
-
-  .plant-3 {
-    width: 50px;
-    /* Ajusta el tamaño de la planta */
-    bottom: -10px;
-    /* Ajusta la posición vertical */
-    left: -20px;
-    /* Ajusta la posición horizontal */
-  }
-}
-
-/* Optimización de las plantas decorativas */
-.plant-decoration {
-  position: absolute;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.6;
-  /* Evita que cambie el tamaño del contenedor al cargar */
-  will-change: transform;
-  /* Usar transform en lugar de propiedades que causan reflow */
-  transform: translate(0, 0);
-}
-
-.plant-2 {
-  position: absolute;
-  bottom: 0;
-  right: -120px;
-  width: 280px;
-  height: auto;
-  aspect-ratio: 1.16;
-  /* Define la relación de aspecto para reservar espacio */
-}
-
-.plant-3 {
-  position: absolute;
-  bottom: 0;
-  left: -100px;
-  width: 300px;
-  height: auto;
-  aspect-ratio: 1.2;
-  /* Define la relación de aspecto para reservar espacio */
 }
 
 /* Optimizaciones de rendimiento */
@@ -352,6 +268,5 @@ body {
     height: 0;
     overflow: hidden;
     z-index: -1;
-    background-image: url('/home/planta_transparente2.png'), url('/home/planta_transparente.png');
   }
 }

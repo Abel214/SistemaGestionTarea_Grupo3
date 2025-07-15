@@ -19,7 +19,7 @@ body.transparent-header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: transparent;
+  background: black;
   padding: 0 !important;
   box-shadow:none;
   z-index: 1000;
