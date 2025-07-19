@@ -28,7 +28,6 @@ export const getDashboardConfig = (userType) => {
       title: 'Panel del Estudiante',
       menuItems: [
         { id: 'dashboard', label: 'Dashboard', icon: Home },
-        { id: 'subjects', label: 'Mis Materias', icon: Book },
         { id: 'assignments', label: 'Tareas', icon: CheckSquare },
         { id: 'grades', label: 'Mis Calificaciones', icon: FileText },
         { id: 'messages', label: 'Mensajes', icon: MessageCircle },
@@ -54,7 +53,6 @@ export const getDashboardConfig = (userType) => {
       title: 'Panel Materia Del Estudiante',
       menuItems: [
         { id: 'dashboard', label: 'Menu Principal', icon: Home },
-        { id: 'subjects', label: 'Asignaturas', icon: Book },
         { id: 'calendar', label: 'Calendario', icon: Calendar },
       ],
        bottomItems: [
