@@ -1,11 +1,13 @@
 import {
   Home,
   Book,
-  Users as UsersIcon,
+  User as UsersIcon,
   FileText,
   CheckSquare,
   MessageCircle,
-  Settings
+  Settings,
+  UserIcon,
+  Layers
 } from 'lucide-react';
 
 export const getDashboardConfig = (userType) => {
@@ -39,11 +41,11 @@ export const getDashboardConfig = (userType) => {
     admin: {
       title: 'Panel del Administrador',
       menuItems: [
-        { id: 'dashboard', label: 'Dashboard', icon: Home },
-        { id: 'users', label: 'Usuarios', icon: UsersIcon },
-        { id: 'subjects', label: 'Materias', icon: Book },
-        { id: 'reports', label: 'Reportes', icon: FileText },
-        { id: 'settings', label: 'Configuración', icon: CheckSquare },
+        { id: 'dashboard', label: 'Menú Principal', icon: Home },
+        { id: 'users', label: 'Usuarios', icon: UserIcon },
+        { id: 'subjects', label: 'Asignaturas', icon: Book },
+        { id: 'parallels', label: 'Paralelos', icon: FileText },
+        { id: 'cicles', label: 'Ciclos', icon: Layers },
       ],
        bottomItems: [
         { id: 'settings', label: 'Configuración', icon: Settings },
