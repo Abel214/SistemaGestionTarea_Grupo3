@@ -41,7 +41,6 @@ export const getDashboardConfig = (userType) => {
     admin: {
       title: 'Panel del Administrador',
       menuItems: [
-        { id: 'dashboard', label: 'Menú Principal', icon: Home },
         { id: 'users', label: 'Usuarios', icon: UserIcon },
         { id: 'subjects', label: 'Asignaturas', icon: Book },
         { id: 'parallels', label: 'Paralelos', icon: FileText },
