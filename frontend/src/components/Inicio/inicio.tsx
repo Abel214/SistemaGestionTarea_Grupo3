@@ -4,6 +4,7 @@ import { getDashboardConfig } from '../sidebar/sidebar';
 import SubjectCard from './cardMateria/cardMateria';
 import './inicio.css';
 import { useNavigate } from 'react-router-dom';
+import MenuDesplegable from "../menuDesplegable/menu";
 
 const DashboardPanel = ({
   userType = '',
@@ -115,14 +116,12 @@ const DashboardPanel = ({
 
           <div className="user-controls">
             <div className="user-profile">
-              <div className="user-avatar">
-                <User size={20} />
-              </div>
+              
               <div className="user-info">
                 <span className="user-name">{userName}</span>
                 <span className="user-email">{userEmail}</span>
               </div>
-              <ChevronDown size={16} className="dropdown-icon" />
+               <MenuDesplegable />
             </div>
           </div>
         </header>
