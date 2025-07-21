@@ -295,8 +295,9 @@
 }
 
 .table-header {
-  background-color: #f9aa3c;
+  background-color: #5288e3;
   border-bottom: 1px solid #e2e8f0;
+
 }
 
 .table-header th {
@@ -313,7 +314,7 @@
 }
 
 .table-body .table-row:hover {
-  background-color: #fbe1bf;
+  background-color: #bfddfb;
 }
 
 .table-cell {

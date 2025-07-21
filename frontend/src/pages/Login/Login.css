@@ -1,0 +1,225 @@
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+  background: url('../../assets/backgroundLogin.jpg') no-repeat center center;
+  background-size: cover;
+  font-family: var(--font-family-primary);
+}
+
+.login-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(8px);
+  color: var(--color-white) !important;
+  border-radius: 30px;
+  padding: 8px 16px;
+  height: auto;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:hover,
+.back-button:focus,
+.back-button:active {
+  background: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  color: var(--color-white) !important;
+  border-color: var(--color-green-light) !important;
+}
+
+.login-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 450px;
+  padding: 2.5rem;
+  border-radius: var(--border-radius-lg);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.login-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.login-logo {
+  width: 180px;
+  height: auto;
+  margin-bottom: var(--spacing-sm);
+}
+
+.login-title {
+  color: var(--color-white) !important;
+  text-align: center;
+  margin-bottom: 0.5rem !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-family-primary) !important;
+}
+
+.login-subtitle {
+  color: var(--color-white) !important;
+  text-align: center;
+  margin-bottom: 1.5rem !important;
+  font-size: var(--font-size-base) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  font-family: var(--font-family-primary) !important;
+}
+
+.login-form {
+  width: 100%;
+  font-family: var(--font-family-primary) !important;
+}
+
+.login-input {
+  height: 50px;
+  background: rgba(255, 255, 255, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: var(--border-radius-md) !important;
+  font-size: var(--font-size-base);
+  color: var(--color-white) !important;
+  font-family: var(--font-family-primary) !important;
+}
+
+.login-input:focus,
+.login-input:hover {
+  border-color: var(--color-green-light) !important;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2) !important;
+}
+
+.login-input::placeholder {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-family: var(--font-family-primary);
+}
+
+/* Customize the Ant Design input prefix icons */
+.login-input .ant-input-prefix {
+  color: rgba(255, 255, 255, 0.7);
+  margin-right: 10px;
+}
+
+.login-button {
+  height: 50px;
+  width: 100%;
+  font-size: var(--font-size-base);
+  background-color: var(--color-green-medium) !important;
+  border-color: var(--color-green-medium) !important;
+  border-radius: var(--border-radius-md) !important;
+  box-shadow: 0 4px 12px rgba(21, 61, 50, 0.4) !important;
+  font-family: var(--font-family-primary) !important;
+}
+
+.login-button:hover {
+  background-color: var(--color-green-dark) !important;
+  border-color: var(--color-green-dark) !important;
+  transform: translateY(-2px);
+}
+
+.login-links {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: var(--spacing-md);
+}
+
+.login-forgot {
+  color: var(--color-white) !important;
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+}
+
+.login-forgot:hover {
+  color: var(--color-green-light) !important;
+}
+
+.login-register {
+  text-align: center;
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-sm);
+  font-family: var(--font-family-primary) !important;
+}
+
+.login-register a {
+  color: var(--color-green-light);
+  font-weight: bold;
+}
+
+.login-register a:hover {
+  text-decoration: underline;
+}
+
+/* Override Ant Design form label styles */
+.login-form .ant-form-item-label > label {
+  color: var(--color-white) !important;
+}
+
+/* Password input eye icon */
+.ant-input-password-icon {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .login-card {
+    padding: var(--spacing-lg);
+    max-width: 90%;
+  }
+  
+  .back-button {
+    top: 10px;
+    left: 10px;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+  }
+  
+  .login-logo {
+    width: 150px;
+  }
+  
+  .login-title {
+    font-size: var(--font-size-xl) !important;
+  }
+  
+  .login-subtitle {
+    font-size: var(--font-size-sm) !important;
+  }
+  
+  .login-input,
+  .login-button {
+    height: 45px;
+  }
+  
+  .back-button {
+    padding: 4px 10px;
+  }
+}
