@@ -1,0 +1,386 @@
+/* Academic Calendar Styles */
+
+.calendar-container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+  min-height: 100vh;
+}
+
+.calendar-header-card {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-left: 4px solid #3b82f6;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-title-section {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.header-icon {
+  color: #2563eb;
+}
+
+.header-title {
+  font-size: 1.875rem;
+  font-weight: bold;
+  color: #1f2937;
+}
+
+.header-period {
+  font-size: 0.875rem;
+  color: #4b5563;
+  background-color: #dbeafe;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+}
+
+.calendar-card {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.calendar-nav-header {
+  background: linear-gradient(90deg, #2563eb 0%, #4f46e5 100%);
+  color: white;
+  padding: 1.5rem;
+}
+
+.nav-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-button {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  background-color: transparent;
+  border: none;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.nav-button:hover:not(:disabled) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.nav-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.month-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.weekdays-header {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background-color: #f9fafb;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.weekday-cell {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.875rem;
+  font-weight: bold;
+  color: #374151;
+  border-right: 1px solid #e5e7eb;
+}
+
+.weekday-cell:last-child {
+  border-right: none;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 120px);
+}
+
+.calendar-day {
+  height: 120px;
+  border: 1px solid #e5e7eb;
+  padding: 0.5rem;
+  position: relative;
+  transition: all 0.2s;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.calendar-day.empty-day {
+  background-color: #f9fafb;
+}
+
+.calendar-day.clickable {
+  cursor: pointer;
+}
+
+.calendar-day.clickable:hover {
+  background-color: #eff6ff;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.calendar-day.today {
+  background-color: #dbeafe;
+  border-color: #60a5fa;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+.day-number {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 0.5rem;
+  flex-shrink: 0;
+}
+
+.day-number.today {
+  color: #1d4ed8;
+}
+
+.tasks-container {
+  flex: 1;
+  overflow: hidden;
+}
+
+.tasks-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  height: 100%;
+}
+
+.task-item {
+  font-size: 0.75rem;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  border-left: 2px solid;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.task-item.completed {
+  background-color: #dcfce7;
+  border-color: #86efac;
+}
+
+.task-item.pending {
+  background-color: #fed7aa;
+  border-color: #fb923c;
+}
+
+.task-icon {
+  margin-right: 0.25rem;
+  flex-shrink: 0;
+}
+
+.task-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.more-tasks {
+  font-size: 0.75rem;
+  background-color: #e5e7eb;
+  border: 1px solid #d1d5db;
+  padding: 0.25rem;
+  border-radius: 0.25rem;
+  text-align: center;
+}
+
+/* Task Type Icons Colors */
+.icon-exam {
+  color: #ef4444;
+}
+
+.icon-essay {
+  color: #3b82f6;
+}
+
+.icon-project {
+  color: #22c55e;
+}
+
+.icon-presentation {
+  color: #a855f7;
+}
+
+.icon-default {
+  color: #6b7280;
+}
+
+/* Popup Styles (comentado para futuro uso) */
+/*
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+
+.popup-content {
+  background-color: white;
+  border-radius: 0.75rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: 1.5rem;
+  margin: 1rem;
+  max-width: 28rem;
+  width: 100%;
+}
+
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.popup-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+.popup-close {
+  color: #9ca3af;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.popup-close:hover {
+  color: #4b5563;
+}
+
+.popup-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  max-height: 24rem;
+  overflow-y: auto;
+}
+
+.popup-task {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border-left: 4px solid;
+}
+
+.popup-task.completed {
+  border-color: #4ade80;
+  background-color: #f0fdf4;
+}
+
+.popup-task.pending {
+  border-color: #fb923c;
+  background-color: #fff7ed;
+}
+
+.popup-task-content {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.popup-task-info {
+  flex: 1;
+}
+
+.popup-task-title {
+  font-weight: 500;
+  color: #1f2937;
+  display: flex;
+  align-items: center;
+}
+
+.popup-task-subject {
+  font-size: 0.875rem;
+  color: #4b5563;
+  margin-top: 0.25rem;
+}
+
+.popup-task-date {
+  font-size: 0.75rem;
+  color: #6b7280;
+  display: flex;
+  align-items: center;
+  margin-top: 0.25rem;
+}
+
+.popup-completed-icon {
+  color: #22c55e;
+  margin-top: 0.25rem;
+}
+*/
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .calendar-container {
+    padding: 0.5rem;
+  }
+
+  .calendar-header-card {
+    padding: 1rem;
+  }
+
+  .header-title {
+    font-size: 1.5rem;
+  }
+
+  .calendar-nav-header {
+    padding: 1rem;
+  }
+
+  .month-title {
+    font-size: 1.25rem;
+  }
+
+  .weekday-cell {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .calendar-grid {
+    grid-template-rows: repeat(6, 100px);
+  }
+
+  .calendar-day {
+    height: 100px;
+    padding: 0.25rem;
+  }
+
+  .day-number {
+    font-size: 1rem;
+    margin-bottom: 0.25rem;
+  }
+}

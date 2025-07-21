@@ -210,11 +210,11 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
                 Estudiante
               </Link>
               <Link
-                to="/register"
-                className={`mobile-menu-item ${location.pathname === '/register' ? 'active' : ''}`}
+                to="/materia"
+                className={`mobile-menu-item ${location.pathname === '/materia' ? 'active' : ''}`}
                 onClick={closeMobileMenu}
               >
-                Registrarse
+                Materia
               </Link>
             </>
           )}
@@ -312,10 +312,10 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
                     Estudiante
                   </Link>
                   <Link
-                    to="/register"
-                    className={`menu-item ${location.pathname === '/register' ? 'active' : ''}`}
+                    to="/materia"
+                    className={`menu-item ${location.pathname === '/materia' ? 'active' : ''}`}
                   >
-                    Registrarse
+                    Materia
                   </Link>
                 </>
               )}

@@ -3,9 +3,10 @@ import { User, ChevronDown, Search } from 'lucide-react';
 import { getDashboardConfig } from '../sidebar/sidebar';
 import SubjectCard from './cardMateria/cardMateria';
 import './inicio.css';
+import { useNavigate } from 'react-router-dom';
 
 const DashboardPanel = ({
-  userType = 'teacher',
+  userType = '',
   userName = 'Alyce Maldonado',
   userEmail = 'alycemaldonado@uni.com',
   imagenesMateria = {},
@@ -42,16 +43,25 @@ const DashboardPanel = ({
       <div className="sidebar">
         <div className="sidebar-header">
           <div className="sidebar-title">
-            <User size={24} />
-            <h1>{userType === 'teacher' ? 'Docente' : userType === 'student' ? 'Estudiante' : 'Administrador'}</h1>
+            <User size={24}/>
+            <h1>
+              {userType === 'teacher'
+                  ? 'Docente'
+                  : userType === 'student' || userType === 'studentMateria'
+                      ? 'Estudiante'
+                      : 'Administrador'}
+            </h1>
+
+
           </div>
+
         </div>
 
         {/* Search Section */}
         <div className="sidebar-search-section">
 
-            <div className="sidebar-search">
-              <input
+          <div className="sidebar-search">
+            <input
                 type="text"
                 placeholder="Buscar..."
                 value={searchQuery}

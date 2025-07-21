@@ -8,6 +8,7 @@ const Home = lazy(() => import('../pages/Home/Home'));
 const InicioDocente = lazy (() => import('../pages/InicioDocente/inicioDocente'));
 const InicioAdmin = lazy(() => import('../pages/InicioAdmin/inicioAdmin'));
 const InicioEstudiante = lazy(() => import('../pages/InicioEstudiante/inicioEstudiante'));
+const InicioMateria = lazy(() => import('../pages/InicioEstudiante/InicioMateria/inicioMateria'));
 const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
   const { isAuthenticated } = useAuth();
   if (!isAuthenticated) {
@@ -23,6 +24,7 @@ function AppRoutes() {
         <Route path="/docente" element={<InicioDocente />} />
         <Route path="/admin" element={<InicioAdmin />} />
           <Route path="/estudiante" element={<InicioEstudiante />} />
+        <Route path="/materia" element={<InicioMateria />} />
         {/* Otras rutas */}
       </Routes>
   );

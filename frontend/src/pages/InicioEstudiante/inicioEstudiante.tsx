@@ -168,7 +168,7 @@ function DashboardEstudiante() {
         assignments={assignments}
         grades={grades}
         subjects={subjects}
-        personalAreaConfig={personalAreaConfig}
+
       />
 
   );
