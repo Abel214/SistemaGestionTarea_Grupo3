@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {
   Search, User, Plus, ChevronDown, ChevronUp, Pencil,
   UserRoundMinus, Mail, UserCheck, GraduationCap, Phone,
   Calendar, Save
 } from 'lucide-react';
 import { getDashboardConfig } from '../../components/sidebar/sidebar';
-
+import MenuDesplegable from '../../components/menuDesplegable/menu'
 import "./inicioAdmin.css";
 import ModalAgregarUsuario from "../../components/admin/Usuarios/agregarUsuario";
 import ModalEditarUsuario from "../../components/admin/Usuarios/editarUsuario";
 import Asignaturas from '../../components/admin/materias/materias';
 import Paralelos from '../../components/admin/Paralelos/paralelo';
+import Ciclos from '../../components/admin/Ciclos/ciclos';
+
 const AdminInterface = () => {
   const navigate = useNavigate();
   const [activeMenuItem, setActiveMenuItem] = useState('users');
@@ -24,8 +27,14 @@ const AdminInterface = () => {
     name: '', lastname: '', email: '', role: '',
     status: '', phone: '', birthdate: ''
   });
-
+  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [editModal, setEditModal] = useState({ isOpen: false, user: null });
+   const handleLogout = () => {
+  console.log('Sesión cerrada');
+  // Aquí va la lógica de logout, por ejemplo:
+  localStorage.clear();
+  navigate('/');
+};
 
   const users = [
     { id: 1, name: 'Abel Alejandro', lastname: 'Mora Lopez', email: 'abel@uni.com', role: 'Estudiante', status: 2, phone: '0000000000', birthdate: '0000-00-00' },
@@ -214,19 +223,7 @@ const AdminInterface = () => {
         return <Paralelos />;
 
       case 'cicles':
-        return (
-          <div className="content-card">
-            <div className="card-header">
-              <div className="card-header-content">
-                <h2>Gestión de Ciclos</h2>
-                <p>Aquí puedes gestionar los ciclos académicos.</p>
-              </div>
-            </div>
-            <div className="table-container">
-              <p>Componente de Ciclos en desarrollo...</p>
-            </div>
-          </div>
-        );
+          return <Ciclos/>;
 
       case 'settings':
         return (
@@ -312,10 +309,7 @@ const AdminInterface = () => {
                   <p className='user-profile-name'>Luis Medina</p>
                   <p className='user-profile-email'>admin@uni.com</p>
                 </div>
-                <div className='user-profile-icon'><User className="w-4 h-4" /></div>
-                <button className="user-profile-button">
-                  <ChevronDown className='w-4 h-4' />
-                </button>
+                <MenuDesplegable />
               </div>
             </div>
           </div>

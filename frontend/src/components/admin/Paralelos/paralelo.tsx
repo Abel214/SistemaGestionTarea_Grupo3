@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Search, Plus, ChevronDown, ChevronUp, Pencil,
-  Trash2, Layers, Calendar, User, Clock, BookOpen
+  Trash2, Layers, BookOpen, User, Users, GraduationCap
 } from 'lucide-react';
 import ModalAgregarParalelo from "./agregarParalelo";
 import ModalEditarParalelo from "./editarParalelo";
@@ -15,80 +15,95 @@ const ParalelosManager = () => {
   const [editModal, setEditModal] = useState(false);
   const [currentParalelo, setCurrentParalelo] = useState(null);
 
-  const [newParalelo, setNewParalelo] = useState({
-    letra: '',
-    materia: '',
-    profesor: '',
-    horario: '',
-    aula: '',
-    cupo: '',
-    estudiantesInscritos: '',
-    estado: 'Activo'
-  });
+  // Datos de ejemplo para materias (deberían venir del componente Materia)
+  const materias = [
+    { id: 1, nombre: 'Matemáticas Básicas', codigo: 'MAT101', ciclo: 1 },
+    { id: 2, nombre: 'Programación I', codigo: 'PRG101', ciclo: 1 },
+    { id: 3, nombre: 'Base de Datos', codigo: 'BDD201', ciclo: 3 },
+    { id: 4, nombre: 'Redes de Computadores', codigo: 'RED301', ciclo: 5 },
+    { id: 5, nombre: 'Ingeniería de Software', codigo: 'IDS401', ciclo: 7 }
+  ];
+
+  // Datos de ejemplo para docentes (deberían venir del componente Usuarios con rol docente)
+  const docentes = [
+    { id: 1, nombre: 'Dr. Juan Pérez', especialidad: 'Matemáticas' },
+    { id: 2, nombre: 'Ing. María García', especialidad: 'Programación' },
+    { id: 3, nombre: 'Ing. Carlos López', especialidad: 'Bases de Datos' },
+    { id: 4, nombre: 'Ing. Ana Martínez', especialidad: 'Redes' },
+    { id: 5, nombre: 'Dr. Roberto Silva', especialidad: 'Ingeniería de Software' }
+  ];
 
   // Datos de ejemplo para paralelos
-  const paralelos = [
+  const [paralelos, setParalelos] = useState([
     {
       id: 1,
+      codigo: 'PAR-2023-001',
       letra: 'A',
-      materia: 'Matemáticas Básicas',
-      codigoMateria: 'MAT101',
-      profesor: 'Dr. Juan Pérez',
-      horario: 'Lun-Mie-Vie 08:00-10:00',
-      aula: 'Aula 101',
-      cupo: 30,
-      estudiantesInscritos: 28,
+      ciclo: 1,
+      cupoTotal: 30,
+      cupoOcupado: 28,
+      materias: [1, 2], // IDs de materias
+      docentes: [1, 2], // IDs de docentes
       estado: 'Activo'
     },
     {
       id: 2,
+      codigo: 'PAR-2023-002',
       letra: 'B',
-      materia: 'Programación I',
-      codigoMateria: 'PRG101',
-      profesor: 'Ing. María García',
-      horario: 'Mar-Jue 10:00-12:00',
-      aula: 'Lab. Computación 1',
-      cupo: 25,
-      estudiantesInscritos: 22,
+      ciclo: 1,
+      cupoTotal: 25,
+      cupoOcupado: 22,
+      materias: [1, 2],
+      docentes: [1, 2],
       estado: 'Activo'
     },
     {
       id: 3,
+      codigo: 'PAR-2023-003',
       letra: 'A',
-      materia: 'Base de Datos',
-      codigoMateria: 'BDD201',
-      profesor: 'Ing. Carlos López',
-      horario: 'Lun-Mie 14:00-16:00',
-      aula: 'Lab. Computación 2',
-      cupo: 20,
-      estudiantesInscritos: 18,
+      ciclo: 3,
+      cupoTotal: 20,
+      cupoOcupado: 18,
+      materias: [3],
+      docentes: [3],
       estado: 'Activo'
     },
     {
       id: 4,
+      codigo: 'PAR-2023-004',
       letra: 'A',
-      materia: 'Redes de Computadores',
-      codigoMateria: 'RED301',
-      profesor: 'Ing. Ana Martínez',
-      horario: 'Mar-Jue 16:00-18:00',
-      aula: 'Aula 205',
-      cupo: 25,
-      estudiantesInscritos: 20,
+      ciclo: 5,
+      cupoTotal: 25,
+      cupoOcupado: 20,
+      materias: [4],
+      docentes: [4],
       estado: 'Activo'
     },
     {
       id: 5,
+      codigo: 'PAR-2023-005',
       letra: 'A',
-      materia: 'Ingeniería de Software',
-      codigoMateria: 'IDS401',
-      profesor: 'Dr. Roberto Silva',
-      horario: 'Lun-Mie-Vie 10:00-12:00',
-      aula: 'Aula 302',
-      cupo: 30,
-      estudiantesInscritos: 25,
+      ciclo: 7,
+      cupoTotal: 30,
+      cupoOcupado: 25,
+      materias: [5],
+      docentes: [5],
       estado: 'Activo'
     }
-  ];
+  ]);
+
+  // Funciones auxiliares para obtener nombres de materias y docentes
+  const getNombresMaterias = (ids) => {
+    return materias
+      .filter(materia => ids.includes(materia.id))
+      .map(materia => `${materia.codigo} - ${materia.nombre}`);
+  };
+
+  const getNombresDocentes = (ids) => {
+    return docentes
+      .filter(docente => ids.includes(docente.id))
+      .map(docente => docente.nombre);
+  };
 
   const toggleDropdown = (paraleloId) => {
     setOpenDropdowns(prev => ({ ...prev, [paraleloId]: true }));
@@ -123,19 +138,31 @@ const ParalelosManager = () => {
   };
 
   const handleSaveChanges = () => {
-    console.log('Guardando cambios:', currentParalelo);
+    // Actualizar el paralelo en el estado
+    setParalelos(prev =>
+      prev.map(p => p.id === currentParalelo.id ? currentParalelo : p)
+    );
     setEditModal(false);
   };
 
   const handleDeleteParalelo = (paralelo) => {
-    console.log('Eliminar paralelo:', paralelo);
+    setParalelos(prev => prev.filter(p => p.id !== paralelo.id));
+  };
+
+  const handleAddParalelo = (newParalelo) => {
+    const newId = Math.max(...paralelos.map(p => p.id), 0) + 1;
+    setParalelos(prev => [...prev, { ...newParalelo, id: newId }]);
+    setAddModal(false);
   };
 
   // Filtrar paralelos basado en la búsqueda
   const filteredParalelos = paralelos.filter(paralelo =>
-    paralelo.materia.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    paralelo.codigoMateria.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    paralelo.profesor.toLowerCase().includes(searchQuery.toLowerCase())
+    paralelo.codigo.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    paralelo.letra.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    materias.some(m =>
+      paralelo.materias.includes(m.id) &&
+      m.nombre.toLowerCase().includes(searchQuery.toLowerCase())
+    )
   );
 
   return (
@@ -159,12 +186,9 @@ const ParalelosManager = () => {
             <ModalAgregarParalelo
               isOpen={addModal}
               onClose={() => setAddModal(false)}
-              newParalelo={newParalelo}
-              setNewParalelo={setNewParalelo}
-              onSave={() => {
-                console.log('Paralelo creado:', newParalelo);
-                setAddModal(false);
-              }}
+              materias={materias}
+              docentes={docentes}
+              onSave={handleAddParalelo}
             />
           </div>
         </div>
@@ -182,12 +206,12 @@ const ParalelosManager = () => {
                   className="checkbox"
                 />
               </th>
-              <th>Materia</th>
-              <th>Código</th>
-              <th>Paralelo</th>
-              <th>Profesor</th>
-              <th>Horario</th>
-              <th>Inscritos/Cupo</th>
+              <th>Código Paralelo</th>
+              <th>Letra</th>
+              <th>Ciclo</th>
+              <th>Cupo Total</th>
+              <th>Cupo Ocupado</th>
+              <th>Disponibilidad</th>
               <th></th>
             </tr>
           </thead>
@@ -203,13 +227,13 @@ const ParalelosManager = () => {
                       className="checkbox"
                     />
                   </td>
-                  <td className="table-cell user-name">{paralelo.materia}</td>
-                  <td className="table-cell user-email">{paralelo.codigoMateria}</td>
-                  <td className="table-cell user-role">{paralelo.letra}</td>
-                  <td className="table-cell user-status">{paralelo.profesor}</td>
-                  <td className="table-cell user-status">{paralelo.horario}</td>
+                  <td className="table-cell user-name">{paralelo.codigo}</td>
+                  <td className="table-cell user-email">{paralelo.letra}</td>
+                  <td className="table-cell user-role">{paralelo.ciclo}</td>
+                  <td className="table-cell user-status">{paralelo.cupoTotal}</td>
+                  <td className="table-cell user-status">{paralelo.cupoOcupado}</td>
                   <td className="table-cell user-status">
-                    {paralelo.estudiantesInscritos}/{paralelo.cupo}
+                    {paralelo.cupoTotal - paralelo.cupoOcupado} disponibles
                   </td>
                   <td className="table-cell">
                     <button
@@ -230,47 +254,66 @@ const ParalelosManager = () => {
                           </div>
                           <div className="user-details-single">
                             <h3 className="user-full-name-dropdown">
-                              {paralelo.materia} - Paralelo {paralelo.letra}
+                              Paralelo {paralelo.letra} - Código: {paralelo.codigo}
                             </h3>
                             <div className="user-info-grid">
                               <p className="user-email-dropdown">
-                                <span className='label'>Código: </span>{paralelo.codigoMateria}
+                                <span className='label'>Ciclo: </span>{paralelo.ciclo}
                               </p>
                               <p className="user-role-dropdown">
-                                <span className='label'>Aula: </span>{paralelo.aula}
-                              </p>
-                              <p className="user-cycle-dropdown">
                                 <span className='label'>Estado: </span>{paralelo.estado}
                               </p>
+                              <p className="user-cycle-dropdown">
+                                <span className='label'>Cupo Total: </span>{paralelo.cupoTotal}
+                              </p>
                               <p className='user-phone-dropdown'>
-                                <span className='label'>Profesor: </span>{paralelo.profesor}
-                              </p>
-                              <p className='user-birthdate-dropdown'>
-                                <span className='label'>Horario: </span>{paralelo.horario}
-                              </p>
-                              <p className='user-birthdate-dropdown'>
-                                <span className='label'>Cupo: </span>{paralelo.cupo}
-                              </p>
-                              <p className='user-birthdate-dropdown'>
-                                <span className='label'>Inscritos: </span>{paralelo.estudiantesInscritos}
+                                <span className='label'>Cupo Ocupado: </span>{paralelo.cupoOcupado}
                               </p>
                               <p className='user-birthdate-dropdown'>
                                 <span className='label'>Disponibilidad: </span>
-                                {paralelo.cupo - paralelo.estudiantesInscritos} cupos disponibles
+                                {paralelo.cupoTotal - paralelo.cupoOcupado} cupos disponibles
                               </p>
+                              <p className='user-birthdate-dropdown'>
+                                <span className='label'>Letra: </span>
+                                {paralelo.letra}
+                              </p>
+                              <div className="mt-4">
+                                <h4 className="text-sm font-medium text-gray-700 mb-2">
+                                  <User className="inline w-4 h-4 mr-1"/>
+                                  Docentes asignados:
+                                </h4>
+                                <ul className="list-disc pl-5">
+                                  {getNombresDocentes(paralelo.docentes).map((docente, index) => (
+                                      <li key={index} className="text-sm">{docente}</li>
+                                  ))}
+                                </ul>
+                              </div>
+                              <div className="mt-4">
+                                <h4 className="text-sm font-medium text-gray-700 mb-2">
+                                  <BookOpen className="inline w-4 h-4 mr-1"/>
+                                  Materias en este paralelo:
+                                </h4>
+                                <ul className="list-disc pl-5">
+                                  {getNombresMaterias(paralelo.materias).map((materia, index) => (
+                                      <li key={index} className="text-sm">{materia}</li>
+                                  ))}
+                                </ul>
+                              </div>
+
+
                             </div>
                           </div>
                         </div>
                         <div className="dropdown-content">
                           <button
-                            className="primary-button edit-user-btn"
-                            onClick={() => handleEditParalelo(paralelo)}
+                              className="primary-button edit-user-btn"
+                              onClick={() => handleEditParalelo(paralelo)}
                           >
                             <Pencil className="w-4 h-4"/> Editar
                           </button>
                           <button
-                            className="primary-button unsubscribe-user-btn"
-                            onClick={() => handleDeleteParalelo(paralelo)}
+                              className="primary-button unsubscribe-user-btn"
+                              onClick={() => handleDeleteParalelo(paralelo)}
                           >
                             <Trash2 className="w-4 h-4"/> Eliminar
                           </button>
@@ -278,6 +321,8 @@ const ParalelosManager = () => {
                         <ModalEditarParalelo
                           isOpen={editModal}
                           paralelo={currentParalelo}
+                          materias={materias}
+                          docentes={docentes}
                           onClose={() => setEditModal(false)}
                           onChange={handleChangeParalelo}
                           onSave={handleSaveChanges}

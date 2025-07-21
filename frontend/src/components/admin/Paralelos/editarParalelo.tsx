@@ -1,8 +1,24 @@
 import React from 'react';
-import { Layers, X, BookOpen, User, Clock, Home, Users, Save } from 'lucide-react';
+import { Layers, X, Hash, BookOpen, User, Users, GraduationCap, Save } from 'lucide-react';
 
-const ModalEditarParalelo = ({ isOpen, paralelo, onClose, onChange, onSave }) => {
-  if (!isOpen) return null;
+const ModalEditarParalelo = ({ isOpen, paralelo, materias, docentes, onClose, onChange, onSave }) => {
+  if (!isOpen || !paralelo) return null;
+
+  const handleMateriaChange = (materiaId) => {
+    if (paralelo.materias.includes(materiaId)) {
+      onChange('materias', paralelo.materias.filter(id => id !== materiaId));
+    } else {
+      onChange('materias', [...paralelo.materias, materiaId]);
+    }
+  };
+
+  const handleDocenteChange = (docenteId) => {
+    if (paralelo.docentes.includes(docenteId)) {
+      onChange('docentes', paralelo.docentes.filter(id => id !== docenteId));
+    } else {
+      onChange('docentes', [...paralelo.docentes, docenteId]);
+    }
+  };
 
   return (
     <div className="modal-overlay">
@@ -21,12 +37,25 @@ const ModalEditarParalelo = ({ isOpen, paralelo, onClose, onChange, onSave }) =>
             <div className="form-row">
               <div className="form-group">
                 <label className="form-label">
+                  <Hash className="w-4 h-4"/>
+                  Código Paralelo
+                </label>
+                <input
+                  type="text"
+                  className="form-input"
+                  value={paralelo.codigo || ''}
+                  onChange={(e) => onChange('codigo', e.target.value)}
+                  placeholder="Ej: PAR-2023-001"
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">
                   <Layers className="w-4 h-4"/>
-                  Letra del Paralelo
+                  Letra
                 </label>
                 <select
                   className="form-select"
-                  value={paralelo?.letra || ''}
+                  value={paralelo.letra || ''}
                   onChange={(e) => onChange('letra', e.target.value)}
                 >
                   {['A', 'B', 'C', 'D', 'E', 'F'].map(letra => (
@@ -34,79 +63,35 @@ const ModalEditarParalelo = ({ isOpen, paralelo, onClose, onChange, onSave }) =>
                   ))}
                 </select>
               </div>
+            </div>
+
+            <div className="form-row">
               <div className="form-group">
                 <label className="form-label">
-                  <BookOpen className="w-4 h-4"/>
-                  Materia
+                  <GraduationCap className="w-4 h-4"/>
+                  Ciclo
                 </label>
                 <select
                   className="form-select"
-                  value={paralelo?.materia || ''}
-                  onChange={(e) => onChange('materia', e.target.value)}
+                  value={paralelo.ciclo || ''}
+                  onChange={(e) => onChange('ciclo', e.target.value)}
                 >
-                  <option value="Matemáticas Básicas">Matemáticas Básicas</option>
-                  <option value="Programación I">Programación I</option>
-                  <option value="Base de Datos">Base de Datos</option>
-                  <option value="Redes de Computadores">Redes de Computadores</option>
-                  <option value="Ingeniería de Software">Ingeniería de Software</option>
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                    <option key={num} value={num}>{num}</option>
+                  ))}
                 </select>
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">
-                  <User className="w-4 h-4"/>
-                  Profesor
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={paralelo?.profesor || ''}
-                  onChange={(e) => onChange('profesor', e.target.value)}
-                  placeholder="Ingrese el nombre del profesor"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">
-                  <Clock className="w-4 h-4"/>
-                  Horario
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={paralelo?.horario || ''}
-                  onChange={(e) => onChange('horario', e.target.value)}
-                  placeholder="Ej: Lun-Mie-Vie 08:00-10:00"
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">
-                  <Home className="w-4 h-4"/>
-                  Aula
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={paralelo?.aula || ''}
-                  onChange={(e) => onChange('aula', e.target.value)}
-                  placeholder="Ingrese el aula asignada"
-                />
               </div>
               <div className="form-group">
                 <label className="form-label">
                   <Users className="w-4 h-4"/>
-                  Cupo Máximo
+                  Cupo Total
                 </label>
                 <input
                   type="number"
                   className="form-input"
-                  value={paralelo?.cupo || ''}
-                  onChange={(e) => onChange('cupo', e.target.value)}
-                  placeholder="Ingrese el cupo máximo"
+                  value={paralelo.cupoTotal || ''}
+                  onChange={(e) => onChange('cupoTotal', e.target.value)}
+                  placeholder="Ingrese el cupo total"
                 />
               </div>
             </div>
@@ -115,17 +100,78 @@ const ModalEditarParalelo = ({ isOpen, paralelo, onClose, onChange, onSave }) =>
               <div className="form-group">
                 <label className="form-label">
                   <Users className="w-4 h-4"/>
+                  Cupo Ocupado
+                </label>
+                <input
+                  type="number"
+                  className="form-input"
+                  value={paralelo.cupoOcupado || ''}
+                  onChange={(e) => onChange('cupoOcupado', e.target.value)}
+                  placeholder="Ingrese el cupo ocupado"
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">
                   Estado
                 </label>
                 <select
                   className="form-select"
-                  value={paralelo?.estado || ''}
+                  value={paralelo.estado || ''}
                   onChange={(e) => onChange('estado', e.target.value)}
                 >
                   <option value="Activo">Activo</option>
                   <option value="Inactivo">Inactivo</option>
-                  <option value="Completo">Completo</option>
                 </select>
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group full-width">
+                <label className="form-label">
+                  <BookOpen className="w-4 h-4"/>
+                  Materias
+                </label>
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  {materias.map(materia => (
+                    <div key={materia.id} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        id={`materia-${materia.id}`}
+                        checked={paralelo.materias?.includes(materia.id)}
+                        onChange={() => handleMateriaChange(materia.id)}
+                        className="checkbox"
+                      />
+                      <label htmlFor={`materia-${materia.id}`} className="ml-2 text-sm">
+                        {materia.codigo} - {materia.nombre} (Ciclo {materia.ciclo})
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group full-width">
+                <label className="form-label">
+                  <User className="w-4 h-4"/>
+                  Docentes
+                </label>
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  {docentes.map(docente => (
+                    <div key={docente.id} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        id={`docente-${docente.id}`}
+                        checked={paralelo.docentes?.includes(docente.id)}
+                        onChange={() => handleDocenteChange(docente.id)}
+                        className="checkbox"
+                      />
+                      <label htmlFor={`docente-${docente.id}`} className="ml-2 text-sm">
+                        {docente.nombre} ({docente.especialidad})
+                      </label>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

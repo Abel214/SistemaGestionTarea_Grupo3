@@ -1,8 +1,63 @@
-import React from 'react';
-import { Layers, X, BookOpen, User, Clock, Home, Users, Save } from 'lucide-react';
+import React, { useState } from 'react';
+import { Layers, X, Hash, BookOpen, User, Users, GraduationCap, Save } from 'lucide-react';
 
-const ModalAgregarParalelo = ({ isOpen, onClose, newParalelo, setNewParalelo, onSave }) => {
+const ModalAgregarParalelo = ({ isOpen, onClose, materias, docentes, onSave }) => {
+  const [newParalelo, setNewParalelo] = useState({
+    codigo: '',
+    letra: '',
+    ciclo: '',
+    cupoTotal: '',
+    materias: [],
+    docentes: [],
+    estado: 'Activo'
+  });
+
   if (!isOpen) return null;
+
+  const handleMateriaChange = (materiaId) => {
+    setNewParalelo(prev => {
+      if (prev.materias.includes(materiaId)) {
+        return {
+          ...prev,
+          materias: prev.materias.filter(id => id !== materiaId)
+        };
+      } else {
+        return {
+          ...prev,
+          materias: [...prev.materias, materiaId]
+        };
+      }
+    });
+  };
+
+  const handleDocenteChange = (docenteId) => {
+    setNewParalelo(prev => {
+      if (prev.docentes.includes(docenteId)) {
+        return {
+          ...prev,
+          docentes: prev.docentes.filter(id => id !== docenteId)
+        };
+      } else {
+        return {
+          ...prev,
+          docentes: [...prev.docentes, docenteId]
+        };
+      }
+    });
+  };
+
+  const handleSubmit = () => {
+    onSave(newParalelo);
+    setNewParalelo({
+      codigo: '',
+      letra: '',
+      ciclo: '',
+      cupoTotal: '',
+      materias: [],
+      docentes: [],
+      estado: 'Activo'
+    });
+  };
 
   return (
     <div className="modal-overlay">
@@ -22,8 +77,21 @@ const ModalAgregarParalelo = ({ isOpen, onClose, newParalelo, setNewParalelo, on
             <div className="form-row">
               <div className="form-group">
                 <label className="form-label">
+                  <Hash className="w-4 h-4"/>
+                  Código Paralelo
+                </label>
+                <input
+                  type="text"
+                  className="form-input"
+                  value={newParalelo.codigo}
+                  onChange={(e) => setNewParalelo({...newParalelo, codigo: e.target.value})}
+                  placeholder="Ej: PAR-2023-001"
+                />
+              </div>
+              <div className="form-group">
+                <label className="form-label">
                   <Layers className="w-4 h-4"/>
-                  Letra del Paralelo
+                  Letra
                 </label>
                 <select
                   className="form-select"
@@ -36,88 +104,93 @@ const ModalAgregarParalelo = ({ isOpen, onClose, newParalelo, setNewParalelo, on
                   ))}
                 </select>
               </div>
+            </div>
+
+            <div className="form-row">
               <div className="form-group">
                 <label className="form-label">
-                  <BookOpen className="w-4 h-4"/>
-                  Materia
+                  <GraduationCap className="w-4 h-4"/>
+                  Ciclo
                 </label>
                 <select
                   className="form-select"
-                  value={newParalelo.materia}
-                  onChange={(e) => setNewParalelo({...newParalelo, materia: e.target.value})}
+                  value={newParalelo.ciclo}
+                  onChange={(e) => setNewParalelo({...newParalelo, ciclo: e.target.value})}
                 >
-                  <option value="">Seleccione materia</option>
-                  <option value="Matemáticas Básicas">Matemáticas Básicas</option>
-                  <option value="Programación I">Programación I</option>
-                  <option value="Base de Datos">Base de Datos</option>
-                  <option value="Redes de Computadores">Redes de Computadores</option>
-                  <option value="Ingeniería de Software">Ingeniería de Software</option>
+                  <option value="">Seleccione ciclo</option>
+                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
+                    <option key={num} value={num}>{num}</option>
+                  ))}
                 </select>
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">
-                  <User className="w-4 h-4"/>
-                  Profesor
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={newParalelo.profesor}
-                  onChange={(e) => setNewParalelo({...newParalelo, profesor: e.target.value})}
-                  placeholder="Ingrese el nombre del profesor"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">
-                  <Clock className="w-4 h-4"/>
-                  Horario
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={newParalelo.horario}
-                  onChange={(e) => setNewParalelo({...newParalelo, horario: e.target.value})}
-                  placeholder="Ej: Lun-Mie-Vie 08:00-10:00"
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">
-                  <Home className="w-4 h-4"/>
-                  Aula
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={newParalelo.aula}
-                  onChange={(e) => setNewParalelo({...newParalelo, aula: e.target.value})}
-                  placeholder="Ingrese el aula asignada"
-                />
               </div>
               <div className="form-group">
                 <label className="form-label">
                   <Users className="w-4 h-4"/>
-                  Cupo Máximo
+                  Cupo Total
                 </label>
                 <input
                   type="number"
                   className="form-input"
-                  value={newParalelo.cupo}
-                  onChange={(e) => setNewParalelo({...newParalelo, cupo: e.target.value})}
-                  placeholder="Ingrese el cupo máximo"
+                  value={newParalelo.cupoTotal}
+                  onChange={(e) => setNewParalelo({...newParalelo, cupoTotal: e.target.value})}
+                  placeholder="Ingrese el cupo total"
                 />
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group full-width">
+                <label className="form-label">
+                  <BookOpen className="w-4 h-4"/>
+                  Materias
+                </label>
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  {materias.map(materia => (
+                    <div key={materia.id} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        id={`materia-${materia.id}`}
+                        checked={newParalelo.materias.includes(materia.id)}
+                        onChange={() => handleMateriaChange(materia.id)}
+                        className="checkbox"
+                      />
+                      <label htmlFor={`materia-${materia.id}`} className="ml-2 text-sm">
+                        {materia.codigo} - {materia.nombre} (Ciclo {materia.ciclo})
+                      </label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="form-row">
+              <div className="form-group full-width">
+                <label className="form-label">
+                  <User className="w-4 h-4"/>
+                  Docentes
+                </label>
+                <div className="grid grid-cols-2 gap-2 mt-2">
+                  {docentes.map(docente => (
+                    <div key={docente.id} className="flex items-center">
+                      <input
+                        type="checkbox"
+                        id={`docente-${docente.id}`}
+                        checked={newParalelo.docentes.includes(docente.id)}
+                        onChange={() => handleDocenteChange(docente.id)}
+                        className="checkbox"
+                      />
+                      <label htmlFor={`docente-${docente.id}`} className="ml-2 text-sm">
+                        {docente.nombre} ({docente.especialidad})
+                      </label>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
             <div className="form-row">
               <div className="form-group">
                 <label className="form-label">
-                  <Users className="w-4 h-4"/>
                   Estado
                 </label>
                 <select
@@ -127,7 +200,6 @@ const ModalAgregarParalelo = ({ isOpen, onClose, newParalelo, setNewParalelo, on
                 >
                   <option value="Activo">Activo</option>
                   <option value="Inactivo">Inactivo</option>
-                  <option value="Completo">Completo</option>
                 </select>
               </div>
             </div>
@@ -136,7 +208,7 @@ const ModalAgregarParalelo = ({ isOpen, onClose, newParalelo, setNewParalelo, on
 
         <div className="modal-footer">
           <button className="secondary-button" onClick={onClose}>Cancelar</button>
-          <button className="primary-button save-btn" onClick={onSave}>
+          <button className="primary-button save-btn" onClick={handleSubmit}>
             <Save className="w-4 h-4"/>
             Guardar Paralelo
           </button>
