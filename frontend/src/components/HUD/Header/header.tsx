@@ -155,14 +155,14 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
             className={`mobile-menu-item ${location.pathname === '/' ? 'active' : ''}`}
             onClick={closeMobileMenu}
           >
-            Inicio
+
           </Link>
           <Link
             to="/usuarios"
             className={`mobile-menu-item ${location.pathname.includes('/usuarios') ? 'active' : ''}`}
             onClick={closeMobileMenu}
           >
-            Usuarios
+
           </Link>
 
             <Link
@@ -170,7 +170,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
               className={`mobile-menu-item ${location.pathname.includes('/docente') ? 'active' : ''}`}
               onClick={closeMobileMenu}
             >
-              Docente
+
             </Link>
 
           <Link
@@ -178,7 +178,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
             className={`mobile-menu-item ${location.pathname.includes('/about') ? 'active' : ''}`}
             onClick={closeMobileMenu}
           >
-            Nosotros
+
           </Link>
 
           {isAuthenticated ? (
@@ -188,7 +188,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
                 className={`mobile-menu-item ${location.pathname === '/profile' ? 'active' : ''}`}
                 onClick={closeMobileMenu}
               >
-                Mi Perfil
+
               </Link>
               <div
                 className="mobile-menu-item"
@@ -207,14 +207,14 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
                 className={`mobile-menu-item ${location.pathname === '/estudiante' ? 'active' : ''}`}
                 onClick={closeMobileMenu}
               >
-                Estudiante
+
               </Link>
               <Link
-                to="/register"
-                className={`mobile-menu-item ${location.pathname === '/register' ? 'active' : ''}`}
+                to="/materia"
+                className={`mobile-menu-item ${location.pathname === '/materia' ? 'active' : ''}`}
                 onClick={closeMobileMenu}
               >
-                Registrarse
+
               </Link>
             </>
           )}
@@ -260,7 +260,7 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
                 to="/"
                 className={`menu-item ${location.pathname === '/' ? 'active' : ''}`}
               >
-                Inicio
+
               </Link>
               <Link
                 to="/usuarios"
@@ -273,14 +273,14 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
                 to="/docente"
                 className={`menu-item ${location.pathname.includes('/docente') ? 'active' : ''}`}
               >
-                Docente
+
               </Link>
 
               <Link
                 to="/about"
                 className={`menu-item ${location.pathname.includes('/about') ? 'active' : ''}`}
               >
-                Nosotros
+
               </Link>
 
               {/* Usuario o botones de autenticación */}
@@ -309,13 +309,13 @@ const Header: React.FC<HeaderProps> = ({ transparent = false }) => {
                     to="/estudiante"
                     className={`menu-item ${location.pathname === '/estudiante' ? 'active' : ''}`}
                   >
-                    Estudiante
+
                   </Link>
                   <Link
-                    to="/register"
-                    className={`menu-item ${location.pathname === '/register' ? 'active' : ''}`}
+                    to="/materia"
+                    className={`menu-item ${location.pathname === '/materia' ? 'active' : ''}`}
                   >
-                    Registrarse
+
                   </Link>
                 </>
               )}

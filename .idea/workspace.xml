@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1d759a3b-26b5-43ef-bf38-02f2258f1aca" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/Inicio/cardMateria/cardMateria.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/pages/InicioEstudiante/inicioEstudiante.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/Inicio/materiaVista/materiaVista.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/pages/InicioEstudiante/InicioMateria/inicioMateria.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/HUD/Footer/footer.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HUD/Footer/footer.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/HUD/Footer/footer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HUD/Footer/footer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/HUD/Header/header.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/HUD/Header/header.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/Inicio/inicio.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Inicio/inicio.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/Inicio/inicio.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/Inicio/inicio.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/sidebar/sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/sidebar/sidebar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/routes/AppRoutes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/routes/AppRoutes.tsx" afterDir="false" />
@@ -34,18 +31,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "Abel214"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;Abel214&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/Abel214/SistemaGestionTarea_Grupo3.git",
-    "accountId": "722843c5-07a4-4f52-b620-203af863f60c"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/Abel214/SistemaGestionTarea_Grupo3.git&quot;,
+    &quot;accountId&quot;: &quot;722843c5-07a4-4f52-b620-203af863f60c&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -55,21 +52,21 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/Usuarios&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Usuario iTC/Sport22/SistemaGestionTarea_Grupo3/backend&quot;,
-    &quot;list.type.of.created.stylesheet&quot;: &quot;CSS&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\LENOVO\\Desktop\\Universidad\\Ciclo6\\Procesos de software\\Sistemas_GestionTareas\\SistemaGestionTarea_Grupo3\\frontend\\node_modules\\typescript\\lib&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "feature/fix",
+    "last_opened_file_path": "C:/Users/LENOVO/Desktop/Universidad/Ciclo6/Procesos de software/Sistemas_GestionTareas/SistemaGestionTarea_Grupo3",
+    "list.type.of.created.stylesheet": "CSS",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\PyCharm 2024.2.4\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\Usuario iTC\Sport22\SistemaGestionTarea_Grupo3\backend" />
@@ -97,6 +94,7 @@
       <workItem from="1751848778279" duration="8802000" />
       <workItem from="1751929910002" duration="24000" />
       <workItem from="1752259006701" duration="31685000" />
+      <workItem from="1752501180362" duration="3879000" />
     </task>
     <servers />
   </component>

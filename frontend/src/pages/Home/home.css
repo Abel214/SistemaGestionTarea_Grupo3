@@ -3,7 +3,7 @@
 /* Contenedor principal */
 .login-container {
   min-height: 100vh;
-  background: linear-gradient(135deg, #1a1a1a 0%, #2c2c2c 100%);
+  background: linear-gradient(135deg, #f6f1f1 0%, #f8f7f7 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -16,9 +16,9 @@
   width: 100%;
   max-width: 450px;
   border-radius: 16px;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 20px 40px rgb(19, 46, 85);
   border: none;
-  background: rgba(42, 42, 42, 0.95) !important;
+  background: rgb(19, 46, 85) !important;
   backdrop-filter: blur(10px);
 }
 
@@ -36,7 +36,7 @@
 .login-logo {
   width: 60px;
   height: 60px;
-  background: linear-gradient(45deg, #52c41a, #389e0d);
+  background: linear-gradient(45deg, #d17a1f, #d66215);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -69,20 +69,20 @@
 /* Tarjetas de método de autenticación */
 .auth-method-card {
   cursor: pointer;
-  border: 1px solid #404040 !important;
+  border: 1px solid #553b13 !important;
   border-radius: 8px;
   transition: all 0.3s ease;
-  background: rgba(64, 64, 64, 0.3) !important;
+  background: rgb(85, 54, 19) !important;
 }
 
 .auth-method-card:hover {
-  border-color: #52c41a !important;
-  background: rgba(82, 196, 26, 0.1) !important;
+  border-color: #c46f1a !important;
+  background: rgba(196, 91, 26, 0.1) !important;
 }
 
 .auth-method-card.active {
-  border: 2px solid #52c41a !important;
-  background: rgba(82, 196, 26, 0.15) !important;
+  border: 2px solid #c46f1a !important;
+  background: rgba(196, 111, 26, 0.15) !important;
 }
 
 .auth-method-card .ant-card-body {
@@ -90,7 +90,7 @@
 }
 
 .auth-icon {
-  color: #52c41a;
+  color: #c4671a;
   font-size: 18px;
 }
 
@@ -116,12 +116,12 @@
 }
 
 .login-input:hover {
-  border-color: #52c41a !important;
+  border-color: #c47a1a !important;
 }
 
 .login-input:focus {
-  border-color: #52c41a !important;
-  box-shadow: 0 0 0 2px rgba(82, 196, 26, 0.2) !important;
+  border-color: #c4801a !important;
+  box-shadow: 0 0 0 2px rgba(196, 117, 26, 0.2) !important;
 }
 
 .login-input input {
@@ -134,12 +134,12 @@
 }
 
 .input-icon {
-  color: #52c41a;
+  color: #c47a1a;
 }
 
 /* Botón de login */
 .login-button {
-  background: linear-gradient(45deg, #52c41a, #389e0d) !important;
+  background: linear-gradient(45deg, #c47a1a, #9e560d) !important;
   border: none !important;
   border-radius: 8px;
   height: 48px;
@@ -149,11 +149,11 @@
 }
 
 .login-button:hover {
-  background: linear-gradient(45deg, #389e0d, #237804) !important;
+  background: linear-gradient(45deg, #9e6b0d, #784604) !important;
 }
 
 .login-button:focus {
-  background: linear-gradient(45deg, #52c41a, #389e0d) !important;
+  background: linear-gradient(45deg, #c47a1a, #9e6b0d) !important;
 }
 
 /* Divisores */
@@ -184,7 +184,7 @@
 }
 
 .social-button:hover {
-  border-color: #52c41a !important;
+  border-color: #ffffff !important;
   background: rgba(82, 196, 26, 0.1) !important;
   color: white !important;
 }
@@ -195,31 +195,31 @@
 }
 
 .register-link {
-  color: #52c41a !important;
+  color: #ca7f25 !important;
   font-weight: bold;
   padding: 0;
 }
 
 .register-link:hover {
-  color: #389e0d !important;
+  color: #a3580c !important;
 }
 
 /* Nota importante */
 .important-note {
   margin-top: 30px;
   padding: 15px;
-  background: rgba(82, 196, 26, 0.1);
+  background: rgba(196, 117, 26, 0.1);
   border-radius: 8px;
-  border: 1px solid rgba(82, 196, 26, 0.3);
+  border: 1px solid rgba(196, 122, 26, 0.3);
 }
 
 .note-text {
-  color: #b7eb8f !important;
+  color: #ffffff !important;
   font-size: 13px;
 }
 
 .note-text strong {
-  color: #52c41a;
+  color: #c47a1a;
 }
 
 /* Estilos adicionales para Ant Design */
@@ -230,7 +230,7 @@
 }
 
 .ant-input-affix-wrapper:hover {
-  border-color: #52c41a !important;
+  border-color: #c46f1a !important;
 }
 
 .ant-input-affix-wrapper-focused {

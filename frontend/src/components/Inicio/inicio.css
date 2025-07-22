@@ -265,7 +265,15 @@
   height: 200px;
   overflow: hidden;
 }
-
+.student {
+  width: 30%;
+  height: 200px;
+  display: flex;
+  align-items: center;        /* Centra verticalmente */
+  justify-content: center;    /* Centra horizontalmente */
+  position: relative;
+  overflow: hidden;
+}
 .subject-image {
   width: 100%;
   height: 100%;
@@ -973,3 +981,168 @@
     max-width: none;
   }
 }
+
+/* Estilos específicos para la vista de materia */
+.materia-view {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.materia-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.materia-title {
+  font-size: 24px;
+  color: #2d5016;
+  margin: 0;
+}
+
+.materia-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.progress-bar {
+  width: 200px;
+  height: 8px;
+  background-color: #e2e8f0;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #2d5016;
+  border-radius: 4px;
+}
+
+.progress-text {
+  font-size: 14px;
+  color: #64748b;
+}
+
+/* Estilos para la lista de tareas */
+.tareas-container {
+  flex: 1;
+}
+
+.tareas-title {
+  font-size: 18px;
+  color: #2d5016;
+  margin-bottom: 16px;
+}
+
+.tareas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.tarea-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s;
+}
+
+.tarea-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tarea-icon {
+  margin-right: 16px;
+  color: #2d5016;
+}
+
+.tarea-content {
+  flex: 1;
+}
+
+.tarea-title {
+  font-size: 16px;
+  margin: 0 0 8px 0;
+  color: #1e293b;
+}
+
+.tarea-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 14px;
+  color: #64748b;
+}
+
+.tarea-status, .tarea-date {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.tarea-button {
+  padding: 8px 16px;
+  background-color: #2d5016;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.tarea-button:hover {
+  background-color: #3a661d;
+}
+
+/* Pie de página */
+.materia-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.user-info-footer {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-info-footer .user-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #1e293b;
+}
+
+.user-info-footer .user-email {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.all-tasks-button {
+  padding: 8px 16px;
+  background-color: transparent;
+  color: #2d5016;
+  border: 1px solid #2d5016;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.all-tasks-button:hover {
+  background-color: #2d5016;
+  color: white;
+}
+

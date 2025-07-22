@@ -3,9 +3,11 @@ import { User, ChevronDown, Search } from 'lucide-react';
 import { getDashboardConfig } from '../sidebar/sidebar';
 import SubjectCard from './cardMateria/cardMateria';
 import './inicio.css';
+import { useNavigate } from 'react-router-dom';
+import MenuDesplegable from "../menuDesplegable/menu";
 
 const DashboardPanel = ({
-  userType = 'teacher',
+  userType = '',
   userName = 'Alyce Maldonado',
   userEmail = 'alycemaldonado@uni.com',
   imagenesMateria = {},
@@ -42,16 +44,25 @@ const DashboardPanel = ({
       <div className="sidebar">
         <div className="sidebar-header">
           <div className="sidebar-title">
-            <User size={24} />
-            <h1>{userType === 'teacher' ? 'Docente' : userType === 'student' ? 'Estudiante' : 'Administrador'}</h1>
+            <User size={24}/>
+            <h1>
+              {userType === 'teacher'
+                  ? 'Docente'
+                  : userType === 'student' || userType === 'studentMateria'
+                      ? 'Estudiante'
+                      : 'Administrador'}
+            </h1>
+
+
           </div>
+
         </div>
 
         {/* Search Section */}
         <div className="sidebar-search-section">
 
-            <div className="sidebar-search">
-              <input
+          <div className="sidebar-search">
+            <input
                 type="text"
                 placeholder="Buscar..."
                 value={searchQuery}
@@ -105,14 +116,12 @@ const DashboardPanel = ({
 
           <div className="user-controls">
             <div className="user-profile">
-              <div className="user-avatar">
-                <User size={20} />
-              </div>
+              
               <div className="user-info">
                 <span className="user-name">{userName}</span>
                 <span className="user-email">{userEmail}</span>
               </div>
-              <ChevronDown size={16} className="dropdown-icon" />
+               <MenuDesplegable />
             </div>
           </div>
         </header>

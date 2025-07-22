@@ -1,0 +1,282 @@
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: var(--spacing-xl) var(--spacing-md);
+  position: relative;
+  background: url('../../assets/backgroundLogin.jpg') no-repeat center center;
+  background-size: cover;
+  font-family: var(--font-family-primary);
+}
+
+.register-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+.back-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  background: rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(8px);
+  color: var(--color-white) !important;
+  border-radius: 30px;
+  padding: 8px 16px;
+  height: auto;
+  font-weight: 500;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.back-button:hover,
+.back-button:focus,
+.back-button:active {
+  background: rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  color: var(--color-white) !important;
+  border-color: var(--color-green-light) !important;
+}
+
+.register-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 600px;
+  padding: 2.5rem;
+  border-radius: var(--border-radius-lg);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(8px);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.register-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-sm);
+}
+
+.register-logo {
+  width: 180px;
+  height: auto;
+  margin-bottom: var(--spacing-sm);
+}
+
+.register-title {
+  color: var(--color-white) !important;
+  text-align: center;
+  margin-bottom: 0.5rem !important;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.register-subtitle {
+  color: var(--color-white) !important;
+  text-align: center;
+  margin-bottom: 1.5rem !important;
+  font-size: var(--font-size-base) !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.register-form {
+  width: 100%;
+}
+
+.register-form-row {
+  display: flex;
+  gap: var(--spacing-md);
+  margin-bottom: 0;
+}
+
+.register-form-item-half {
+  flex: 1;
+  margin-bottom: 24px;
+}
+
+.register-input {
+  height: 50px;
+  background: rgba(255, 255, 255, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: var(--border-radius-md) !important;
+  font-size: var(--font-size-base);
+  color: var(--color-white) !important;
+}
+
+.register-select {
+  height: 50px;
+  background: rgba(255, 255, 255, 0.25) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: var(--border-radius-md) !important;
+}
+
+/* Override Ant Design Select styles */
+.register-select .ant-select-selector {
+  background: transparent !important;
+  border: none !important;
+  height: 50px !important;
+  padding: 0 11px !important;
+  display: flex;
+  align-items: center;
+}
+
+.register-select .ant-select-selection-item {
+  color: var(--color-white) !important;
+  font-size: var(--font-size-base);
+}
+
+.register-select .ant-select-arrow {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.register-input:focus,
+.register-input:hover,
+.register-select:focus,
+.register-select:hover {
+  border-color: var(--color-green-light) !important;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2) !important;
+}
+
+.register-input::placeholder {
+  color: rgba(255, 255, 255, 0.7) !important;
+  font-family: var(--font-family-primary);
+}
+
+/* Customize the Ant Design input prefix icons */
+.register-input .ant-input-prefix {
+  color: rgba(255, 255, 255, 0.7);
+  margin-right: 10px;
+}
+
+.register-button {
+  height: 50px;
+  width: 100%;
+  font-size: var(--font-size-base);
+  background-color: var(--color-green-medium) !important;
+  border-color: var(--color-green-medium) !important;
+  border-radius: var(--border-radius-md) !important;
+  box-shadow: 0 4px 12px rgba(21, 61, 50, 0.4) !important;
+}
+
+.register-button:hover {
+  background-color: var(--color-green-dark) !important;
+  border-color: var(--color-green-dark) !important;
+  transform: translateY(-2px);
+}
+
+.register-login-link {
+  text-align: center;
+  color: var(--color-white);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-sm);
+}
+
+.register-login-link a {
+  color: var(--color-green-light);
+  font-weight: bold;
+}
+
+.register-login-link a:hover {
+  text-decoration: underline;
+}
+
+/* Override Ant Design form label styles */
+.register-form .ant-form-item-label > label {
+  color: var(--color-white) !important;
+}
+
+/* Password input eye icon */
+.ant-input-password-icon {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+/* Dropdown menu for select */
+.ant-select-dropdown {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  backdrop-filter: blur(8px);
+  border-radius: var(--border-radius-md) !important;
+  overflow: hidden;
+}
+
+.ant-select-item-option {
+  color: var(--color-gray-900) !important;
+}
+
+.ant-select-item-option-selected {
+  background-color: rgba(76, 175, 80, 0.1) !important;
+}
+
+.ant-select-item-option-active {
+  background-color: rgba(76, 175, 80, 0.05) !important;
+}
+
+/* Error messages */
+.ant-form-item-explain-error {
+  color: #ff8f8f !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .register-card {
+    padding: var(--spacing-lg);
+    max-width: 90%;
+  }
+  
+  .back-button {
+    top: 10px;
+    left: 10px;
+    font-size: 12px;
+    padding: 6px 12px;
+  }
+}
+
+@media (max-width: 576px) {
+  .register-form-row {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .register-form-item-half {
+    margin-bottom: 24px;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-card {
+    padding: var(--spacing-md);
+    border-radius: var(--border-radius-md);
+  }
+  
+  .register-logo {
+    width: 150px;
+  }
+  
+  .register-title {
+    font-size: var(--font-size-xl) !important;
+  }
+  
+  .register-subtitle {
+    font-size: var(--font-size-sm) !important;
+  }
+  
+  .register-input,
+  .register-button,
+  .register-select,
+  .register-select .ant-select-selector {
+    height: 45px;
+  }
+  
+  .back-button {
+    padding: 4px 10px;
+  }
+}

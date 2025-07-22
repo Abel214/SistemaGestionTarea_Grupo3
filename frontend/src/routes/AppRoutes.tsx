@@ -5,10 +5,12 @@ import { useAuth } from '../context/AuthContext';
 
 // Lazy-loaded components
 const Home = lazy(() => import('../pages/Home/Home'));
-const Usuarios = lazy(() => import('../pages/Usuarios/usuarios'));
 const InicioDocente = lazy (() => import('../pages/InicioDocente/inicioDocente'));
 const InicioAdmin = lazy(() => import('../pages/InicioAdmin/inicioAdmin'));
 const InicioEstudiante = lazy(() => import('../pages/InicioEstudiante/inicioEstudiante'));
+const InicioMateria = lazy(() => import('../pages/InicioEstudiante/InicioMateria/inicioMateria'));
+const Login = lazy(() => import('../pages/Login/Login'));
+const Register = lazy(() => import('../pages/Register/Register'));
 const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
   const { isAuthenticated } = useAuth();
   if (!isAuthenticated) {
@@ -20,11 +22,14 @@ const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
 function AppRoutes() {
   return (
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/usuarios" element={<Usuarios />} />
+        <Route path="/" element={<Login />} />
         <Route path="/docente" element={<InicioDocente />} />
         <Route path="/admin" element={<InicioAdmin />} />
           <Route path="/estudiante" element={<InicioEstudiante />} />
+        <Route path="/materia" element={<InicioMateria />} />
+
+        <Route path="/register" element={<Register />} />
+        {/* Rutas protegidas */}
         {/* Otras rutas */}
       </Routes>
   );
