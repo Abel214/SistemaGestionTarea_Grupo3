@@ -1,6 +1,7 @@
 import React, { memo, useEffect } from 'react';
 import Header from '../components/HUD/Header/header';
 import Footer from '../components/HUD/Footer/Footer';
+
 interface LayoutProps {
   children: React.ReactNode;
 }
@@ -12,7 +13,7 @@ function MainLayout({ children }: LayoutProps) {
   }, []);
 
   const isHomePage = window.location.pathname === '/';
-  
+
   // Add body class for header spacing
   useEffect(() => {
     if (isHomePage) {
@@ -22,7 +23,7 @@ function MainLayout({ children }: LayoutProps) {
       document.body.classList.add('with-header');
       document.body.classList.remove('transparent-header');
     }
-    
+
     // Cleanup
     return () => {
       document.body.classList.remove('with-header');

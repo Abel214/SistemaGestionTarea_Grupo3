@@ -33,14 +33,14 @@ function Footer() {
       
       <div className="footer-content footer-columns">
         <div className="footer-col">
-          <div className="footer-title">SDM Forest Ecuador</div>
-          <div className="footer-line">Mapeo de especies forestales de Ecuador Continental</div>
-          <div className="footer-line"><strong>CITIAB - Centro de Investigaciones Tropicales del Ambiente y Biodiversidad</strong></div>
+          <div className="footer-title">GESTOR DE TAREAS</div>
+          <div className="footer-line">Sistema De Gestión De Tareas</div>
+          <div className="footer-line"><strong>Gestion de tareas haciendo uso del proceso Kanban</strong></div>
           <div className="footer-line">
             Universidad Nacional de Loja, Ciudadela Universitaria La Argelia.
           </div>
           <div className="footer-line">
-            (Facultad Agropecuaria y de Recursos Naturales Renovables, Edificio 83. Código postal 110101, Loja – Ecuador.)
+            (Facultad De Los Recursos Naturales o Renovables, Edificio (). Código postal 110101, Loja – Ecuador.)
           </div>
         </div>
         <div className="footer-col">
@@ -48,7 +48,7 @@ function Footer() {
 
           <div className="footer-line">
             <a href="mailto:citiab@unl.edu.ec" style={{ color: "#fff", textDecoration: "underline", display: "inline-flex", alignItems: "center" }}>
-              <MailIcon />citiab@unl.edu.ec
+              <MailIcon />gestor.tareas@unl.edu.ec
             </a>
           </div>
         </div>
@@ -89,7 +89,7 @@ function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        © {currentYear} SDM Forest Ecuador. Todos los derechos reservados.
+        © {currentYear} Gestor De Tareas Académicas. Todos los derechos reservados.
       </div>
     </footer>
   );
