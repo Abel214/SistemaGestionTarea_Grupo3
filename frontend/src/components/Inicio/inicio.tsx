@@ -10,6 +10,7 @@ import MenuDesplegableEstudiante from "../menuDesplegable/menuEstudiante";
 import MenuDesplegable from "../menuDesplegable/menu";
 import DocenteParalelos from "../docente/Paralelos/paralelos";
 import DocenteMateria from "../docente/docenteMateria";
+import PerfilDocente from "../docente/acercaDe/acercaDe";
 const DashboardPanel = ({
   userType = '',
   userName = 'Alyce Maldonado',
@@ -41,7 +42,34 @@ const DashboardPanel = ({
   const handleSearchClick = () => {
     setShowSearch(!showSearch);
   };
-
+  const docenteEjemplo = {
+  foto: '/ruta/a/foto.jpg',
+  titulo: 'DOCENTE INVESTIGADOR CIS-UNL',
+  nombre: 'Dr. Juan Pérez',
+  institucion: 'Universidad Nacional de Loja',
+  departamento: 'Carrera de Computación',
+  ubicacion: 'Loja, Ecuador',
+  email: 'j.perez@unl.edu.ec',
+  descripcion: 'Profesor e investigador especializado en sistemas distribuidos...',
+  experiencia: [
+    {
+      periodo: '2008 - actual',
+      institucion: 'Universidad Nacional de Loja',
+      departamento: 'Carrera Computación, FERNNR',
+      cargo: 'Docente Investigador'
+    },
+    // Más experiencias...
+  ],
+  asignaturas: [
+    {
+      nombre: 'Sistemas Distribuidos',
+      codigo: 'CS-505',
+      ciclo: 'Quinto Ciclo',
+      horario: 'Lunes 08:00-10:00'
+    },
+    // Más asignaturas...
+  ]
+};
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
@@ -137,7 +165,11 @@ const DashboardPanel = ({
 
         {/* Content Area */}
         <div className="content-area">
-          {/* Dashboard principal */}
+          {selectedSection === 'dashboardDocente' && (
+          <PerfilDocente docente={docenteEjemplo} />
+          )}
+
+         {/* Dashboard principal */}
           {selectedSection === 'dashboard' && (
             <div>
               <div className="subjects-section">
@@ -159,7 +191,6 @@ const DashboardPanel = ({
               </div>
             </div>
           )}
-
           {/* Asignaturas/Profiles */}
           {selectedSection === 'profiles' && (
             <div className="section-content">
@@ -168,9 +199,10 @@ const DashboardPanel = ({
                 {currentSubjects.length > 0 ? (
                   currentSubjects.map(subject => (
                     <MateriaDocente
-                    key={subject.id}
+                      key={subject.id}
                       subject={subject}
                       isTeacher={userType === 'teacher'}
+                      imagen={imagenesMateria[subject.id]}
                     />
                   ))
                 ) : (

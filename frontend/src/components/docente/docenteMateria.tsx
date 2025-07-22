@@ -26,6 +26,7 @@ import ModalCalificarTarea from "./Tarea/calificarTarea";
 import ModalVerEntregas from "./Tarea/verEntregas";
 import Horario from "../docente/horario/horario";
 import MenuDesplegable from "../menuDesplegable/menuDocente";
+import PerfilDocente from "./acercaDe/acercaDe";
 const DocenteMateria = ({
   userType = 'docenteMateria',
   userName = 'Docente',
@@ -41,7 +42,7 @@ const DocenteMateria = ({
   unidades = []
 }) => {
   const { materiaId } = useParams();
-  const [selectedSection, setSelectedSection] = useState('dashboard');
+  const [selectedSection, setSelectedSection] = useState('assignments');
   const [searchQuery, setSearchQuery] = useState('');
   const [showCalendar, setShowCalendar] = useState(false);
   const [openDropdowns, setOpenDropdowns] = useState({});
@@ -259,12 +260,8 @@ const handleAddTask = () => {
                     >
                       Editar Tarea
                     </button>
-                    <button
-                        className="btn-primary"
-                        onClick={() => handleGradeTask(task)}
-                    >
-                      Calificar
-                    </button>
+
+
                     <ModalCalificarTarea
                         isOpen={gradeModal.isOpen}
                         tarea={gradeModal.tarea}
@@ -400,8 +397,7 @@ const handleAddTask = () => {
             </div>
           </div>
         );
-
-      default:
+      case 'messages':
         return (
           <div className="dashboard-overview">
             <h2>Resumen de {currentSubject.name}</h2>
@@ -434,6 +430,8 @@ const handleAddTask = () => {
             </div>
           </div>
         );
+
+
     }
   };
 

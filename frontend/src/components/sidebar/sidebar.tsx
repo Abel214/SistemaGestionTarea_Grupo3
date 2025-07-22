@@ -16,7 +16,7 @@ export const getDashboardConfig = (userType) => {
     teacher: {
       title: 'Panel del Docente',
       menuItems: [
-        { id: 'dashboard', label: 'Menu Principal', icon: Home },
+        { id: 'dashboardDocente', label: 'Acerca De', icon: Home },
         { id: 'profiles', label: 'Asignaturas', icon: Book },
         { id: 'gradebook', label: 'Paralelos', icon: UsersIcon },
 
@@ -62,7 +62,6 @@ export const getDashboardConfig = (userType) => {
     docenteMateria: {
       title: 'Panel Materia Del Docente',
       menuItems: [
-        {id : 'dashboard', label: 'Menu Principal', icon: Home },
           { id: 'resources', label: 'Documentos', icon: FileText },
         { id: 'assignments', label: 'Tareas', icon: CheckSquare },
         { id: 'grades', label: 'Calificaciones', icon: FileText },

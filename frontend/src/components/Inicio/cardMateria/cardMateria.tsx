@@ -1,12 +1,12 @@
 import React from 'react';
 import {useNavigate} from "react-router-dom";
 
-const SubjectCard = ({ subject, isTeacher, imagen }) => {
+const SubjectCard = ({ subject, isStudent, imagen }) => {
   const navigate = useNavigate();
 
   const handleButtonClick = () => {
     // Solo los estudiantes pueden navegar a /materia
-    if (!isTeacher) {
+    if (!isStudent) {
       navigate(`/materia`);
     }
   };
@@ -28,7 +28,7 @@ const SubjectCard = ({ subject, isTeacher, imagen }) => {
       </div>
       <div className="subject-card-content-large">
         <h3 className="subject-name-large">{subject.name}</h3>
-        {!isTeacher && subject.progress && (
+        {!isStudent && subject.progress && (
           <>
             <div className="subject-progress-large">
               <div
@@ -39,7 +39,7 @@ const SubjectCard = ({ subject, isTeacher, imagen }) => {
             <p className="subject-progress-text-large">{subject.progress}% Completado</p>
           </>
         )}
-        {isTeacher && (
+        {isStudent && (
           <p className="subject-description-large">
             {subject.description || 'Se enfoca en la gestión de contenido, estudiantes y evaluaciones de la materia.'}
           </p>
@@ -47,9 +47,9 @@ const SubjectCard = ({ subject, isTeacher, imagen }) => {
         <button
           className="subject-button"
           onClick={handleButtonClick}
-          disabled={isTeacher} // Opcional: deshabilitar el botón para profesores
+          disabled={isStudent} // Opcional: deshabilitar el botón para profesores
         >
-          {isTeacher ? 'Gestionar Materia' : 'Ir a Materia'}
+          {isStudent ? 'Gestionar Materia' : 'Ir a Materia'}
         </button>
       </div>
     </div>
