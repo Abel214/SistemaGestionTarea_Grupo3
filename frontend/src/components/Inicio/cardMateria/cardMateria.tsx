@@ -49,7 +49,7 @@ const SubjectCard = ({ subject, isStudent, imagen }) => {
           onClick={handleButtonClick}
           disabled={isStudent} // Opcional: deshabilitar el botón para profesores
         >
-          {isStudent ? 'Gestionar Materia' : 'Ir a Materia'}
+          Ir a Materia
         </button>
       </div>
     </div>

@@ -27,6 +27,9 @@ import ModalVerEntregas from "./Tarea/verEntregas";
 import Horario from "../docente/horario/horario";
 import MenuDesplegable from "../menuDesplegable/menuDocente";
 import PerfilDocente from "./acercaDe/acercaDe";
+import ModalEditarCalificacion from "./Tarea/Calificacion/editarCalificacion";
+import ModalEditarRecurso from "./Tarea/Recursos/editarRecurso";
+import ModalSubirRecurso from "./Tarea/Recursos/subirRecurso";
 const DocenteMateria = ({
   userType = 'docenteMateria',
   userName = 'Docente',
@@ -94,6 +97,10 @@ const handleDownload = (file) => {
   // link.download = file.name;
   // link.click();
 };
+ const [editModal1, setEditModal1] = useState({
+    isOpen: false,
+    calificacion: null
+  });
   const [gradeModal, setGradeModal] = useState({
   isOpen: false,
   tarea: null,
@@ -194,6 +201,29 @@ const handleAddTask = () => {
   const handleTaskSelect = (task) => {
     console.log('Tarea seleccionada:', task);
     // Lógica para mostrar detalles de la tarea
+  };
+  const [uploadModalOpen2, setUploadModalOpen2] = useState(false);
+  const [editModal2, setEditModal2] = useState({
+    isOpen: false,
+    resource: null
+  });
+
+  const handleUploadResource = (newResource) => {
+    // Lógica para subir el recurso
+    console.log('Subiendo recurso:', newResource);
+    // setResources([...resources, newResource]);
+  };
+
+  const handleUpdateResource = (updatedResource) => {
+    // Lógica para actualizar el recurso
+    console.log('Actualizando recurso:', updatedResource);
+    // setResources(resources.map(r => r.id === updatedResource.id ? updatedResource : r));
+  };
+
+  const handleDeleteResource = (resourceId) => {
+    // Lógica para eliminar el recurso
+    console.log('Eliminando recurso:', resourceId);
+    // setResources(resources.filter(r => r.id !== resourceId));
   };
 
   const renderContent = () => {
@@ -311,41 +341,68 @@ const handleAddTask = () => {
 
       case 'grades':
         return (
-            <div className="grades-container">
-              <h2>Calificaciones - {currentSubject.name}</h2>
-              <div className="grades-grid">
-                <div className="grades-summary">
-                  <h3>Resumen de Calificaciones</h3>
-                  <p>Promedio del grupo: {grades[0]?.classAverage || 'N/A'}</p>
-                  {/* Más estadísticas */}
-                </div>
-                <div className="grades-list">
-                  <table>
-                    <thead>
-                    <tr>
-                      <th>Estudiante</th>
-                      <th>Calificación</th>
-                      <th>Acciones</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {grades[0]?.students?.map(student => (
-                        <tr key={student.name}>
-                          <td>{student.name}</td>
-                          <td>{student.grade}</td>
-                          <td>
-                            <button className="btn-small">Editar</button>
-                          </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-        );
+    <div className="grades-container">
+      <h2>Calificaciones - {currentSubject.name}</h2>
+      <div className="grades-grid">
+        <div className="grades-summary">
+          <h3>Resumen de Calificaciones</h3>
+          <p>Promedio del grupo: {grades[0]?.classAverage || 'N/A'}</p>
+        </div>
+        <div className="grades-list">
+          <table>
+            <thead>
+              <tr>
+                <th>Estudiante</th>
+                <th>Calificación</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              {grades[0]?.students?.map(student => (
+                <tr key={student.id}>
+                  <td>{student.name}</td>
+                  <td>{student.grade || 'Sin calificar'}</td>
+                  <td>
+                    <button
+                      className="btn-secondary"
+                      onClick={() => setEditModal1({
+                        isOpen: true,
+                        calificacion: student
+                      })}
+                    >
+                      Editar
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <ModalEditarCalificacion
+        isOpen={editModal1.isOpen}
+        calificacion={editModal1.calificacion}
+        onClose={() => setEditModal1({ isOpen: false, calificacion: null })}
+        onChange={(field, value) => {
+          setEditModal1(prev => ({
+            ...prev,
+            calificacion: { ...prev.calificacion, [field]: value }
+          }));
+        }}
+        onSave={() => {
+          // Aquí iría la lógica para guardar en tu backend
+          console.log('Guardando calificación:', editModal1.calificacion);
+          setEditModal1({ isOpen: false, calificacion: null });
+
+          // Opcional: Actualizar el estado de las calificaciones
+          // fetchGrades();
+        }}
+      />
+    </div>
+  );
       case 'calendar':
-  return (
+        return (
     <div className="calendar-section">
       <div className="section-header">
         <h2>Calendario Académico</h2>
@@ -367,36 +424,69 @@ const handleAddTask = () => {
       />
     </div>
   );
-      case 'resources':
-        return (
-            <div className="resources-container">
-              <div className="resources-header">
-                <h2>Recursos de {currentSubject.name}</h2>
-                <button className="btn-primary">
-                  <UploadCloud size={16}/> Subir Recurso
-                </button>
-              </div>
-              <div className="resources-list">
-                {resources.map(resource => (
-                    <div key={resource.id} className="resource-card">
-                      <div className="resource-icon">
-                    {resource.type === 'pdf' ? '📄' :
-                     resource.type === 'pptx' ? '📊' : '📁'}
-                  </div>
-                  <div className="resource-info">
-                    <h3>{resource.name}</h3>
-                    <p>Tipo: {resource.type.toUpperCase()} • {resource.size}</p>
-                    <p>Subido: {resource.uploadDate} • Descargas: {resource.downloads}</p>
-                  </div>
-                  <div className="resource-actions">
-                    <button className="btn-secondary">Editar</button>
-                    <button className="btn-danger">Eliminar</button>
-                  </div>
-                </div>
-              ))}
+     case 'resources':
+  return (
+    <div className="resources-container">
+      <div className="resources-header">
+        <h2>Recursos de {currentSubject.name}</h2>
+        <button
+          className="btn-primary"
+          onClick={() => setUploadModalOpen2(true)}
+        >
+          <UploadCloud size={16}/> Subir Recurso
+        </button>
+      </div>
+
+      <div className="resources-list">
+        {resources.map(resource => (
+          <div key={resource.id} className="resource-card">
+            <div className="resource-icon">
+              {resource.type === 'pdf' ? '📄' :
+               resource.type === 'pptx' ? '📊' :
+               resource.type === 'image' ? '🖼️' :
+               resource.type === 'video' ? '🎬' : '📁'}
+            </div>
+            <div className="resource-info">
+              <h3>{resource.name}</h3>
+              <p>Tipo: {resource.type.toUpperCase()} • {resource.size}</p>
+              <p>Subido: {resource.uploadDate} • Descargas: {resource.downloads}</p>
+              {resource.description && (
+                <p className="resource-description">{resource.description}</p>
+              )}
+            </div>
+            <div className="resource-actions">
+
+              <button
+                  type="button" // ← Esto es crucial
+                  className="btn-danger"
+                  onClick={() => {
+                    if (window.confirm('¿Estás seguro de eliminar este recurso?')) {
+                      handleDeleteResource(resource.id);
+                    }
+                  }}
+              >
+                Eliminar
+              </button>
             </div>
           </div>
-        );
+        ))}
+      </div>
+
+      <ModalSubirRecurso
+          isOpen={uploadModalOpen2}
+          onClose={() => setUploadModalOpen2(false)}
+          onSave={handleUploadResource}
+      />
+
+      <ModalEditarRecurso
+          isOpen={editModal2.isOpen}
+          resource={editModal2.resource}
+          onClose={() => setEditModal2({isOpen: false, resource: null})}
+          onSave={handleUpdateResource}
+        onDelete={handleDeleteResource}
+      />
+    </div>
+  );
       case 'messages':
         return (
           <div className="dashboard-overview">
