@@ -105,7 +105,7 @@ function DashboardEstudiante() {
       icon: GraduationCap,
       color: 'bg-teal-500',
       description: 'Arquitecturas y protocolos distribuidos',
-      progress: 80,
+      progress: 90,
       nextClass: 'Lunes 21 de Julio'
     }
   ];

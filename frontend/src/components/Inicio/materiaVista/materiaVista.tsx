@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import {User, ChevronDown, Search, FileText, CheckCircle, Clock, BookOpen} from 'lucide-react';
 import { getDashboardConfig } from '../../sidebar/sidebar';
-import UnidadesMenu from '../unidades/unidades';
+
 import '../inicio.css';
 import '../calendario/calendario.css'
 import '../materiaVista/materiaVista.css';
 import AcademicCalendar from "../calendario/calendario";
-
+import UnidadesMenu from "../unidades/unidades";
+import MenuDesplegable from "../../menuDesplegable/menuEstudiante";
 const DashboardPanelMateria = ({
   userType = 'studentMateria',
   userName = 'Estudiante',
@@ -301,14 +302,12 @@ const DashboardPanelMateria = ({
 
           <div className="user-controls">
             <div className="user-profile">
-              <div className="user-avatar">
-                <User size={20}/>
-              </div>
+
               <div className="user-info">
                 <span className="user-name">{userName}</span>
                 <span className="user-email">{userEmail}</span>
               </div>
-              <ChevronDown size={16} className="dropdown-icon"/>
+               <MenuDesplegable />
             </div>
           </div>
         </header>

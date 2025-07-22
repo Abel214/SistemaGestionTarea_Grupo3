@@ -9,6 +9,7 @@ const InicioDocente = lazy (() => import('../pages/InicioDocente/inicioDocente')
 const InicioAdmin = lazy(() => import('../pages/InicioAdmin/inicioAdmin'));
 const InicioEstudiante = lazy(() => import('../pages/InicioEstudiante/inicioEstudiante'));
 const InicioMateria = lazy(() => import('../pages/InicioEstudiante/InicioMateria/inicioMateria'));
+const InicioMateriaDocente = lazy(() => import('../pages/InicioDocente/InicioDocenteMateria/inicioDocenteMateria'));
 const Login = lazy(() => import('../pages/Login/Login'));
 const Register = lazy(() => import('../pages/Register/Register'));
 const ProtectedRoute = ({ children }: { children: React.ReactElement }) => {
@@ -27,7 +28,7 @@ function AppRoutes() {
         <Route path="/admin" element={<InicioAdmin />} />
           <Route path="/estudiante" element={<InicioEstudiante />} />
         <Route path="/materia" element={<InicioMateria />} />
-
+        <Route path="/materiaDocente" element={<InicioMateriaDocente />} />
         <Route path="/register" element={<Register />} />
         {/* Rutas protegidas */}
         {/* Otras rutas */}

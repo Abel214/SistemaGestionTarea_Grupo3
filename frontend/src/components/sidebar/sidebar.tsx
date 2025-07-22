@@ -19,8 +19,7 @@ export const getDashboardConfig = (userType) => {
         { id: 'dashboard', label: 'Menu Principal', icon: Home },
         { id: 'profiles', label: 'Asignaturas', icon: Book },
         { id: 'gradebook', label: 'Paralelos', icon: UsersIcon },
-        { id: 'resources', label: 'Documentos', icon: FileText },
-        { id: 'assignments', label: 'Calendar', icon: CheckSquare },
+
       ],
        bottomItems: [
         { id: 'settings', label: 'Configuración', icon: Settings },
@@ -55,6 +54,21 @@ export const getDashboardConfig = (userType) => {
       menuItems: [
         { id: 'dashboard', label: 'Menu Principal', icon: Home },
         { id: 'calendar', label: 'Calendario', icon: Calendar },
+      ],
+       bottomItems: [
+        { id: 'settings', label: 'Configuración', icon: Settings },
+      ]
+    },
+    docenteMateria: {
+      title: 'Panel Materia Del Docente',
+      menuItems: [
+        {id : 'dashboard', label: 'Menu Principal', icon: Home },
+          { id: 'resources', label: 'Documentos', icon: FileText },
+        { id: 'assignments', label: 'Tareas', icon: CheckSquare },
+        { id: 'grades', label: 'Calificaciones', icon: FileText },
+        { id: 'messages', label: 'Mensajes', icon: MessageCircle },
+        {id : 'students', label: 'Estudiantes', icon: UsersIcon },
+         { id: 'calendar', label: 'Calendario', icon: Calendar },
       ],
        bottomItems: [
         { id: 'settings', label: 'Configuración', icon: Settings },

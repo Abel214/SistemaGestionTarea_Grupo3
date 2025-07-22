@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import { User, ChevronDown, Search } from 'lucide-react';
 import { getDashboardConfig } from '../sidebar/sidebar';
 import SubjectCard from './cardMateria/cardMateria';
+import MateriaDocente from '../docente/docenteCardMateria/docenteCardMateria';
 import './inicio.css';
 import { useNavigate } from 'react-router-dom';
+import MenuDesplegableDocente from "../menuDesplegable/menuDocente";
+import MenuDesplegableEstudiante from "../menuDesplegable/menuEstudiante";
 import MenuDesplegable from "../menuDesplegable/menu";
-
+import DocenteParalelos from "../docente/Paralelos/paralelos";
+import DocenteMateria from "../docente/docenteMateria";
 const DashboardPanel = ({
   userType = '',
   userName = 'Alyce Maldonado',
@@ -52,7 +56,6 @@ const DashboardPanel = ({
                       ? 'Estudiante'
                       : 'Administrador'}
             </h1>
-
 
           </div>
 
@@ -121,7 +124,13 @@ const DashboardPanel = ({
                 <span className="user-name">{userName}</span>
                 <span className="user-email">{userEmail}</span>
               </div>
-               <MenuDesplegable />
+              {userType === 'teacher' || userType === 'docenteMateria' ? (
+                <MenuDesplegableDocente />
+                ) : userType === 'student' || userType === 'studentMateria' ? (
+                <MenuDesplegableEstudiante />
+                 ) : (
+                  <MenuDesplegable /> // Opcional: un menú por defecto para otros roles como administrador
+                  )}
             </div>
           </div>
         </header>
@@ -158,11 +167,10 @@ const DashboardPanel = ({
               <div className="subjects-grid">
                 {currentSubjects.length > 0 ? (
                   currentSubjects.map(subject => (
-                    <SubjectCard
-                      key={subject.id}
+                    <MateriaDocente
+                    key={subject.id}
                       subject={subject}
                       isTeacher={userType === 'teacher'}
-                      imagen={imagenesMateria[subject.id]}
                     />
                   ))
                 ) : (
@@ -194,40 +202,26 @@ const DashboardPanel = ({
           )}
 
           {/* Paralelos/Gradebook */}
-          {selectedSection === 'gradebook' && (
-            <div className="section-content">
-              <h2>{userType === 'teacher' ? 'Paralelos' : 'Mis Paralelos'}</h2>
-              <div>
-                {grades.length > 0 ? (
-                  grades.map((subject, i) => (
-                    <div key={i} className="gradebook-section">
-                      <h3>{subject.subject}</h3>
-                      <div className="gradebook-table">
-                        <table>
-                          <thead>
-                            <tr>
-                              <th>Estudiante</th>
-                              <th>Calificación</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {subject.students.map((student, j) => (
-                              <tr key={j}>
-                                <td className="student-name">{student.name}</td>
-                                <td className="grade">{student.grade}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <p className="no-content-message">No hay paralelos disponibles</p>
-                )}
-              </div>
-            </div>
-          )}
+          {selectedSection === 'gradebook' && userType === 'teacher' && (
+          <div className="section-content">
+          <DocenteParalelos
+            paralelos={grades.map(grade => ({
+              id: grade.id,
+              materia: grade.subject,
+              codigo: grade.code || 'N/A',
+              horario: grade.schedule || 'Horario no definido',
+              estudiantes: grade.students.map(student => ({
+              id: student.id,
+              nombre: student.name,
+              acd: student.acd || 0,
+              aa: student.aa || 0,
+              ape: student.ape || 0,
+                total: student.grade || 0
+              }))
+            }))}
+          />
+        </div>
+)}
 
           {/* Documentos/Resources */}
           {selectedSection === 'resources' && (
