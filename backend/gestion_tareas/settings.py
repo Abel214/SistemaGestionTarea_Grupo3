@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure--*%(l33_eh1-&jr@!=rsa4#k)!_lxxi%77md%q7ovk4a08&io^
 DEBUG = True
 
 # Hosts permitidos
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', "http://localhost:5173/"]
 
 # Apps instaladas
 INSTALLED_APPS = [
@@ -73,6 +73,7 @@ TEMPLATES = [
 
 # WSGI
 WSGI_APPLICATION = 'gestion_tareas.wsgi.application'
+CORS_ALLOW_CREDENTIALS = True
 
 # Base de datos (SQLite en dev)
 DATABASES = {
@@ -104,18 +105,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # CORS (para tu React corriendo en localhost:3000)
 CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
     'http://localhost:3000',
 ]
-# durante desarrollo podrías usar:
-# CORS_ALLOW_ALL_ORIGINS = True
 
-# Django REST Framework
 REST_FRAMEWORK = {
-    # por defecto requiere autenticación en todos los endpoints
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
-    # autenticación por sesión y básica (puedes cambiar a JWT)
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.BasicAuthentication',

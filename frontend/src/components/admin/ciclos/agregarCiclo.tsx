@@ -1,142 +1,201 @@
-import React, { useState } from 'react';
-import { GraduationCap, X, Hash, List, Users, Save } from 'lucide-react';
+// src/components/admin/Ciclos/agregarCiclo.tsx
+import React, {useState} from 'react';
+import axios from 'axios';
+import {X, Save, Hash, ListOrdered, Users, CheckCircle} from 'lucide-react';
+import {getCookie} from '../../../utils/cookies';
 
-const ModalAgregarCiclo = ({ isOpen, onClose, paralelos, onSave }) => {
-  const [newCiclo, setNewCiclo] = useState({
-    codigo: '',
-    numero: '',
-    estudiantesTotales: '',
-    paralelos: []
-  });
+interface ModalAgregarCicloProps {
+    isOpen: boolean;
+    onClose: () => void;
+    onCicloCreated?: () => void; // callback para refrescar la lista en el padre
+}
 
-  if (!isOpen) return null;
+interface CicloForm {
+    codigo: string;
+    numero: string;
+    nombre: string;
+    estudiantes_totales: string;
+    is_activo: boolean;
+}
 
-  const handleParaleloChange = (paraleloId) => {
-    setNewCiclo(prev => {
-      if (prev.paralelos.includes(paraleloId)) {
-        return {
-          ...prev,
-          paralelos: prev.paralelos.filter(id => id !== paraleloId)
-        };
-      } else {
-        return {
-          ...prev,
-          paralelos: [...prev.paralelos, paraleloId]
-        };
-      }
+const ModalAgregarCiclo: React.FC<ModalAgregarCicloProps> = ({
+                                                                 isOpen,
+                                                                 onClose,
+                                                                 onCicloCreated,
+                                                             }) => {
+    if (!isOpen) return null;
+
+    const [form, setForm] = useState<CicloForm>({
+        codigo: '',
+        numero: '',
+        nombre: '',
+        estudiantes_totales: '',
+        is_activo: false,
     });
-  };
 
-  const handleSubmit = () => {
-    onSave(newCiclo);
-    setNewCiclo({
-      codigo: '',
-      numero: '',
-      estudiantesTotales: '',
-      paralelos: []
-    });
-  };
+    const [saving, setSaving] = useState(false);
 
-  return (
-    <div className="modal-overlay">
-      <div className="modal-container">
-        <div className="modal-header">
-          <h2 className="modal-title">
-            <GraduationCap className="w-5 h-5"/>
-            Agregar Ciclo
-          </h2>
-          <button className="modal-close-btn" onClick={onClose}>
-            <X className="w-5 h-5"/>
-          </button>
-        </div>
+    const handleChange = (field: keyof CicloForm, value: string | boolean) => {
+        setForm((prev) => ({...prev, [field]: value}));
+    };
 
-        <div className="modal-body">
-          <div className="edit-form">
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">
-                  <Hash className="w-4 h-4"/>
-                  Código Ciclo
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={newCiclo.codigo}
-                  onChange={(e) => setNewCiclo({...newCiclo, codigo: e.target.value})}
-                  placeholder="Ej: CIC-2023-01"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">
-                  <List className="w-4 h-4"/>
-                  Número
-                </label>
-                <select
-                  className="form-select"
-                  value={newCiclo.numero}
-                  onChange={(e) => setNewCiclo({...newCiclo, numero: e.target.value})}
-                >
-                  <option value="">Seleccione número</option>
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
-                    <option key={num} value={num}>{num}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
+    const handleSave = async () => {
+        try {
+            // Validaciones básicas
+            if (!form.codigo.trim() || !form.numero.trim() || !form.nombre.trim()) {
+                alert('Código, número y nombre son obligatorios.');
+                return;
+            }
 
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">
-                  <Users className="w-4 h-4"/>
-                  Estudiantes Totales
-                </label>
-                <input
-                  type="number"
-                  className="form-input"
-                  value={newCiclo.estudiantesTotales}
-                  onChange={(e) => setNewCiclo({...newCiclo, estudiantesTotales: e.target.value})}
-                  placeholder="Ingrese el total de estudiantes"
-                />
-              </div>
-            </div>
+            setSaving(true);
 
-            <div className="form-row">
-              <div className="form-group full-width">
-                <label className="form-label">
-                  <List className="w-4 h-4"/>
-                  Paralelos
-                </label>
-                <div className="grid grid-cols-2 gap-2 mt-2">
-                  {paralelos.map(paralelo => (
-                    <div key={paralelo.id} className="flex items-center">
-                      <input
-                        type="checkbox"
-                        id={`paralelo-${paralelo.id}`}
-                        checked={newCiclo.paralelos.includes(paralelo.id)}
-                        onChange={() => handleParaleloChange(paralelo.id)}
-                        className="checkbox"
-                      />
-                      <label htmlFor={`paralelo-${paralelo.id}`} className="ml-2 text-sm">
-                        {paralelo.codigo} ({paralelo.letra}) - Ciclo {paralelo.ciclo}
-                      </label>
-                    </div>
-                  ))}
+            const csrfToken = getCookie('csrftoken');
+
+            await axios.post(
+                'http://127.0.0.1:8000/api/tareas/ciclos/',
+                {
+                    codigo: form.codigo.trim(),
+                    numero: Number(form.numero),
+                    nombre: form.nombre.trim(),
+                    estudiantes_totales: form.estudiantes_totales
+                        ? Number(form.estudiantes_totales)
+                        : null,
+                    is_activo: form.is_activo,
+                },
+                {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': csrfToken ?? '',
+                    },
+                    withCredentials: true,
+                }
+            );
+
+            alert('✅ Ciclo creado correctamente');
+            onClose();
+            onCicloCreated && onCicloCreated();
+        } catch (error: any) {
+            console.error('❌ Error al crear ciclo:', error);
+            let msg = 'Error inesperado al crear el ciclo.';
+            if (error.response?.data) {
+                const data = error.response.data;
+                msg =
+                    Object.entries(data)
+                        .map(([k, v]) => `${k}: ${Array.isArray(v) ? v.join(', ') : v}`)
+                        .join('\n') || msg;
+            }
+            alert(msg);
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    return (
+        <div className="modal-overlay">
+            <div className="modal-container">
+                <div className="modal-header">
+                    <h2 className="modal-title">
+                        <Hash className="w-5 h-5"/> Agregar Ciclo
+                    </h2>
+                    <button className="modal-close-btn" onClick={onClose}>
+                        <X className="w-5 h-5"/>
+                    </button>
                 </div>
-              </div>
-            </div>
-          </div>
-        </div>
 
-        <div className="modal-footer">
-          <button className="secondary-button" onClick={onClose}>Cancelar</button>
-          <button className="primary-button save-btn" onClick={handleSubmit}>
-            <Save className="w-4 h-4"/>
-            Guardar Ciclo
-          </button>
+                <div className="modal-body">
+                    <div className="edit-form">
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <Hash className="w-4 h-4"/> Código
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-input"
+                                    value={form.codigo}
+                                    onChange={(e) => handleChange('codigo', e.target.value)}
+                                    placeholder="Ej: C1-2025A"
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <ListOrdered className="w-4 h-4"/> Número
+                                </label>
+                                <input
+                                    type="number"
+                                    className="form-input"
+                                    value={form.numero}
+                                    onChange={(e) => handleChange('numero', e.target.value)}
+                                    placeholder="1"
+                                    min={1}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <CheckCircle className="w-4 h-4"/> Nombre
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-input"
+                                    value={form.nombre}
+                                    onChange={(e) => handleChange('nombre', e.target.value)}
+                                    placeholder="Primer Ciclo"
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <Users className="w-4 h-4"/> Estudiantes Totales (opcional)
+                                </label>
+                                <input
+                                    type="number"
+                                    className="form-input"
+                                    value={form.estudiantes_totales}
+                                    onChange={(e) =>
+                                        handleChange('estudiantes_totales', e.target.value)
+                                    }
+                                    placeholder="100"
+                                    min={0}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-row">
+                            <div className="form-group checkbox-group">
+                                <label className="form-label">
+                                    <CheckCircle className="w-4 h-4"/> Activo
+                                </label>
+                                <input
+                                    type="checkbox"
+                                    checked={form.is_activo}
+                                    onChange={(e) => handleChange('is_activo', e.target.checked)}
+                                    className="checkbox"
+                                    style={{width: '18px', height: '18px'}}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="modal-footer">
+                    <button className="secondary-button" onClick={onClose} disabled={saving}>
+                        Cancelar
+                    </button>
+                    <button
+                        className="primary-button save-btn"
+                        onClick={handleSave}
+                        disabled={saving}
+                    >
+                        <Save className="w-4 h-4"/> {saving ? 'Guardando...' : 'Guardar Ciclo'}
+                    </button>
+                </div>
+            </div>
         </div>
-      </div>
-    </div>
-  );
+    );
 };
 
 export default ModalAgregarCiclo;
