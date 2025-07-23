@@ -1,10 +1,14 @@
 from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
-
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 from rest_framework import viewsets, mixins, status
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from .models import UsuarioProfile
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
+
 from .serializers import UserProfileSerializer, UserRegistrationSerializer, StaffRegistrationSerializer, \
     PasswordRecoverySerializer
 
@@ -40,19 +44,29 @@ class RegisterStudentView(APIView):
 
 class RegisterStaffView(APIView):
     """Permite al adminsitrador registrar usuarios"""
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
-    authentication_classes = []
 
     def post(self, request, format=None):
+        print("Usuario:", request.user, "is_authenticated:", request.user.is_authenticated, "is_staff:",
+              request.user.is_staff)
+        print("Usuario:", request.user, "¿Es admin?", request.user.is_staff)
         serializer = StaffRegistrationSerializer(data=request.data)
         if serializer.is_valid():
             profile = serializer.save()
             return Response({
-                'id': profile.user.id,
-                'correo': profile.user.email,
-                'rol': profile.rol,
+                'success': True,
+                'data': {
+                    'id': profile.user.id,
+                    'correo': profile.user.email,
+                    'rol': profile.rol,
+                }
             }, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response({
+                'success': False,
+                'errors': serializer.errors
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UserProfileViewSet(
@@ -71,6 +85,7 @@ class UserProfileViewSet(
     """
     queryset = UsuarioProfile.objects.select_related('user').all()
     serializer_class = UserProfileSerializer
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
     def destroy(self, request, *args, **kwargs):
@@ -110,18 +125,21 @@ class PasswordRecoveryView(APIView):
 class CicloViewSet(viewsets.ModelViewSet):
     queryset = Ciclo.objects.all()
     serializer_class = CicloSerializer
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
 
 class PeriodoCicloViewSet(viewsets.ModelViewSet):
     queryset = PeriodoCiclo.objects.all()
     serializer_class = PeriodoCicloSerializer
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
 
 class AsignaturaViewSet(viewsets.ModelViewSet):
     queryset = Asignatura.objects.all()
     serializer_class = AsignaturaSerializer
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
 
@@ -167,17 +185,35 @@ class EntregaViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
 
 
-class LoginAPIView(APIView):
-    authentication_classes = []
-    permission_classes = []
+@api_view(['POST'])
+def login_view(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
 
+    print("📨 Login recibido:", email, password)
+
+    user = authenticate(request, username=email, password=password)
+    if user is not None:
+        login(request, user)
+        print("🔐 LOGIN =>", user.username, user.is_staff, user.is_superuser)
+
+        try:
+            rol = user.profile.rol
+        except Exception as e:
+            rol = "EST"
+            print("⚠️ No se pudo obtener rol:", e)
+
+        return Response({'message': 'Login exitoso', 'rol': rol}, status=200)
+    else:
+        return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+class LogoutAPIView(APIView):
     def post(self, request):
-        user = authenticate(
-            username=request.data.get('username'),
-            password=request.data.get('password'),
-        )
-        if user:
-            login(request, user)
-            return Response({'detail': 'ok'})
-        return Response({'detail': 'credenciales inválidas'},
-                        status=status.HTTP_401_UNAUTHORIZED)
+        logout(request)
+        return Response({'detail': 'Sesión cerrada correctamente'}, status=status.HTTP_200_OK)
+
+
+@ensure_csrf_cookie
+def csrf_token_view(request):
+    return JsonResponse({'detail': 'CSRF cookie set'})

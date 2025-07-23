@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.db import models
 from django.core.exceptions import ValidationError
+from django.http import JsonResponse
+from django.core.validators import MinValueValidator
 
 
 class Persona(models.Model):
@@ -36,6 +38,13 @@ class UsuarioProfile(Persona):
 class Ciclo(models.Model):
     nombre = models.CharField(max_length=100)
     is_activo = models.BooleanField(default=False)
+    codigo = models.CharField(max_length=30, unique=True)
+    numero = models.PositiveSmallIntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    estudiantes_totales = models.PositiveIntegerField(
+        null=True, blank=True, default=None
+    )
 
     def __str__(self):
         return self.nombre
@@ -51,12 +60,42 @@ class PeriodoCiclo(models.Model):
 
 
 class Asignatura(models.Model):
-    nombre = models.CharField(max_length=100)
+    codigo = models.CharField(
+        max_length=20,
+        unique=True,
+        verbose_name="Código"
+    )
+    nombre = models.CharField(max_length=120)
     descripcion = models.TextField(blank=True)
-    periodo = models.ForeignKey(PeriodoCiclo, on_delete=models.CASCADE, related_name='asignaturas')
+    periodo = models.ForeignKey(
+        'PeriodoCiclo',
+        on_delete=models.CASCADE,
+        related_name='asignaturas'
+    )
+
+    unidades_totales = models.PositiveSmallIntegerField(
+        "Unidades totales",
+        validators=[MinValueValidator(1)],
+        null=True, blank=True,
+        help_text="Número de unidades del sílabo"
+    )
+    horas_programadas = models.PositiveSmallIntegerField(
+        "Horas programadas",
+        validators=[MinValueValidator(1)],
+        null=True, blank=True,
+        help_text="Total de horas planificadas"
+    )
+
+    is_activa = models.BooleanField(default=True)
+
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ("codigo",)
 
     def __str__(self):
-        return self.nombre
+        return f"{self.codigo} - {self.nombre}"
 
 
 class Paralelo(models.Model):

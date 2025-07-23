@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     # CORS debe ir primero
     'corsheaders.middleware.CorsMiddleware',
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -73,6 +72,7 @@ TEMPLATES = [
 
 # WSGI
 WSGI_APPLICATION = 'gestion_tareas.wsgi.application'
+CORS_ALLOW_CREDENTIALS = True
 
 # Base de datos (SQLite en dev)
 DATABASES = {
@@ -102,22 +102,26 @@ STATIC_URL = 'static/'
 # Default auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CORS (para tu React corriendo en localhost:3000)
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+    'http://localhost:5173',
+    'http://localhost:8000',  # Opcional si haces peticiones desde el mismo backend
 ]
-# durante desarrollo podrías usar:
-# CORS_ALLOW_ALL_ORIGINS = True
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+]
 
-# Django REST Framework
 REST_FRAMEWORK = {
-    # por defecto requiere autenticación en todos los endpoints
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticated',
     ],
-    # autenticación por sesión y básica (puedes cambiar a JWT)
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
     ],
 }
+
+SESSION_COOKIE_SAMESITE = None
+SESSION_COOKIE_SECURE = False
+
+CSRF_COOKIE_SAMESITE = None
+CSRF_COOKIE_SECURE = False
