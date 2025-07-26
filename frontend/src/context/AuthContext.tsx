@@ -1,16 +1,24 @@
 import {createContext, useState, useContext, useEffect} from 'react';
 import type {ReactNode} from 'react';
 
+import api from "../services/api";
 interface User {
     email: string;
-    role: string;
+    role: string;  // Asegúrate que coincida con 'rol' del backend
+    token?: string; // Opcional si usas JWT
+}
+
+interface ApiAuthResponse {
+    success: boolean;
+    email: string;
+    rol: string; // Nota: 'rol' en lugar de 'role'
 }
 
 interface AuthContextType {
     user: User | null;
     isAuthenticated: boolean;
-    login: (userData: any) => void;
-    logout: () => void;
+    login: (email: string, password: string) => Promise<void>;
+    logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -27,26 +35,59 @@ interface AuthProviderProps {
     children: ReactNode;
 }
 
-export function AuthProvider({children}: AuthProviderProps) {
+export function AuthProvider({ children }: AuthProviderProps) {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const storedUser = localStorage.getItem('user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-        setLoading(false);
+        const initializeAuth = async () => {
+            const storedUser = localStorage.getItem('user');
+            if (storedUser) {
+                try {
+                    // Verificar si el token sigue válido
+                    const isValid = await verifyToken(); // Implementa esta función
+                    if (isValid) {
+                        setUser(JSON.parse(storedUser));
+                    } else {
+                        localStorage.removeItem('user');
+                    }
+                } catch (error) {
+                    localStorage.removeItem('user');
+                }
+            }
+            setLoading(false);
+        };
+        initializeAuth();
     }, []);
 
-    const login = (userData: any) => {
-        setUser(userData.user);
-        localStorage.setItem('user', JSON.stringify(userData.user));
+    const login = async (email: string, password: string) => {
+        try {
+            const response = await api.post<ApiAuthResponse>('/api/login/', { email, password });
+
+            if (response.data.success) {
+                const userData: User = {
+                    email: response.data.email,
+                    role: response.data.rol // Mapea 'rol' a 'role'
+                };
+
+                setUser(userData);
+                localStorage.setItem('user', JSON.stringify(userData));
+            } else {
+                throw new Error('Autenticación fallida');
+            }
+        } catch (error) {
+            throw new Error(error instanceof Error ? error.message : 'Error de autenticación');
+        }
     };
 
-    const logout = () => {
-        setUser(null);
-        localStorage.removeItem('user');
+    const logout = async () => {
+        try {
+            await api.post('/api/logout/');
+            setUser(null);
+            localStorage.removeItem('user');
+        } catch (error) {
+            console.error('Error al cerrar sesión:', error);
+        }
     };
 
     const value = {
@@ -56,5 +97,9 @@ export function AuthProvider({children}: AuthProviderProps) {
         logout
     };
 
-    return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
+    return (
+        <AuthContext.Provider value={value}>
+            {!loading && children}
+        </AuthContext.Provider>
+    );
 }

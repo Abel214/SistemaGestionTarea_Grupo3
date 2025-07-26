@@ -17,11 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
+from django.http import JsonResponse
+from tareas.views import RegisterStudentView, RegisterStaffView, login_view, csrf_token_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/tareas/', include('tareas.urls')),
     path('api-auth/', include('rest_framework.urls')),
-    path('login/', obtain_auth_token, name='api_token_auth'),
-
+    path('api/login/', login_view, name='api_token_auth'),
+    path('api/register-student/', RegisterStudentView.as_view(), name='register-student'),
+    path('api/register-staff/', RegisterStaffView.as_view(), name='register-staff'),
+    path("api/csrf-cookie/", csrf_token_view, name='csrf-cookie'),
 ]

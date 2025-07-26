@@ -1,3 +1,6 @@
+import json
+from email._header_value_parser import get_token
+
 from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -187,27 +190,41 @@ class EntregaViewSet(viewsets.ModelViewSet):
 
 @api_view(['POST'])
 def login_view(request):
-    email = request.data.get('email')
-    password = request.data.get('password')
+    try:
+        # Usa request.data para DRF (ya parseado a JSON)
+        email = request.data.get('email')
+        password = request.data.get('password')
 
-    print("📨 Login recibido:", email, password)
+        if not email or not password:
+            return Response({'error': 'Email y contraseña requeridos'}, status=400)
 
-    user = authenticate(request, username=email, password=password)
-    if user is not None:
+        # Autenticación segura
+        user = authenticate(request, username=email, password=password)
+
+        if user is None:
+            return Response({'error': 'Credenciales inválidas'}, status=400)
+
+        if not user.is_active:
+            return Response({'error': 'Cuenta desactivada'}, status=400)
+
+        # Verifica si el perfil existe
+        if not hasattr(user, 'profile'):
+            return Response({'error': 'Perfil de usuario no configurado'}, status=400)
+
         login(request, user)
-        print("🔐 LOGIN =>", user.username, user.is_staff, user.is_superuser)
 
-        try:
-            rol = user.profile.rol
-        except Exception as e:
-            rol = "EST"
-            print("⚠️ No se pudo obtener rol:", e)
+        # Respuesta estructurada
+        return Response({
+            'success': True,
+            'email': user.email,
+            'rol': user.profile.rol,  # Asegúrate que 'rol' es el nombre correcto del campo
+            'user_id': user.id
+        })
 
-        return Response({'message': 'Login exitoso', 'rol': rol}, status=200)
-    else:
-        return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
-
-
+    except Exception as e:
+        # Log del error real
+        print(f"Error en login_view: {str(e)}")
+        return Response({'error': 'Error interno del servidor'}, status=500)
 class LogoutAPIView(APIView):
     def post(self, request):
         logout(request)
@@ -216,4 +233,6 @@ class LogoutAPIView(APIView):
 
 @ensure_csrf_cookie
 def csrf_token_view(request):
-    return JsonResponse({'detail': 'CSRF cookie set'})
+    response = JsonResponse({"detail": "CSRF cookie set"})
+    response["X-CSRFToken"] = request.META.get("CSRF_COOKIE", "")
+    return response

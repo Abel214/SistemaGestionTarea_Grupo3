@@ -14,7 +14,7 @@
     "@radix-ui/react-dropdown-menu": "^2.1.15",
     "@types/d3": "^7.4.3",
     "antd": "^5.25.3",
-    "axios": "^1.9.0",
+    "axios": "^1.11.0",
     "d3": "^7.9.0",
     "lucide-react": "^0.516.0",
     "plotly": "^1.0.6",
