@@ -4,24 +4,27 @@
 .dashboard-container {
   display: flex;
   min-height: 100vh;
-  background-color: #f9fafb;
-  font-family: 'Arial, sans-serif';
+  background: linear-gradient(to top, #ffffff, #ffffff, #ffffff, #048ABF);
+  font-family: 'Inter', sans-serif; /* Changed to a more modern font */
 }
 
 /* Sidebar */
 .sidebar {
   width: 280px;
-  background-color: #1e293b;
-  color: white;
+  background-color: #ffffff; /* Changed to white/light background */
+  color: #334155; /* Changed text color for better contrast */
   padding: 20px 0;
   display: flex;
   flex-direction: column;
   position: relative;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
+  border-radius: 12px; /* Added rounded corners */
+  margin: 10px; /* Added margin to make it float */
 }
 
 .sidebar-header {
   padding: 0 20px 20px;
-  border-bottom: 1px solid #334155;
+  border-bottom: 1px solid #e2e8f0; /* Lighter border */
 }
 
 .sidebar-title {
@@ -29,6 +32,7 @@
   align-items: center;
   gap: 12px;
   padding: 10px 0;
+  color: #1e293b; /* Darker title color */
 }
 
 .sidebar-title h1 {
@@ -38,22 +42,29 @@
 }
 
 /* Search Section */
-.sidebar-search {
+.sidebar-search-section {
   padding: 8px 10px;
-  border-bottom: 1px solid #dce0e6;
-  width: 260px;
+  border-bottom: 1px solid #e2e8f0; /* Lighter border */
+  width: 100%; /* Ensure it takes full width of sidebar */
+  box-sizing: border-box; /* Include padding in width */
+}
+
+.sidebar-search {
+  padding: 0; /* Remove padding here as it's in the section */
+  border-bottom: none; /* No border here */
+  width: 100%;
 }
 
 .search-input {
-  width: 94%;
-  padding: 8px 10px;
-  border: 1px solid #475569;
-  border-radius: 6px;
-  background-color: #dce0e6;
-  color: white;
+  width: 100%; /* Full width */
+  padding: 8px 12px;
+  border: 1px solid #cbd5e1; /* Lighter border */
+  border-radius: 8px; /* More rounded corners */
+  background-color: #f1f5f9; /* Light background for input */
+  color: #1e293b; /* Darker text color */
   font-size: 14px;
   outline: none;
-
+  box-sizing: border-box; /* Include padding in width */
 }
 
 .search-input::placeholder {
@@ -61,8 +72,8 @@
 }
 
 .search-input:focus {
-  border-color: #1e40af;
-  box-shadow: 0 0 0 2px rgba(30, 64, 175, 0.2);
+  border-color: #3b82f6; /* Blue focus color */
+  box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 
 .sidebar-nav {
@@ -78,28 +89,32 @@
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  border-radius: 6px;
-  color: #e2e8f0;
+  border-radius: 8px; /* More rounded corners */
+  color: #475569; /* Darker grey for inactive items */
   background: transparent;
   border: none;
   cursor: pointer;
   transition: all 0.2s;
-  font-size: 14px;
+  font-size: 15px; /* Slightly larger font */
   text-align: left;
+  font-weight: 500; /* Slightly bolder */
 }
 
 .sidebar-nav-item:hover {
-  background-color: #334155;
+  background-color: #f1f5f9; /* Light hover background */
+  color: #1e293b; /* Darker text on hover */
 }
 
 .sidebar-nav-item.active {
-  background-color: #1e40af;
+  background-color: #0077B6; /* Blue active background */
+  color: white; /* White text for active item */
+  box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2); /* Subtle shadow for active item */
 }
 
 /* Sidebar Bottom */
 .sidebar-bottom {
   padding: 20px;
-  border-top: 1px solid #334155;
+  border-top: 1px solid #e2e8f0; /* Lighter border */
   margin-top: auto;
 }
 
@@ -116,7 +131,7 @@
   justify-content: space-between;
   align-items: flex-start;
   padding: 24px;
-  background-color: white;
+  background-color: transparent;
   border-bottom: 1px solid #e2e8f0;
 }
 
@@ -129,7 +144,7 @@
 .main-title {
   font-size: 24px;
   font-weight: 600;
-  color: #1e293b;
+  color: #f4f8fc;
   margin: 0;
 }
 
@@ -142,7 +157,7 @@
 .welcome-title {
   font-size: 18px;
   font-weight: 500;
-  color: #334155;
+  color: #f4f8fc;
   margin: 0;
 }
 
@@ -206,16 +221,16 @@
 .user-name {
   font-size: 14px;
   font-weight: 500;
-  color: #1e293b;
+  color: #f4f8fc;
 }
 
 .user-email {
   font-size: 12px;
-  color: #64748b;
+  color: #d1d9e3;
 }
 
 .dropdown-icon {
-  color: #64748b;
+  color: #647748b;
 }
 
 /* Content area */
@@ -226,17 +241,17 @@
 
 /* Subject Cards */
 .subjects-section {
-  background-color: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  padding: 30px;
+  background-color: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0;
   margin-bottom: 24px;
 }
 
 .subjects-section h2 {
   margin: 0 0 25px 0;
   font-size: 22px;
-  color: #2c3e50;
+  color: #f4f8fc;
   font-weight: 600;
 }
 
@@ -367,7 +382,7 @@
   display: block;
   margin-bottom: 8px;
   font-weight: 500;
-  color: #374151;
+  color: #0054dc;
 }
 
 .form-input, .form-select {
@@ -628,6 +643,8 @@
   .sidebar {
     width: 100%;
     height: auto;
+    margin: 0; /* Remove margin on small screens */
+    border-radius: 0; /* Remove border-radius on small screens */
   }
 
   .dashboard-header {
@@ -1145,4 +1162,3 @@
   background-color: #2d5016;
   color: white;
 }
-

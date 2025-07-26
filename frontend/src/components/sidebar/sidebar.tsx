@@ -29,7 +29,7 @@ export const getDashboardConfig = (userType) => {
     student: {
       title: 'Panel del Estudiante',
       menuItems: [
-        { id: 'dashboard', label: 'Dashboard', icon: Home },
+        { id: 'dashboard', label: 'Area Personal', icon: Home },
         { id: 'assignments', label: 'Tareas', icon: CheckSquare },
         { id: 'grades', label: 'Mis Calificaciones', icon: FileText },
         { id: 'messages', label: 'Mensajes', icon: MessageCircle },

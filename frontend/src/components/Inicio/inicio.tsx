@@ -1,3 +1,4 @@
+// @ts-ignore
 import React, { useState } from 'react';
 import { User, ChevronDown, Search } from 'lucide-react';
 import { getDashboardConfig } from '../sidebar/sidebar';
@@ -118,7 +119,7 @@ const DashboardPanel = ({
             <div className="user-profile">
               
               <div className="user-info">
-                <span className="user-name">{userName}</span>
+                  <span className="user-name">{userName}</span>
                 <span className="user-email">{userEmail}</span>
               </div>
                <MenuDesplegable />
