@@ -289,8 +289,7 @@ const CiclosManager: React.FC = () => {
                                                 ciclo={currentCiclo}
                                                 onClose={() => setEditModal(false)}
                                                 onChange={handleChangeCiclo}
-                                                onSave={handleSaveChanges}
-                                            />
+                                                onSave={handleSaveChanges} paralelos={undefined}                                            />
                                         </div>
                                     </td>
                                 </tr>

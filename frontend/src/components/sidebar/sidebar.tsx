@@ -44,6 +44,7 @@ export const getDashboardConfig = (userType) => {
         { id: 'subjects', label: 'Asignaturas', icon: Book },
         { id: 'parallels', label: 'Paralelos', icon: FileText },
         { id: 'cicles', label: 'Ciclos', icon: Layers },
+          {id: 'periods',label: 'Periodos', icon:Layers}
       ],
        bottomItems: [
         { id: 'settings', label: 'Configuración', icon: Settings },

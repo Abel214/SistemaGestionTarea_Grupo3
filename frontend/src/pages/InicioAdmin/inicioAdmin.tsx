@@ -59,11 +59,6 @@ const AdminInterface: React.FC = () => {
     useEffect(() => {
         const fetchUsers = async () => {
 
-            if (!user) {
-                navigate('/login');
-                return;
-            }
-
             try {
                 await axios.get('http://localhost:8000/api/tareas/csrf-cookie/', {withCredentials: true}).catch(() => {
                 });
