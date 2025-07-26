@@ -60,27 +60,26 @@ const AdminInterface: React.FC = () => {
         const fetchUsers = async () => {
 
             try {
-                await axios.get('http://localhost:8000/api/tareas/csrf-cookie/', {withCredentials: true}).catch(() => {
-                });
-                const res = await axios.get('http://localhost:8000/api/tareas/users/', {
-                    withCredentials: true
-                });
+      await axios.get('http://localhost:8000/api/tareas/csrf-cookie/', {withCredentials: true});
+      const res = await axios.get('http://localhost:8000/api/tareas/users/', {
+        withCredentials: true
+      });
 
-                    const formatted: UIUser[] = res.data.map((u: any) => ({
-                        id: u.id,
-                        name: u.nombre,
-                        lastname: u.apellido,
-                        email: u.correo,
-                        role: u.rol,
-                        status: '-',      // no vienen en tu serializer
-                        phone: '-',       // idem
-                        birthdate: '-'    // idem
-                    }));
-                    setUsers(formatted);
-                } catch (e) {
-                    console.error('Error al cargar usuarios:', e);
-                }
-            };
+      const formatted: UIUser[] = res.data.map((u: any) => ({
+        id: u.id,
+        name: u.nombre,
+        lastname: u.apellido,
+        email: u.correo,
+        role: u.rol,
+        status: '-',
+        phone: '-',
+        birthdate: '-'
+      }));
+      setUsers(formatted);
+    } catch (e) {
+      console.error('Error al cargar usuarios:', e);
+    }
+  };
 
             fetchUsers();
         }, []);
@@ -110,7 +109,7 @@ const AdminInterface: React.FC = () => {
             setEditModal({isOpen: true, user: {...user}});
         };
 
-        const handleCloseEditModal = () => setEditModal({isOpen: false, user: null});
+        const handleCloseEditModal = () => setEditModal({isOpen: false});
 
         const handleInputChange = (field: string, value: string) => {
             setEditModal(prev => ({
@@ -374,7 +373,7 @@ const AdminInterface: React.FC = () => {
                     <ModalEditarUsuario
                         isOpen={editModal.isOpen}
                         user={editModal.user}
-                        onClose={handleCloseEditModal}
+                        onClose={() => setAddModal(false)}
                         onChange={handleInputChange}
                         onSave={() => {
                             console.log('Cambios guardados:', editModal.user);

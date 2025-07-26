@@ -1,22 +1,84 @@
 // components/modals/ModalEditarUsuario.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   User, X, Mail, UserCheck,
   GraduationCap, Phone, Calendar, Save
 } from 'lucide-react';
 import axios from 'axios';
+
 const ModalEditarUsuario = ({ isOpen, user, onClose, onChange, onSave }) => {
+  // Función mejorada para cerrar el modal
+  const handleClose = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    console.log('Cerrando modal...'); // Para debug
+    onClose();
+  };
+
+  // Manejar click en el overlay
+  const handleOverlayClick = (e) => {
+    // Solo cerrar si se hace click en el overlay, no en el contenido del modal
+    if (e.target === e.currentTarget) {
+      handleClose(e);
+    }
+  };
+
+  // Manejar el guardado
+  const handleSave = (e) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    onSave();
+  };
+
+  // Manejar tecla Escape y prevenir scroll del body
+  useEffect(() => {
+    const handleEscape = (e) => {
+      if (e.key === 'Escape' && isOpen) {
+        handleClose(e);
+      }
+    };
+
+    if (isOpen) {
+      document.addEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'hidden'; // Prevenir scroll
+    }
+
+    return () => {
+      document.removeEventListener('keydown', handleEscape);
+      document.body.style.overflow = 'unset';
+    };
+  }, [isOpen]);
+
+  // Prevenir renderizado si no está visible
   if (!isOpen) return null;
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-container">
+    <div className="modal-overlay" onClick={handleOverlayClick}>
+      <div className="modal-container" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header">
           <h2 className="modal-title">
-            <User className="w-5 h-5" /> Editar Usuario
+            <User className="w-5 h-5"/> Editar Usuario
           </h2>
-          <button className="modal-close-btn" onClick={onClose}>
-            <X className="w-5 h-5" />
+          <button
+              type="button"
+              className="modal-close-btn"
+              onClick={handleClose}
+              aria-label="Cerrar modal"
+              style={{
+                background: 'none',
+                border: 'none',
+                cursor: 'pointer',
+                padding: '4px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+              }}
+          >
+            <X className="w-5 h-5"/>
           </button>
         </div>
 
@@ -26,13 +88,13 @@ const ModalEditarUsuario = ({ isOpen, user, onClose, onChange, onSave }) => {
             <div className="form-row">
               <div className="form-group">
                 <label className="form-label">
-                  <User className="w-4 h-4" /> Nombre
+                  <User className="w-4 h-4"/> Nombre
                 </label>
                 <input
-                  type="text"
-                  className="form-input"
-                  value={user?.name || ''}
-                  onChange={(e) => onChange('name', e.target.value)}
+                    type="text"
+                    className="form-input"
+                    value={user?.name || ''}
+                    onChange={(e) => onChange('name', e.target.value)}
                   placeholder="Ingrese el nombre"
                 />
               </div>
@@ -132,10 +194,18 @@ const ModalEditarUsuario = ({ isOpen, user, onClose, onChange, onSave }) => {
         </div>
 
         <div className="modal-footer">
-          <button className="secondary-button" onClick={onClose}>
+          <button
+            type="button"
+            className="secondary-button"
+            onClick={handleClose}
+          >
             Cancelar
           </button>
-          <button className="primary-button save-btn" onClick={onSave}>
+          <button
+            type="button"
+            className="primary-button save-btn"
+            onClick={handleSave}
+          >
             <Save className="w-4 h-4" />
             Guardar Cambios
           </button>

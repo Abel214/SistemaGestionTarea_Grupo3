@@ -91,14 +91,62 @@ export const authService = {
   },
 
 
+async registerStaff(userData) {
+  try {
+    console.group('👨‍💼 Registro de nuevo staff');
 
-  async registerStaff(userData) {
-    try {
-      await this.getCsrfToken();
-      const response = await api.post('register-staff/', userData);
-      return response.data;
-    } catch (error) {
-      throw error.response?.data || error;
+    // 1. Obtener token CSRF
+    const csrfToken = await this.getCsrfToken();
+
+    // 2. Preparar datos para coincidir con el backend
+    const formattedData = {
+      nombre: userData.name,
+      apellido: userData.lastname,
+      dni: userData.dni,
+      correo: userData.email,
+      contraseña: userData.password,
+      rol: userData.role
+    };
+
+    // 3. Configurar headers
+    const config = {
+      headers: {
+        'X-CSRFToken': csrfToken,
+        'Content-Type': 'application/json'
+      },
+      withCredentials: true
+    };
+
+    // 4. Enviar solicitud
+    console.log('Enviando datos de registro:', formattedData);
+    const response = await api.post('register-staff/', formattedData, config);
+
+    // 5. Validar respuesta
+    if (!response.data.success) {
+      throw new Error(response.data.errors || 'Error al registrar usuario');
     }
+
+    console.groupEnd();
+    return {
+      success: true,
+      data: response.data.data
+    };
+
+  } catch (error) {
+    console.groupEnd();
+    console.error('Error en registerStaff:', {
+      status: error.response?.status,
+      data: error.response?.data,
+      message: error.message
+    });
+
+    return {
+      success: false,
+      error: error.response?.data?.errors ||
+            error.response?.data?.error ||
+            error.message ||
+            'Error desconocido durante el registro'
+    };
   }
+}
 };
