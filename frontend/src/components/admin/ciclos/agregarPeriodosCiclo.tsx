@@ -23,7 +23,7 @@ const ModalAgregarPeriodo: React.FC<Props> = ({ isOpen, onClose, onSaved }) => {
     if (!isOpen) return;
     const fetchCiclos = async () => {
       try {
-        const res = await axios.get<Ciclo[]>('http://127.0.0.1:8000/api/tareas/ciclos/', {
+        const res = await axios.get<Ciclo[]>('http://localhost:8000/api/tareas/ciclos/', {
           withCredentials: true,
         });
         setCiclos(res.data);
@@ -46,7 +46,7 @@ const ModalAgregarPeriodo: React.FC<Props> = ({ isOpen, onClose, onSaved }) => {
     try {
       const csrf = getCookie('csrftoken');
       await axios.post(
-        'http://127.0.0.1:8000/api/tareas/periodos/',
+        'http://localhost:8000/api/tareas/periodos/',
         {
           ciclo: Number(form.ciclo),
           periodo_inicio: form.periodo_inicio,

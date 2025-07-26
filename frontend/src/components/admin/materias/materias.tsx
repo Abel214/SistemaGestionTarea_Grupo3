@@ -31,7 +31,7 @@ type Periodo = {
     periodo_fin: string;
 };
 
-const API = 'http://127.0.0.1:8000/api/tareas';
+const API = 'http://localhost:8000/api/tareas';
 
 const AsignaturasManager: React.FC = () => {
     const [searchQuery, setSearchQuery] = useState('');

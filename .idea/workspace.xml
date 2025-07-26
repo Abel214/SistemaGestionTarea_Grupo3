@@ -5,25 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d4402ec4-b756-4d28-af95-f113d9b79cd4" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/agregarPeriodosCiclo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/editarPeriodo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/periodoCiclo.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/utils/cookies.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/gestion_tareas/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/gestion_tareas/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/tareas/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tareas/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/tareas/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tareas/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/tareas/signals.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tareas/signals.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/tareas/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tareas/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/tareas/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tareas/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/Usuarios/agregarUsuario.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/Usuarios/agregarUsuario.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/agregarCiclo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/agregarCiclo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/agregarPeriodosCiclo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/agregarPeriodosCiclo.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/ciclos.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/ciclos.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/periodoCiclo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/periodoCiclo.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/materias/agregarMateria.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/materias/agregarMateria.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/materias/materias.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/materias/materias.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/menuDesplegable/menu.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/menuDesplegable/menu.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/sidebar/sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/sidebar/sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/context/AuthContext.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/InicioAdmin/inicioAdmin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/InicioAdmin/inicioAdmin.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/Login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Login/Login.tsx" afterDir="false" />
     </list>
@@ -60,7 +53,7 @@
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;feature/fix&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Usuario iTC/Sport22/SistemaGestionTarea_Grupo3/frontend/src/utils&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Usuario iTC/PycharmProjects/flask-proyect-v2&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -98,6 +91,9 @@
       <workItem from="1753211082287" duration="3787000" />
       <workItem from="1753215066633" duration="11133000" />
       <workItem from="1753227124733" duration="3943000" />
+      <workItem from="1753255245771" duration="118000" />
+      <workItem from="1753541901429" duration="6999000" />
+      <workItem from="1753549327216" duration="1986000" />
     </task>
     <servers />
   </component>

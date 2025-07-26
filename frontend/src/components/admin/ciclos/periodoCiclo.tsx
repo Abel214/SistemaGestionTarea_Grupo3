@@ -21,11 +21,11 @@ const PeriodosManager: React.FC = () => {
         try {
             setLoading(true);
             // Asegura la cookie CSRF y sesión
-            await axios.get('http://127.0.0.1:8000/api/tareas/csrf-cookie/', {withCredentials: true}).catch(() => {
+            await axios.get('http://localhost:8000/api/tareas/csrf-cookie/', {withCredentials: true}).catch(() => {
             });
             const [pRes, cRes] = await Promise.all([
-                axios.get('http://127.0.0.1:8000/api/tareas/periodos/', {withCredentials: true}),
-                axios.get('http://127.0.0.1:8000/api/tareas/ciclos/', {withCredentials: true})
+                axios.get('http://localhost:8000/api/tareas/periodos/', {withCredentials: true}),
+                axios.get('http://localhost:8000/api/tareas/ciclos/', {withCredentials: true})
             ]);
             setPeriodos(pRes.data);
             setCiclos(cRes.data);
@@ -44,7 +44,7 @@ const PeriodosManager: React.FC = () => {
         try {
             const csrf = getCookie('csrftoken') ?? '';
             await axios.post(
-                'http://127.0.0.1:8000/api/tareas/periodos/',
+                'http://localhost:8000/api/tareas/periodos/',
                 {
                     ciclo: Number(nuevo.ciclo),
                     periodo_inicio: nuevo.inicio,

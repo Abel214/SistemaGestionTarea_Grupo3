@@ -6,6 +6,8 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from .models import UsuarioProfile
 from django.views.decorators.csrf import ensure_csrf_cookie
+from django.http import JsonResponse
+from rest_framework.decorators import api_view
 
 from .serializers import UserProfileSerializer, UserRegistrationSerializer, StaffRegistrationSerializer, \
     PasswordRecoverySerializer
@@ -42,7 +44,7 @@ class RegisterStudentView(APIView):
 
 class RegisterStaffView(APIView):
     """Permite al adminsitrador registrar usuarios"""
-    authentication_classes = [BasicAuthentication]
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
     def post(self, request, format=None):
@@ -83,7 +85,7 @@ class UserProfileViewSet(
     """
     queryset = UsuarioProfile.objects.select_related('user').all()
     serializer_class = UserProfileSerializer
-    authentication_classes = [BasicAuthentication]
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
     def destroy(self, request, *args, **kwargs):
@@ -123,21 +125,21 @@ class PasswordRecoveryView(APIView):
 class CicloViewSet(viewsets.ModelViewSet):
     queryset = Ciclo.objects.all()
     serializer_class = CicloSerializer
-    authentication_classes = [BasicAuthentication]
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
 
 class PeriodoCicloViewSet(viewsets.ModelViewSet):
     queryset = PeriodoCiclo.objects.all()
     serializer_class = PeriodoCicloSerializer
-    authentication_classes = [BasicAuthentication]
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
 
 class AsignaturaViewSet(viewsets.ModelViewSet):
     queryset = Asignatura.objects.all()
     serializer_class = AsignaturaSerializer
-    authentication_classes = [BasicAuthentication]
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
 
@@ -183,24 +185,27 @@ class EntregaViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAdminUser]
 
 
-class LoginAPIView(APIView):
-    authentication_classes = []
-    permission_classes = []
+@api_view(['POST'])
+def login_view(request):
+    email = request.data.get('email')
+    password = request.data.get('password')
 
-    def post(self, request):
-        user = authenticate(
-            username=request.data.get('username'),  # 👈 corregido
-            password=request.data.get('password'),
-        )
-        if user and user.is_active:
-            login(request, user)
-            return Response({
-                'detail': 'ok',
-                'email': user.email,
-                'rol': user.profile.rol
-            })
-        return Response({'detail': 'credenciales inválidas'},
-                        status=status.HTTP_401_UNAUTHORIZED)
+    print("📨 Login recibido:", email, password)
+
+    user = authenticate(request, username=email, password=password)
+    if user is not None:
+        login(request, user)
+        print("🔐 LOGIN =>", user.username, user.is_staff, user.is_superuser)
+
+        try:
+            rol = user.profile.rol
+        except Exception as e:
+            rol = "EST"
+            print("⚠️ No se pudo obtener rol:", e)
+
+        return Response({'message': 'Login exitoso', 'rol': rol}, status=200)
+    else:
+        return Response({'error': 'Credenciales inválidas'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class LogoutAPIView(APIView):

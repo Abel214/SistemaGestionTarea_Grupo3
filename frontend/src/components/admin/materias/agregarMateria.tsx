@@ -46,7 +46,7 @@ const ModalAgregarAsignatura: React.FC<Props> = ({isOpen, onClose, onCreated}) =
 
         const loadPeriodos = async () => {
             try {
-                const res = await axios.get('http://127.0.0.1:8000/api/tareas/periodos/', {
+                const res = await axios.get('http://localhost:8000/api/tareas/periodos/', {
                     withCredentials: true,
                     headers: {'X-CSRFToken': getCookie('csrftoken') ?? ''},
                 });
@@ -81,7 +81,7 @@ const ModalAgregarAsignatura: React.FC<Props> = ({isOpen, onClose, onCreated}) =
 
         try {
             setSaving(true);
-            await axios.post('http://127.0.0.1:8000/api/tareas/asignaturas/', payload, {
+            await axios.post('http://localhost:8000/api/tareas/asignaturas/', payload, {
                 withCredentials: true,
                 headers: {'X-CSRFToken': getCookie('csrftoken') ?? ''},
             });

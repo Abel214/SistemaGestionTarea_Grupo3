@@ -18,6 +18,7 @@ import Asignaturas from '../../components/admin/materias/materias';
 import Paralelos from '../../components/admin/Paralelos/paralelo';
 import Ciclos from '../../components/admin/Ciclos/ciclos';
 import PeriodosManager from '../../components/admin/Ciclos/periodoCiclo';
+import {useAuth} from '../../context/AuthContext';
 
 type UIUser = {
     id: number;
@@ -30,8 +31,9 @@ type UIUser = {
     birthdate?: string;
 };
 
-    const AdminInterface: React.FC = () => {
-        const navigate = useNavigate();
+const AdminInterface: React.FC = () => {
+    const navigate = useNavigate();
+    const {user} = useAuth();
 
         const [activeMenuItem, setActiveMenuItem] = useState<'users' | 'subjects' | 'parallels' | 'cicles' | 'periods' | 'settings'>('users');
         const [searchQuery, setSearchQuery] = useState('');
@@ -54,14 +56,20 @@ type UIUser = {
             navigate('/');
         };
 
-        useEffect(() => {
-            const fetchUsers = async () => {
-                try {
-                    await axios.get('http://127.0.0.1:8000/api/tareas/csrf-cookie/', {withCredentials: true}).catch(() => {
-                    });
-                    const res = await axios.get('http://127.0.0.1:8000/api/tareas/users/', {
-                        withCredentials: true
-                    });
+    useEffect(() => {
+        const fetchUsers = async () => {
+
+            if (!user) {
+                navigate('/login');
+                return;
+            }
+
+            try {
+                await axios.get('http://localhost:8000/api/tareas/csrf-cookie/', {withCredentials: true}).catch(() => {
+                });
+                const res = await axios.get('http://localhost:8000/api/tareas/users/', {
+                    withCredentials: true
+                });
 
                     const formatted: UIUser[] = res.data.map((u: any) => ({
                         id: u.id,

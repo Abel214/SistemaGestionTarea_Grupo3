@@ -13,8 +13,28 @@ function Login() {
     const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const {login} = useAuth();
+    const {login, user} = useAuth();  // Asegúrate de que `useAuth` devuelve `user`
     const [messageApi, contextHolder] = message.useMessage();
+
+    // Redirigir si ya hay usuario autenticado
+    useEffect(() => {
+        if (user) {
+            const role = user.role;
+            switch (role) {
+                case 'ADM':
+                    navigate('/admin');
+                    break;
+                case 'DOC':
+                    navigate('/docente');
+                    break;
+                case 'EST':
+                    navigate('/estudiante');
+                    break;
+                default:
+                    navigate('/');
+            }
+        }
+    }, [user, navigate]);
 
     useEffect(() => {
         document.body.style.paddingTop = '0';
@@ -34,12 +54,8 @@ function Login() {
                 'X-CSRFToken': csrfToken ?? ''
             },
             credentials: 'include',
-            body: JSON.stringify({
-                username: email, // o el campo correcto que estés usando
-                password: password
-            })
+            body: JSON.stringify({email, password})
         });
-
 
         if (!response.ok) {
             const errorData = await response.json();
@@ -49,10 +65,10 @@ function Login() {
         const data = await response.json();
 
         return {
-            token: 'no-token', // puedes reemplazar por el real si usas JWT o token
+            token: 'session-based',
             user: {
                 email,
-                role: data.rol || 'estudiante' // ajustar según lo que devuelva el backend
+                role: data.rol || 'EST'
             }
         };
     };
@@ -61,34 +77,16 @@ function Login() {
         try {
             setLoading(true);
             const data = await realLogin(values.email, values.password);
-
-            login(data);
+            login(data);  // ✅ ya maneja almacenamiento y contexto
             messageApi.success('¡Inicio de sesión exitoso!');
-
-            switch (data.user.role) {
-                case 'ADM':
-                    navigate('/admin');
-                    break;
-                case 'DOC':
-                    navigate('/docente');
-                    break;
-                case 'EST':
-                    navigate('/estudiante');
-                    break;
-                default:
-                    navigate('/');
-            }
         } catch (error: any) {
             console.error('Login error:', error);
-            messageApi.error(error.message || 'Ocurrió un error al conectar con el servidor. Intente nuevamente más tarde.');
+            messageApi.error(error.message || 'Error al conectar con el servidor');
         } finally {
             setLoading(false);
         }
     };
 
-    const handleGoBack = () => {
-        navigate('/');
-    };
 
     return (
         <>

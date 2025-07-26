@@ -52,7 +52,7 @@ const ModalAgregarCiclo: React.FC<ModalAgregarCicloProps> = ({
             const csrfToken = getCookie('csrftoken');
 
             await axios.post(
-                'http://127.0.0.1:8000/api/tareas/ciclos/',
+                'http://localhost:8000/api/tareas/ciclos/',
                 {
                     codigo: form.codigo.trim(),
                     numero: Number(form.numero),

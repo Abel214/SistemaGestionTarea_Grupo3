@@ -4,7 +4,7 @@ from django.urls import path, include
 from rest_framework.authtoken.views import obtain_auth_token
 from rest_framework.routers import DefaultRouter
 
-from tareas.views import RegisterStudentView, RegisterStaffView, UserProfileViewSet, PasswordRecoveryView, LoginAPIView, \
+from tareas.views import RegisterStudentView, RegisterStaffView, UserProfileViewSet, PasswordRecoveryView, login_view, \
     LogoutAPIView
 
 from tareas.views import CicloViewSet, PeriodoCicloViewSet, AsignaturaViewSet, ParaleloViewSet, \
@@ -26,7 +26,7 @@ router.register(r'tareas', TareaViewSet)
 router.register(r'entregas', EntregaViewSet)
 
 urlpatterns = [
-    path('login/', LoginAPIView.as_view(), name='login'),
+    path('login/', login_view, name='login'),
     path("csrf-cookie/", csrf_token_view, name='csrf-cookie'),
     path('logout/', LogoutAPIView.as_view(), name='logout'),
     path('register-student/', RegisterStudentView.as_view(), name='register-student'),

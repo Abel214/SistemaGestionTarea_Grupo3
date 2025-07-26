@@ -16,7 +16,7 @@ SECRET_KEY = 'django-insecure--*%(l33_eh1-&jr@!=rsa4#k)!_lxxi%77md%q7ovk4a08&io^
 DEBUG = True
 
 # Hosts permitidos
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', "http://localhost:5173/"]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Apps instaladas
 INSTALLED_APPS = [
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     # CORS debe ir primero
     'corsheaders.middleware.CorsMiddleware',
-
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -103,10 +102,13 @@ STATIC_URL = 'static/'
 # Default auto field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# CORS (para tu React corriendo en localhost:3000)
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
-    'http://localhost:3000',
+    'http://localhost:8000',  # Opcional si haces peticiones desde el mismo backend
+]
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
 ]
 
 REST_FRAMEWORK = {
@@ -115,6 +117,11 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
     ],
 }
+
+SESSION_COOKIE_SAMESITE = None
+SESSION_COOKIE_SECURE = False
+
+CSRF_COOKIE_SAMESITE = None
+CSRF_COOKIE_SECURE = False

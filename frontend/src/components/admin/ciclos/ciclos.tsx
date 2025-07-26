@@ -34,7 +34,7 @@ const CiclosManager: React.FC = () => {
         const fetchCiclos = async () => {
             try {
                 const csrf = getCookie('csrftoken'); // no hace falta para GET, pero no molesta
-                const res = await axios.get<Ciclo[]>('http://127.0.0.1:8000/api/tareas/ciclos/', {
+                const res = await axios.get<Ciclo[]>('http://localhost:8000/api/tareas/ciclos/', {
                     withCredentials: true,
                     headers: {
                         'Content-Type': 'application/json',
@@ -94,7 +94,7 @@ const CiclosManager: React.FC = () => {
         try {
             const csrf = getCookie('csrftoken');
             await axios.put(
-                `http://127.0.0.1:8000/api/tareas/ciclos/${currentCiclo.id}/`,
+                `http://localhost:8000/api/tareas/ciclos/${currentCiclo.id}/`,
                 currentCiclo,
                 {
                     withCredentials: true,
@@ -115,7 +115,7 @@ const CiclosManager: React.FC = () => {
     const handleDeleteCiclo = async (ciclo: Ciclo) => {
         try {
             const csrf = getCookie('csrftoken');
-            await axios.delete(`http://127.0.0.1:8000/api/tareas/ciclos/${ciclo.id}/`, {
+            await axios.delete(`http://localhost:8000/api/tareas/ciclos/${ciclo.id}/`, {
                 withCredentials: true,
                 headers: {
                     'X-CSRFToken': csrf ?? '',
@@ -132,7 +132,7 @@ const CiclosManager: React.FC = () => {
         try {
             const csrf = getCookie('csrftoken');
             const res = await axios.post<Ciclo>(
-                'http://127.0.0.1:8000/api/tareas/ciclos/',
+                'http://localhost:8000/api/tareas/ciclos/',
                 newCiclo,
                 {
                     withCredentials: true,
