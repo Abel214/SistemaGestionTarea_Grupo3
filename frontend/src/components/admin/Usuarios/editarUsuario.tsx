@@ -1,10 +1,10 @@
 // components/modals/ModalEditarUsuario.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import {
   User, X, Mail, UserCheck,
   GraduationCap, Phone, Calendar, Save
 } from 'lucide-react';
-
+import axios from 'axios';
 const ModalEditarUsuario = ({ isOpen, user, onClose, onChange, onSave }) => {
   if (!isOpen) return null;
 

@@ -19,6 +19,7 @@ const ProfileDropdown = () => {
             <User className="w-5 h-5" />
           </div>
           <ChevronDown className="w-4 h-4" />
+ 
         </button>
       </DropdownMenu.Trigger>
 

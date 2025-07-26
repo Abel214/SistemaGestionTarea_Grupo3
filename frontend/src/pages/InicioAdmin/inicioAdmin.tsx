@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import {
   Search, User, Plus, ChevronDown, ChevronUp, Pencil,
@@ -25,7 +26,7 @@ const AdminInterface = () => {
   const [addModal, setAddModal] = useState(false);
   const [newUser, setNewUser] = useState({
     name: '', lastname: '', email: '', role: '',
-    status: '', phone: '', birthdate: ''
+    dni: '', password: ''
   });
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
   const [editModal, setEditModal] = useState({ isOpen: false, user: null });
@@ -36,6 +37,10 @@ const AdminInterface = () => {
   navigate('/');
 };
 
+const handleSaveUser = (newUser) => {
+  console.log("Nuevo usuario a guardar:", newUser);
+  setUsers([...users, newUser]); // Actualizar lista
+};
   const users = [
     { id: 1, name: 'Abel Alejandro', lastname: 'Mora Lopez', email: 'abel@uni.com', role: 'Estudiante', status: 2, phone: '0000000000', birthdate: '0000-00-00' },
     { id: 2, name: 'Alyce', lastname: 'Smith', email: 'alyce@uni.com', role: 'Estudiante', status: 3 },
