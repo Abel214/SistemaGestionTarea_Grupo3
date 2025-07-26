@@ -1,13 +1,14 @@
 import React from 'react';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+import {Book, CheckSquare, FileText, Users} from "lucide-react";
 
-const SubjectCard = ({ subject, isStudent, imagen }) => {
+const SubjectCardDocente = ({ subject, isStudent,imagen }) => {
   const navigate = useNavigate();
 
-  const handleButtonClick = () => {
+   const handleButtonClick = () => {
     // Solo los estudiantes pueden navegar a /materia
     if (!isStudent) {
-      navigate(`/materia`);
+      navigate(`/materiaDocente`);
     }
   };
 
@@ -49,11 +50,11 @@ const SubjectCard = ({ subject, isStudent, imagen }) => {
           onClick={handleButtonClick}
           disabled={isStudent} // Opcional: deshabilitar el botón para profesores
         >
-          Ir a Materia
+          Gestionar Materia
         </button>
       </div>
     </div>
   );
 };
 
-export default SubjectCard;
+export default SubjectCardDocente;

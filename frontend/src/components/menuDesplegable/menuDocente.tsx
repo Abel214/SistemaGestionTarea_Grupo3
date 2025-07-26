@@ -19,7 +19,6 @@ const ProfileDropdown = () => {
             <User className="w-5 h-5" />
           </div>
           <ChevronDown className="w-4 h-4" />
- 
         </button>
       </DropdownMenu.Trigger>
 
@@ -31,7 +30,7 @@ const ProfileDropdown = () => {
         >
           <DropdownMenu.Item
             className="dropdown-item"
-            onClick={() => navigate('/admin')}
+            onClick={() => navigate('/docente')}
           >
             Página Principal
           </DropdownMenu.Item>

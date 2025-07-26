@@ -130,7 +130,7 @@ const CiclosManager = () => {
                 onChange={(e) => setSearchQuery(e.target.value)}
               />
             </div>
-            <button className="primary-button add-user-button" onClick={() => setAddModal(true)}>
+            <button className="primary-button add-user-button" >onClick={() => setAddModal(true)}
               <Plus className="w-4 h-4"/> Agregar Ciclo
             </button>
             <ModalAgregarCiclo

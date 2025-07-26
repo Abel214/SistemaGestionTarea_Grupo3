@@ -2,10 +2,15 @@ import React, { useState } from 'react';
 import { User, ChevronDown, Search } from 'lucide-react';
 import { getDashboardConfig } from '../sidebar/sidebar';
 import SubjectCard from './cardMateria/cardMateria';
+import MateriaDocente from '../docente/docenteCardMateria/docenteCardMateria';
 import './inicio.css';
 import { useNavigate } from 'react-router-dom';
+import MenuDesplegableDocente from "../menuDesplegable/menuDocente";
+import MenuDesplegableEstudiante from "../menuDesplegable/menuEstudiante";
 import MenuDesplegable from "../menuDesplegable/menu";
-
+import DocenteParalelos from "../docente/Paralelos/paralelos";
+import DocenteMateria from "../docente/docenteMateria";
+import PerfilDocente from "../docente/acercaDe/acercaDe";
 const DashboardPanel = ({
   userType = '',
   userName = 'Alyce Maldonado',
@@ -16,7 +21,7 @@ const DashboardPanel = ({
   grades = [],
   subjects = []
 }) => {
-  const [selectedSection, setSelectedSection] = useState('dashboard');
+  const [selectedSection, setSelectedSection] = useState('profiles');
   const [assignmentName, setAssignmentName] = useState('');
   const [selectedSubject, setSelectedSubject] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
@@ -37,7 +42,34 @@ const DashboardPanel = ({
   const handleSearchClick = () => {
     setShowSearch(!showSearch);
   };
-
+  const docenteEjemplo = {
+  foto: '/ruta/a/foto.jpg',
+  titulo: 'DOCENTE INVESTIGADOR CIS-UNL',
+  nombre: 'Dr. Juan Pérez',
+  institucion: 'Universidad Nacional de Loja',
+  departamento: 'Carrera de Computación',
+  ubicacion: 'Loja, Ecuador',
+  email: 'j.perez@unl.edu.ec',
+  descripcion: 'Profesor e investigador especializado en sistemas distribuidos...',
+  experiencia: [
+    {
+      periodo: '2008 - actual',
+      institucion: 'Universidad Nacional de Loja',
+      departamento: 'Carrera Computación, FERNNR',
+      cargo: 'Docente Investigador'
+    },
+    // Más experiencias...
+  ],
+  asignaturas: [
+    {
+      nombre: 'Sistemas Distribuidos',
+      codigo: 'CS-505',
+      ciclo: 'Quinto Ciclo',
+      horario: 'Lunes 08:00-10:00'
+    },
+    // Más asignaturas...
+  ]
+};
   return (
     <div className="dashboard-container">
       {/* Sidebar */}
@@ -52,7 +84,6 @@ const DashboardPanel = ({
                       ? 'Estudiante'
                       : 'Administrador'}
             </h1>
-
 
           </div>
 
@@ -121,14 +152,24 @@ const DashboardPanel = ({
                 <span className="user-name">{userName}</span>
                 <span className="user-email">{userEmail}</span>
               </div>
-               <MenuDesplegable />
+              {userType === 'teacher' || userType === 'docenteMateria' ? (
+                <MenuDesplegableDocente />
+                ) : userType === 'student' || userType === 'studentMateria' ? (
+                <MenuDesplegableEstudiante />
+                 ) : (
+                  <MenuDesplegable /> // Opcional: un menú por defecto para otros roles como administrador
+                  )}
             </div>
           </div>
         </header>
 
         {/* Content Area */}
         <div className="content-area">
-          {/* Dashboard principal */}
+          {selectedSection === 'dashboardDocente' && (
+          <PerfilDocente docente={docenteEjemplo} />
+          )}
+
+         {/* Dashboard principal */}
           {selectedSection === 'dashboard' && (
             <div>
               <div className="subjects-section">
@@ -150,7 +191,6 @@ const DashboardPanel = ({
               </div>
             </div>
           )}
-
           {/* Asignaturas/Profiles */}
           {selectedSection === 'profiles' && (
             <div className="section-content">
@@ -158,7 +198,7 @@ const DashboardPanel = ({
               <div className="subjects-grid">
                 {currentSubjects.length > 0 ? (
                   currentSubjects.map(subject => (
-                    <SubjectCard
+                    <MateriaDocente
                       key={subject.id}
                       subject={subject}
                       isTeacher={userType === 'teacher'}
@@ -194,40 +234,26 @@ const DashboardPanel = ({
           )}
 
           {/* Paralelos/Gradebook */}
-          {selectedSection === 'gradebook' && (
-            <div className="section-content">
-              <h2>{userType === 'teacher' ? 'Paralelos' : 'Mis Paralelos'}</h2>
-              <div>
-                {grades.length > 0 ? (
-                  grades.map((subject, i) => (
-                    <div key={i} className="gradebook-section">
-                      <h3>{subject.subject}</h3>
-                      <div className="gradebook-table">
-                        <table>
-                          <thead>
-                            <tr>
-                              <th>Estudiante</th>
-                              <th>Calificación</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {subject.students.map((student, j) => (
-                              <tr key={j}>
-                                <td className="student-name">{student.name}</td>
-                                <td className="grade">{student.grade}</td>
-                              </tr>
-                            ))}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <p className="no-content-message">No hay paralelos disponibles</p>
-                )}
-              </div>
-            </div>
-          )}
+          {selectedSection === 'gradebook' && userType === 'teacher' && (
+          <div className="section-content">
+          <DocenteParalelos
+            paralelos={grades.map(grade => ({
+              id: grade.id,
+              materia: grade.subject,
+              codigo: grade.code || 'N/A',
+              horario: grade.schedule || 'Horario no definido',
+              estudiantes: grade.students.map(student => ({
+              id: student.id,
+              nombre: student.name,
+              acd: student.acd || 0,
+              aa: student.aa || 0,
+              ape: student.ape || 0,
+                total: student.grade || 0
+              }))
+            }))}
+          />
+        </div>
+)}
 
           {/* Documentos/Resources */}
           {selectedSection === 'resources' && (
