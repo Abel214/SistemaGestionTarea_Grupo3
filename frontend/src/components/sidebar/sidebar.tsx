@@ -1,14 +1,14 @@
 import {
-  Home,
-  Book,
-  User as UsersIcon,
-  FileText,
-  CheckSquare,
-  MessageCircle,
-  Settings,
-  Calendar,
-  UserIcon,
-  Layers
+    Home,
+    Book,
+    User as UsersIcon,
+    FileText,
+    CheckSquare,
+    MessageCircle,
+    Settings,
+    Calendar,
+    UserIcon,
+    Layers
 } from 'lucide-react';
 
 export const getDashboardConfig = (userType) => {
@@ -74,8 +74,8 @@ export const getDashboardConfig = (userType) => {
       ]
     },
 
-  };
+    };
 
 
-  return configs[userType] || configs.student;
+    return configs[userType] || configs.student;
 };

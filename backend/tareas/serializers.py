@@ -99,7 +99,24 @@ class PasswordRecoverySerializer(serializers.Serializer):
 class CicloSerializer(serializers.ModelSerializer):
     class Meta:
         model = Ciclo
-        fields = '__all__'
+        fields = (
+            'id',
+            'codigo',
+            'numero',
+            'nombre',  # si lo calculas en el save, puedes dejarlo read_only
+            'estudiantes_totales',
+            'is_activo',
+            'created_at',
+            'updated_at',
+        )
+        read_only_fields = ('id', 'created_at', 'updated_at')
+        # si también generas 'nombre' automáticamente:
+        # read_only_fields = ('id', 'created_at', 'updated_at', 'nombre')
+
+    def validate_numero(self, value):
+        if value <= 0:
+            raise serializers.ValidationError("El número del ciclo debe ser mayor que 0.")
+        return value
 
 
 class PeriodoCicloSerializer(serializers.ModelSerializer):
@@ -107,11 +124,21 @@ class PeriodoCicloSerializer(serializers.ModelSerializer):
         model = PeriodoCiclo
         fields = '__all__'
 
+    def validate(self, attrs):
+        if attrs['periodo_fin'] <= attrs['periodo_inicio']:
+            raise serializers.ValidationError("La fecha fin debe ser mayor a la fecha inicio.")
+        return attrs
+
 
 class AsignaturaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Asignatura
-        fields = '__all__'
+        fields = [
+            'id', 'codigo', 'nombre', 'descripcion', 'periodo',
+            'unidades_totales', 'horas_programadas', 'is_activa',
+            'created_at', 'updated_at'
+        ]
+        read_only_fields = ('created_at', 'updated_at')
 
 
 class ParaleloSerializer(serializers.ModelSerializer):

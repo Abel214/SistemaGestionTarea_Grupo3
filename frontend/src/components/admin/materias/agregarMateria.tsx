@@ -1,198 +1,242 @@
-// components/modals/ModalAgregarMateria.jsx
-import React from 'react';
-import {
-  BookOpen, X, User, Hash, Clock,
-  Calendar, Save, List, Layers, Bookmark
-} from 'lucide-react';
+import React, {useEffect, useState} from 'react';
+import {BookOpen, X, Calendar, Clock, Save, ToggleLeft} from 'lucide-react';
+import axios from 'axios';
+import {message} from 'antd';
+import {getCookie} from '../../../utils/cookies';
 
-const ModalAgregarMateria = ({ isOpen, onClose, newMateria, setNewMateria, onSave }) => {
-  if (!isOpen) return null;
-
-  return (
-    <div className="modal-overlay">
-      <div className="modal-container">
-        <div className="modal-header">
-          <h2 className="modal-title">
-            <BookOpen className="w-5 h-5"/>
-            Agregar Materia
-          </h2>
-          <button className="modal-close-btn" onClick={onClose}>
-            <X className="w-5 h-5"/>
-          </button>
-        </div>
-
-        <div className="modal-body">
-          <div className="edit-form">
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">
-                  <BookOpen className="w-4 h-4"/>
-                  Nombre de la Materia
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={newMateria.nombre}
-                  onChange={(e) => setNewMateria({...newMateria, nombre: e.target.value})}
-                  placeholder="Ingrese el nombre de la materia"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">
-                  <Hash className="w-4 h-4"/>
-                  Código
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={newMateria.codigo}
-                  onChange={(e) => setNewMateria({...newMateria, codigo: e.target.value})}
-                  placeholder="Ingrese el código de la materia"
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">
-                  <User className="w-4 h-4"/>
-                  Profesor
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={newMateria.profesor}
-                  onChange={(e) => setNewMateria({...newMateria, profesor: e.target.value})}
-                  placeholder="Ingrese el nombre del profesor"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">
-                  <List className="w-4 h-4"/>
-                  Paralelo
-                </label>
-                <select
-                  className="form-select"
-                  value={newMateria.paralelo}
-                  onChange={(e) => setNewMateria({...newMateria, paralelo: e.target.value})}
-                >
-                  <option value="">Seleccione Paralelo</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">
-                  <Layers className="w-4 h-4"/>
-                  Ciclo
-                </label>
-                <select
-                  className="form-select"
-                  value={newMateria.ciclo}
-                  onChange={(e) => setNewMateria({...newMateria, ciclo: e.target.value})}
-                >
-                  <option value="">Seleccione Ciclo</option>
-                  {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(num => (
-                    <option key={num} value={num}>{num}</option>
-                  ))}
-                </select>
-              </div>
-              <div className="form-group">
-                <label className="form-label">
-                  <Bookmark className="w-4 h-4"/>
-                  Modalidad
-                </label>
-                <select
-                  className="form-select"
-                  value={newMateria.modalidad}
-                  onChange={(e) => setNewMateria({...newMateria, modalidad: e.target.value})}
-                >
-                  <option value="">Seleccione Modalidad</option>
-                  <option value="Presencial">Presencial</option>
-                  <option value="Virtual">Virtual</option>
-                  <option value="Híbrida">Híbrida</option>
-                </select>
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">
-                  <Clock className="w-4 h-4"/>
-                  Duración por Unidad
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={newMateria.duracionUnidad}
-                  onChange={(e) => setNewMateria({...newMateria, duracionUnidad: e.target.value})}
-                  placeholder="Ej: 16 semanas"
-                />
-              </div>
-              <div className="form-group">
-                <label className="form-label">
-                  <Clock className="w-4 h-4"/>
-                  Horas Programadas
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={newMateria.horasProgramadas}
-                  onChange={(e) => setNewMateria({...newMateria, horasProgramadas: e.target.value})}
-                  placeholder="Ej: 64 horas"
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label className="form-label">
-                  <Calendar className="w-4 h-4"/>
-                  Horario
-                </label>
-                <input
-                  type="text"
-                  className="form-input"
-                  value={newMateria.horario}
-                  onChange={(e) => setNewMateria({...newMateria, horario: e.target.value})}
-                  placeholder="Ej: Lun-Mie-Vie 08:00-10:00"
-                />
-              </div>
-            </div>
-
-            <div className="form-row">
-              <div className="form-group full-width">
-                <label className="form-label">
-                  <BookOpen className="w-4 h-4"/>
-                  Descripción
-                </label>
-                <textarea
-                  className="form-textarea"
-                  value={newMateria.descripcion}
-                  onChange={(e) => setNewMateria({...newMateria, descripcion: e.target.value})}
-                  placeholder="Ingrese una descripción de la materia"
-                  rows="3"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="modal-footer">
-          <button className="secondary-button" onClick={onClose}>Cancelar</button>
-          <button className="primary-button save-btn" onClick={onSave}>
-            <Save className="w-4 h-4"/>
-            Guardar Materia
-          </button>
-        </div>
-      </div>
-    </div>
-  );
+type Props = {
+    isOpen: boolean;
+    onClose: () => void;
+    onCreated: () => void; // para refrescar la lista en el padre
 };
 
-export default ModalAgregarMateria;
+type Periodo = {
+    id: number;
+    ciclo: string;          // ajusta según lo que devuelva tu API
+    periodo_inicio: string; // ISO date
+    periodo_fin: string;    // ISO date
+};
+
+type FormState = {
+    codigo: string;
+    nombre: string;
+    descripcion: string;
+    periodo: number | '';
+    unidades_totales: number | '';
+    horas_programadas: number | '';
+    is_activa: boolean;
+};
+
+const ModalAgregarAsignatura: React.FC<Props> = ({isOpen, onClose, onCreated}) => {
+    const [form, setForm] = useState<FormState>({
+        codigo: '',
+        nombre: '',
+        descripcion: '',
+        periodo: '',
+        unidades_totales: '',
+        horas_programadas: '',
+        is_activa: true,
+    });
+
+    const [periodos, setPeriodos] = useState<Periodo[]>([]);
+    const [saving, setSaving] = useState(false);
+
+    useEffect(() => {
+        if (!isOpen) return;
+
+        const loadPeriodos = async () => {
+            try {
+                const res = await axios.get('http://127.0.0.1:8000/api/tareas/periodos/', {
+                    withCredentials: true,
+                    headers: {'X-CSRFToken': getCookie('csrftoken') ?? ''},
+                });
+                setPeriodos(res.data);
+            } catch (e) {
+                console.error(e);
+                message.error('No se pudieron cargar los períodos');
+            }
+        };
+
+        loadPeriodos();
+    }, [isOpen]);
+
+    const handleChange = (key: keyof FormState, value: any) =>
+        setForm(prev => ({...prev, [key]: value}));
+
+    const handleSave = async () => {
+        if (!form.codigo || !form.nombre || !form.periodo) {
+            message.warning('Código, Nombre y Período son obligatorios');
+            return;
+        }
+
+        const payload = {
+            codigo: form.codigo,
+            nombre: form.nombre,
+            descripcion: form.descripcion,
+            periodo: form.periodo, // id del PeriodoCiclo
+            unidades_totales: form.unidades_totales === '' ? null : Number(form.unidades_totales),
+            horas_programadas: form.horas_programadas === '' ? null : Number(form.horas_programadas),
+            is_activa: form.is_activa,
+        };
+
+        try {
+            setSaving(true);
+            await axios.post('http://127.0.0.1:8000/api/tareas/asignaturas/', payload, {
+                withCredentials: true,
+                headers: {'X-CSRFToken': getCookie('csrftoken') ?? ''},
+            });
+            message.success('Asignatura creada');
+            // limpiar y cerrar
+            setForm({
+                codigo: '',
+                nombre: '',
+                descripcion: '',
+                periodo: '',
+                unidades_totales: '',
+                horas_programadas: '',
+                is_activa: true,
+            });
+            onCreated();
+            onClose();
+        } catch (e: any) {
+            console.error(e);
+            message.error('Error al crear la asignatura');
+        } finally {
+            setSaving(false);
+        }
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="modal-overlay">
+            <div className="modal-container">
+                <div className="modal-header">
+                    <h2 className="modal-title">
+                        <BookOpen className="w-5 h-5"/> Agregar Asignatura
+                    </h2>
+                    <button className="modal-close-btn" onClick={onClose}>
+                        <X className="w-5 h-5"/>
+                    </button>
+                </div>
+
+                <div className="modal-body">
+                    <div className="edit-form">
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <BookOpen className="w-4 h-4"/> Código *
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-input"
+                                    value={form.codigo}
+                                    onChange={e => handleChange('codigo', e.target.value)}
+                                    placeholder="Código único"
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <BookOpen className="w-4 h-4"/> Nombre *
+                                </label>
+                                <input
+                                    type="text"
+                                    className="form-input"
+                                    value={form.nombre}
+                                    onChange={e => handleChange('nombre', e.target.value)}
+                                    placeholder="Nombre de la asignatura"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <Calendar className="w-4 h-4"/> Período *
+                                </label>
+                                <select
+                                    className="form-select"
+                                    value={form.periodo}
+                                    onChange={e => handleChange('periodo', Number(e.target.value))}
+                                >
+                                    <option value="">Seleccione período</option>
+                                    {periodos.map(p => (
+                                        <option key={p.id} value={p.id}>
+                                            {p.ciclo} ({p.periodo_inicio} - {p.periodo_fin})
+                                        </option>
+                                    ))}
+                                </select>
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <ToggleLeft className="w-4 h-4"/> Activa
+                                </label>
+                                <input
+                                    type="checkbox"
+                                    checked={form.is_activa}
+                                    onChange={e => handleChange('is_activa', e.target.checked)}
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-row">
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <Clock className="w-4 h-4"/> Unidades totales
+                                </label>
+                                <input
+                                    type="number"
+                                    min={1}
+                                    className="form-input"
+                                    value={form.unidades_totales}
+                                    onChange={e => handleChange('unidades_totales', e.target.value)}
+                                    placeholder="Ej: 5"
+                                />
+                            </div>
+
+                            <div className="form-group">
+                                <label className="form-label">
+                                    <Clock className="w-4 h-4"/> Horas programadas
+                                </label>
+                                <input
+                                    type="number"
+                                    min={1}
+                                    className="form-input"
+                                    value={form.horas_programadas}
+                                    onChange={e => handleChange('horas_programadas', e.target.value)}
+                                    placeholder="Ej: 64"
+                                />
+                            </div>
+                        </div>
+
+                        <div className="form-row">
+                            <div className="form-group full-width">
+                                <label className="form-label">
+                                    <BookOpen className="w-4 h-4"/> Descripción
+                                </label>
+                                <textarea
+                                    className="form-textarea"
+                                    rows={3}
+                                    value={form.descripcion}
+                                    onChange={e => handleChange('descripcion', e.target.value)}
+                                    placeholder="Descripción de la asignatura"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div className="modal-footer">
+                    <button className="secondary-button" onClick={onClose}>Cancelar</button>
+                    <button className="primary-button save-btn" onClick={handleSave} disabled={saving}>
+                        <Save className="w-4 h-4"/> {saving ? 'Guardando...' : 'Guardar'}
+                    </button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+export default ModalAgregarAsignatura;
