@@ -409,20 +409,21 @@ const DashboardPanel = ({
                         <div className="task-content">
                           <div className="task-header">
                             <h4 className="task-title">{task.title}</h4>
-                            <span className="task-status-badge">
-                              {task.status === 'pending' ? 'Agregar entrega' : 'Completada'}
-                            </span>
+                            {/* "Agregar entrega" button/link */}
                           </div>
 
                           <div className="task-details">
                             <span className="task-subject">{task.subject}</span>
                             <span className="task-course">• {task.course}</span>
                           </div>
+                        </div>
 
-                          <div className="task-actions">
-                            <button className="btn-task-action">Ver detalles</button>
-                            <button className="btn-task-primary">Entregar</button>
-                          </div>
+                        {/* Moved task-actions outside task-content and made it a column */}
+                        <div className="task-actions-vertical">
+                          <button className="btn-task-action">Ver detalles</button>
+                         {task.status === 'pending' && (
+                              <button className="btn-task-primary">Agregar entrega</button>
+                          )}
                         </div>
                       </div>
                     ))}

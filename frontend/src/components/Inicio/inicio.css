@@ -23,6 +23,8 @@
   margin: 10px; /* Added margin to make it float */
   transition: width 0.3s ease, margin 0.3s ease; /* Smooth transition for width and margin */
   flex-shrink: 0; /* Prevent sidebar from shrinking */
+  max-height: calc(100vh - 60px); /* Limit vertical size to viewport height minus margin */
+  overflow-y: auto; /* Add scrollbar if content exceeds max-height */
 }
 
 .sidebar.closed {
@@ -171,7 +173,7 @@
 }
 
 .search-input:focus {
-  border-color: #3b82f6; /* Blue focus color */
+  border-color: #359de7; /* Blue focus color */
   box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
 }
 
@@ -314,6 +316,7 @@
   font-weight: 600;
   color: #f4f8fc;
   margin: 0;
+  /*texto a la izquierda*/
 }
 
 .welcome-section {
@@ -1035,7 +1038,7 @@
 
 .filter-select:focus {
   outline: none;
-  border-color: #2980b9;
+  border-color: #387da9;
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 
@@ -1142,7 +1145,7 @@
   padding: 8px 16px; /* Increased padding */
   border: 1px solid #0077B6; /* Blue border */
   background: white;
-  color: #0077B6; /* Blue text */
+  color: #0c608c; /* Blue text */
   border-radius: 8px; /* More rounded */
   font-size: 1em;
   cursor: pointer;
@@ -1163,6 +1166,7 @@
   font-size: 1em;
   cursor: pointer;
   transition: background 0.2s ease;
+    margin-left: 10px; /* Space between primary button and others */
 }
 
 .btn-task-primary:hover {
