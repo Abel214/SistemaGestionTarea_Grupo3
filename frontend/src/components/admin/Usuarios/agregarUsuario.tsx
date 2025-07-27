@@ -37,14 +37,11 @@ const ModalAgregarUsuario = ({ isOpen, onClose, newUser, setNewUser, onUserCreat
 
       alert('✅ Usuario creado correctamente');
       onClose();
-
-      // Limpiar el formulario
       setNewUser({
         name: '', lastname: '', email: '', role: '',
         status: '', phone: '', birthdate: ''
       });
 
-      // Ejecutar callback para actualizar lista
       if (onUserCreated) onUserCreated(response.data);
 
     } catch (error) {

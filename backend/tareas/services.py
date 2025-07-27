@@ -5,26 +5,25 @@ from django.core.mail import send_mail
 User = get_user_model()
 
 
-def crear_usuario_profile(nombre, apellido, dni, correo, contraseña, rol='EST'):
-    """
-    Crea un User y su perfil asociado.
-    """
+def crear_usuario_profile(nombre, apellido, dni, correo, contraseña, rol, ciclo=None):
+
     user = User.objects.create_user(
         username=correo,
         email=correo,
         password=contraseña,
         first_name=nombre,
-        last_name=apellido
+        last_name=apellido,
     )
+
     profile = UsuarioProfile.objects.create(
         user=user,
         nombre=nombre,
         apellido=apellido,
         dni=dni,
-        rol=rol
+        rol=rol,
+        ciclo=ciclo  # Este campo debe existir en UsuarioProfile
     )
     return profile
-
 
 def enviar_recuperacion_clave(profile):
     send_mail(

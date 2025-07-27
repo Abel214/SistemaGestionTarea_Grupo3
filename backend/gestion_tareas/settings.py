@@ -104,7 +104,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5174',
-    'http://127.0.0.1:8000',  # Opcional si haces peticiones desde el mismo backend
+    'http://127.0.0.1:8000',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -126,8 +126,8 @@ CSRF_USE_SESSIONS = False
 CSRF_COOKIE_HTTPONLY = False  # Permite que JavaScript acceda a la cookie
 CSRF_COOKIE_NAME = "csrftoken"
 CSRF_COOKIE_SECURE = False  # True en producción con HTTPS
-CSRF_COOKIE_SAMESITE = 'Lax'  # O 'None' si usas CORS con credenciales
+CSRF_COOKIE_SAMESITE = None  # O 'None' si usas CORS con credenciales
 
 # Configuración de sesión
 SESSION_COOKIE_SECURE = False  # True en producción con HTTPS
-SESSION_COOKIE_SAMESITE = 'Lax'  # O 'None' si usas CORS con credenciales
+SESSION_COOKIE_SAMESITE = None  # O 'None' si usas CORS con credenciales

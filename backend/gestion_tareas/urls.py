@@ -23,11 +23,12 @@ from rest_framework.routers import DefaultRouter
 from django.http import JsonResponse
 from setuptools.extern import names
 
-from tareas.views import (RegisterStudentView, RegisterStaffView, login_view, csrf_token_view, UserProfileViewSet)
+from tareas.views import (RegisterStudentView, RegisterStaffView, login_view, csrf_token_view, UserProfileViewSet,
+                          CicloViewSet)
 router = DefaultRouter()
 
 router.register(r'api/users', UserProfileViewSet, basename='user-profile')
-
+router.register(r'api/ciclos', CicloViewSet, basename='cicle')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/tareas/', include('tareas.urls')),
