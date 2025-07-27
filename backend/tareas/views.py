@@ -48,8 +48,12 @@ class RegisterStaffView(APIView):
         if serializer.is_valid():
             profile = serializer.save()
             return Response({
-                'id': profile.user.id,
+                'nombre': profile.user.nombre,
+                'apellido': profile.user.apellido,
+                'dni': profile.user.dni,
                 'correo': profile.user.email,
+                'contrasenia' : profile.user.password,
+                'ciclo': profile.user.ciclo,
                 'rol': profile.rol,
             }, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -2,20 +2,7 @@
 import React, { useRef, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 
-interface SubjectCardProps {
-  subject: {
-    id: string;
-    name: string;
-    progress?: number;
-    color?: string;
-    description?: string;
-    icon: React.ComponentType<{ size: number }>;
-  };
-  isTeacher: boolean;
-  imagen?: string;
-}
-
-const SubjectCard: React.FC<SubjectCardProps> = ({ subject, isTeacher, imagen }) => {
+const SubjectCard = ({ subject, isStudent, imagen }) => {
   const navigate = useNavigate();
   const cardRef = useRef<HTMLDivElement>(null);
 
@@ -50,14 +37,9 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject, isTeacher, imagen })
   };
 
   const handleButtonClick = () => {
-    if (!isTeacher && cardRef.current) {
-      cardRef.current.style.transform = 'scale(0.95)';
-      setTimeout(() => {
-        if (cardRef.current) {
-          cardRef.current.style.transform = 'scale(1)';
-        }
-        navigate(`/materia`);
-      }, 200);
+    // Solo los estudiantes pueden navegar a /materia
+    if (!isStudent) {
+      navigate(`/materia`);
     }
   };
 
@@ -90,7 +72,7 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject, isTeacher, imagen })
       </div>
       <div className="subject-card-content-large">
         <h3 className="subject-name-large">{subject.name}</h3>
-        {!isTeacher && subject.progress && (
+        {!isStudent && subject.progress && (
           <>
             <div className="subject-progress-large">
               <div
@@ -101,7 +83,7 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject, isTeacher, imagen })
             <p className="subject-progress-text-large">{subject.progress}% Completado</p>
           </>
         )}
-        {isTeacher && (
+        {isStudent && (
           <p className="subject-description-large">
             {subject.description || 'Se enfoca en la gestión de contenido, estudiantes y evaluaciones de la materia.'}
           </p>

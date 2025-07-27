@@ -24,6 +24,7 @@ function DashboardDocente() {
   const grades = [
     {
       subject: 'Matemáticas',
+      description: 'Álgebra, geometría y cálculo básico',
       students: [
         { name: 'Juan Pérez', grade: 18 },
         { name: 'Ana Torres', grade: 19 },
@@ -31,6 +32,7 @@ function DashboardDocente() {
     },
     {
       subject: 'Física',
+      description: 'Mecánica, termodinámica y electricidad',
       students: [
         { name: 'Luis García', grade: 17 },
         { name: 'Sofía Herrera', grade: 20 },
