@@ -1,5 +1,6 @@
 import json
 from email._header_value_parser import get_token
+from urllib import response
 
 from django.contrib.auth import authenticate, login
 from rest_framework.views import APIView
@@ -79,13 +80,6 @@ class UserProfileViewSet(
     mixins.DestroyModelMixin,
     viewsets.GenericViewSet
 ):
-    """
-    GET    /users/           → lista todos los perfiles
-    GET    /users/{pk}/      → detalle de un perfil
-    PUT    /users/{pk}/      → edita perfil + user (correo, is_active)
-    PATCH  /users/{pk}/      → edita parcialmente
-    DELETE /users/{pk}/      → desactiva la cuenta (soft-delete)
-    """
     queryset = UsuarioProfile.objects.select_related('user').all()
     serializer_class = UserProfileSerializer
     authentication_classes = [SessionAuthentication]
@@ -95,7 +89,7 @@ class UserProfileViewSet(
         profile = self.get_object()
         profile.user.is_active = False
         profile.user.save()
-        return Response(status=status.HTTP_204_NO_CONTENT)
+        return Response({'detail': 'Usuario desactivado correctamente'}, status=status.HTTP_204_NO_CONTENT)
 
 
 class PasswordRecoveryView(APIView):
@@ -110,14 +104,12 @@ class PasswordRecoveryView(APIView):
         try:
             profile = UsuarioProfile.objects.get(user__email=correo, user__is_active=True)
         except UsuarioProfile.DoesNotExist:
-            # Aunque valide_correo ya lo comprueba, protegemos contra race conditions
             return Response(
                 {"correo": ["No existe una cuenta activa con ese correo."]},
                 status=status.HTTP_400_BAD_REQUEST
             )
 
         enviar_recuperacion_clave(profile)
-
         return Response(
             {
                 "detail": "Si existe una cuenta con ese correo, te hemos enviado instrucciones para restablecer la contraseña."},
@@ -149,82 +141,112 @@ class AsignaturaViewSet(viewsets.ModelViewSet):
 class ParaleloViewSet(viewsets.ModelViewSet):
     queryset = Paralelo.objects.all()
     serializer_class = ParaleloSerializer
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
 
 class UsuarioParaleloViewSet(viewsets.ModelViewSet):
     queryset = UsuarioParalelo.objects.all()
     serializer_class = UsuarioParaleloSerializer
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
 
 class GrupoTrabajoViewSet(viewsets.ModelViewSet):
     queryset = GrupoTrabajo.objects.all()
     serializer_class = GrupoTrabajoSerializer
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
 
 class ReporteViewSet(viewsets.ModelViewSet):
     queryset = Reporte.objects.all()
     serializer_class = ReporteSerializer
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
 
 class ArchivoViewSet(viewsets.ModelViewSet):
     queryset = Archivo.objects.all()
     serializer_class = ArchivoSerializer
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
 
 class TareaViewSet(viewsets.ModelViewSet):
     queryset = Tarea.objects.all()
     serializer_class = TareaSerializer
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
+
+    def perform_create(self, serializer):
+        serializer.save(creada_por=self.request.user)
 
 
 class EntregaViewSet(viewsets.ModelViewSet):
     queryset = Entrega.objects.all()
     serializer_class = EntregaSerializer
+    authentication_classes = [SessionAuthentication]
     permission_classes = [IsAdminUser]
 
 
+from rest_framework.decorators import api_view, authentication_classes, permission_classes
+from rest_framework.authentication import SessionAuthentication
+from rest_framework.permissions import AllowAny
+from django.middleware.csrf import get_token
+from django.http import JsonResponse
+from django.contrib.auth import authenticate, login
+from rest_framework.response import Response
+from rest_framework import status
+
+
 @api_view(['POST'])
+@authentication_classes([SessionAuthentication])
+@permission_classes([AllowAny])
 def login_view(request):
     try:
-        # Usa request.data para DRF (ya parseado a JSON)
         email = request.data.get('email')
         password = request.data.get('password')
 
         if not email or not password:
-            return Response({'error': 'Email y contraseña requeridos'}, status=400)
+            return Response({
+                'success': False,
+                'error': 'Email y contraseña son requeridos'
+            }, status=status.HTTP_400_BAD_REQUEST)
 
-        # Autenticación segura
         user = authenticate(request, username=email, password=password)
 
         if user is None:
-            return Response({'error': 'Credenciales inválidas'}, status=400)
+            return Response({
+                'success': False,
+                'error': 'Correo electrónico o contraseña incorrectos'
+            }, status=status.HTTP_401_UNAUTHORIZED)
 
         if not user.is_active:
-            return Response({'error': 'Cuenta desactivada'}, status=400)
-
-        # Verifica si el perfil existe
-        if not hasattr(user, 'profile'):
-            return Response({'error': 'Perfil de usuario no configurado'}, status=400)
+            return Response({
+                'success': False,
+                'error': 'Tu cuenta está desactivada'
+            }, status=status.HTTP_403_FORBIDDEN)
 
         login(request, user)
 
-        # Respuesta estructurada
-        return Response({
+        # Generar nuevo token CSRF
+        csrf_token = get_token(request)
+
+        response = JsonResponse({
             'success': True,
             'email': user.email,
-            'rol': user.profile.rol,  # Asegúrate que 'rol' es el nombre correcto del campo
-            'user_id': user.id
+            'rol': user.profile.rol if hasattr(user, 'profile') else None
         })
 
+        response['X-CSRFToken'] = csrf_token
+        return response
+
     except Exception as e:
-        # Log del error real
-        print(f"Error en login_view: {str(e)}")
-        return Response({'error': 'Error interno del servidor'}, status=500)
+        print("Error en login:", str(e))
+        return Response({'success': False, 'error': 'Error interno del servidor'}, status=500)
+
+
 class LogoutAPIView(APIView):
     def post(self, request):
         logout(request)

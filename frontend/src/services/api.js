@@ -1,22 +1,20 @@
-// src/api.js
+// src/services/api.js
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: 'http://localhost:8000/api/', // Usa localhost para consistencia
-  withCredentials: true,
-  headers: {
-    'Content-Type': 'application/json',
-    'X-Requested-With': 'XMLHttpRequest',
-  },
+  baseURL: 'http://localhost:8000/api/',
+  withCredentials: true, // Esto es CRUCIAL para enviar cookies
+  xsrfCookieName: 'csrftoken',
+  xsrfHeaderName: 'X-CSRFToken',
 });
 
 // Interceptor para manejar errores globalmente
 api.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      // Redirigir a login si no está autenticado
-      window.location.href = '/login';
+  response => response,
+  error => {
+    if (error.response?.status === 403) {
+      // Manejo específico para errores 403
+      error.message = 'Acceso no autorizado. Por favor inicie sesión nuevamente.';
     }
     return Promise.reject(error);
   }

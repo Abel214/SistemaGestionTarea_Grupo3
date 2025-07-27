@@ -8,16 +8,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/gestion_tareas/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/gestion_tareas/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/tareas/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tareas/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/tareas/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/backend/tareas/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/agregarCiclo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/agregarCiclo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/agregarPeriodosCiclo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/agregarPeriodosCiclo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/ciclos.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/ciclos.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/periodoCiclo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/ciclos/periodoCiclo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/materias/agregarMateria.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/materias/agregarMateria.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/admin/materias/materias.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/admin/materias/materias.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/context/AuthContext.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/context/AuthContext.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/pages/InicioAdmin/inicioAdmin.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/InicioAdmin/inicioAdmin.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/pages/Login/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pages/Login/Login.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -35,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="develop" />
+        <entry key="$PROJECT_DIR$" value="feature/Usuarios" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -52,7 +43,7 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;feature/fix&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;feature/apis&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/Usuario iTC/PycharmProjects/flask-proyect-v2&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -94,6 +85,7 @@
       <workItem from="1753255245771" duration="118000" />
       <workItem from="1753541901429" duration="6999000" />
       <workItem from="1753549327216" duration="1986000" />
+      <workItem from="1753580643717" duration="455000" />
     </task>
     <servers />
   </component>
