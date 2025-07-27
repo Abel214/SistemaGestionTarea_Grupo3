@@ -13,7 +13,7 @@ const SubjectCardDocente = ({ subject, isStudent,imagen }) => {
   };
 
   return (
-    <div className="subject-card-large">
+    <div className="subject-card-large" onClick={handleButtonClick}>
       <div className="subject-card-image">
         {imagen ? (
           <img
@@ -45,13 +45,6 @@ const SubjectCardDocente = ({ subject, isStudent,imagen }) => {
             {subject.description || 'Se enfoca en la gestión de contenido, estudiantes y evaluaciones de la materia.'}
           </p>
         )}
-        <button
-          className="subject-button"
-          onClick={handleButtonClick}
-          disabled={isStudent} // Opcional: deshabilitar el botón para profesores
-        >
-          Gestionar Materia
-        </button>
       </div>
     </div>
   );
