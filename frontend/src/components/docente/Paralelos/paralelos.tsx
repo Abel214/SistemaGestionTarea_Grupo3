@@ -1,3 +1,4 @@
+// @ts-ignore
 import React, { useState } from 'react';
 import { ChevronLeft, ChevronRight, Users, BookOpen, FileText, ClipboardList, Edit, Save } from 'lucide-react';
 import './paralelo.css';
@@ -14,7 +15,9 @@ const DocenteParalelos = () => {
         { id: 1, nombre: 'Juan Pérez', acd: 18, aa: 17, ape: 19, total: 18 },
         { id: 2, nombre: 'Ana Torres', acd: 19, aa: 18, ape: 20, total: 19 },
         { id: 3, nombre: 'Carlos Ruiz', acd: 15, aa: 16, ape: 17, total: 16 },
-        // ... más estudiantes
+        { id: 4, nombre: 'Sofía García', acd: 19, aa: 19, ape: 18, total: 19 },
+        { id: 5, nombre: 'Pedro López', acd: 16, aa: 17, ape: 16, total: 16 },
+        { id: 6, nombre: 'Laura Martínez', acd: 20, aa: 19, ape: 20, total: 20 },
       ]
     },
     {
@@ -23,9 +26,19 @@ const DocenteParalelos = () => {
       codigo: 'FIS-201',
       horario: 'Martes y Jueves 14:00-16:00',
       estudiantes: [
-        { id: 4, nombre: 'María Gómez', acd: 17, aa: 18, ape: 19, total: 18 },
-        { id: 5, nombre: 'Luis Mendoza', acd: 16, aa: 15, ape: 17, total: 16 },
-        // ... más estudiantes
+        { id: 7, nombre: 'María Gómez', acd: 17, aa: 18, ape: 19, total: 18 },
+        { id: 8, nombre: 'Luis Mendoza', acd: 16, aa: 15, ape: 17, total: 16 },
+        { id: 9, nombre: 'Elena Ramírez', acd: 18, aa: 19, ape: 18, total: 18.3 },
+      ]
+    },
+    {
+      id: 3,
+      materia: 'Programación Orientada a Objetos',
+      codigo: 'POO-301',
+      horario: 'Viernes 09:00-12:00',
+      estudiantes: [
+        { id: 10, nombre: 'Andrés Castro', acd: 19, aa: 20, ape: 19, total: 19.4 },
+        { id: 11, nombre: 'Valeria Soto', acd: 17, aa: 18, ape: 17, total: 17.4 },
       ]
     }
   ]);
@@ -45,6 +58,7 @@ const DocenteParalelos = () => {
     if (currentParaleloIndex < paralelos.length - 1) {
       setCurrentParaleloIndex(currentParaleloIndex + 1);
       setEditing(false);
+      setTempGrades({}); // Limpiar calificaciones temporales al cambiar de paralelo
     }
   };
 
@@ -52,26 +66,35 @@ const DocenteParalelos = () => {
     if (currentParaleloIndex > 0) {
       setCurrentParaleloIndex(currentParaleloIndex - 1);
       setEditing(false);
+      setTempGrades({}); // Limpiar calificaciones temporales al cambiar de paralelo
     }
   };
 
   const handleGradeChange = (estudianteId, type, value) => {
     const numericValue = Math.min(20, Math.max(0, parseInt(value) || 0));
-    setTempGrades(prev => ({
-      ...prev,
-      [estudianteId]: {
+
+    setTempGrades(prev => {
+      const currentStudentGrades = {
+        ...currentParalelo.estudiantes.find(e => e.id === estudianteId),
         ...prev[estudianteId],
-        [type]: numericValue,
-        total: type === 'acd' || type === 'aa' || type === 'ape'
-          ? Math.round((
-              (numericValue * (type === 'acd' ? 0.3 : type === 'aa' ? 0.3 : 0.4)) +
-              ((prev[estudianteId]?.acd || currentParalelo.estudiantes.find(e => e.id === estudianteId).acd) * (type !== 'acd' ? 0.3 : 0)) +
-              ((prev[estudianteId]?.aa || currentParalelo.estudiantes.find(e => e.id === estudianteId).aa) * (type !== 'aa' ? 0.3 : 0)) +
-              ((prev[estudianteId]?.ape || currentParalelo.estudiantes.find(e => e.id === estudianteId).ape) * (type !== 'ape' ? 0.4 : 0))
-            ))
-          : prev[estudianteId]?.total
-      }
-    }));
+        [type]: numericValue
+      };
+
+      const acd = currentStudentGrades.acd || 0;
+      const aa = currentStudentGrades.aa || 0;
+      const ape = currentStudentGrades.ape || 0;
+
+      const newTotal = (acd * 0.3) + (aa * 0.3) + (ape * 0.4);
+
+      return {
+        ...prev,
+        [estudianteId]: {
+          ...prev[estudianteId],
+          [type]: numericValue,
+          total: parseFloat(newTotal.toFixed(1)) // Redondear a un decimal
+        }
+      };
+    });
   };
 
   const saveGrades = () => {
@@ -96,7 +119,7 @@ const DocenteParalelos = () => {
   const renderEstudiantes = () => (
     <div className="card">
       <div className="card-header">
-        <h3>ESTUDIANTES - {currentParalelo.materia}</h3>
+        <h3><Users size={20} /> ESTUDIANTES - {currentParalelo.materia}</h3>
         <div className="header-actions">
           {editing ? (
             <button className="action-button save" onClick={saveGrades}>
@@ -197,7 +220,7 @@ const DocenteParalelos = () => {
   const renderParaleloInfo = () => (
     <div className="card">
       <div className="card-header">
-        <h3>INFORMACIÓN DEL PARALELO</h3>
+        <h3><BookOpen size={20} /> INFORMACIÓN DEL PARALELO</h3>
       </div>
       <div className="card-body">
         <div className="info-grid">
@@ -238,7 +261,7 @@ const DocenteParalelos = () => {
       {/* Header con navegación de paralelos */}
       <div className="paralelo-header">
         <div className="header-content">
-
+          {/* Aquí podrías añadir un título general si lo deseas */}
         </div>
 
         <div className="paralelo-selector">

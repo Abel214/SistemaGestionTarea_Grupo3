@@ -1,159 +1,469 @@
+/* Variables CSS para colores y transiciones */
+:root {
+  --primary-color: #1e40af; /* Azul oscuro */
+  --secondary-color: #3b82f6; /* Azul brillante */
+  --accent-color: #f97316; /* Naranja para detalles */
+  --text-color-dark: #1e293b;
+  --text-color-medium: #475569;
+  --bg-light: #f0f4f8; /* Fondo general más suave */
+  --bg-card: #ffffff;
+  --border-color: #e2e8f0;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+  --shadow-medium: rgba(0, 0, 0, 0.1);
+  --transition-speed: 0.3s;
+}
+
+body {
+  background-color: var(--bg-light);
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .docente-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px auto;
   padding: 20px;
+  background-color: transparent; /* El fondo lo dará el body */
 }
 
 .paralelo-header {
-  background-color: #f8f9fa;
-  padding: 20px;
-  border-radius: 8px;
-  margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  color: white;
+  padding: 30px 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.8s ease-out;
+}
+
+.paralelo-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
 .paralelo-selector {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-top: 15px;
+  margin-top: 20px;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .nav-button {
-  background: none;
-  border: 1px solid #ddd;
-  padding: 5px 10px;
-  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  padding: 10px 15px;
+  border-radius: 50%; /* Botones circulares */
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-speed) ease, transform var(--transition-speed) ease;
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.nav-button:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.1);
 }
 
 .nav-button:disabled {
-  opacity: 0.5;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
 .paralelo-info {
   text-align: center;
+  flex-grow: 1;
+  margin: 0 20px;
+}
+
+.paralelo-info h2 {
+  margin: 0 0 5px 0;
+  font-size: 2.2rem;
+  font-weight: 700;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.paralelo-info p {
+  margin: 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
 }
 
 .tabs-container {
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  background: var(--bg-card);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px var(--shadow-light);
+  overflow: hidden;
+  animation: fadeIn 0.8s ease-out 0.2s backwards;
 }
 
 .tabs-nav {
   display: flex;
-  border-bottom: 1px solid #ddd;
+  justify-content: center;
+  border-bottom: 1px solid var(--border-color);
+  background-color: var(--bg-light);
 }
 
 .tab-button {
-  padding: 10px 20px;
+  padding: 15px 25px;
   background: none;
   border: none;
   border-bottom: 3px solid transparent;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-color-medium);
+  transition: all var(--transition-speed) ease;
+}
+
+.tab-button:hover {
+  color: var(--primary-color);
+  background-color: #eef2f6;
 }
 
 .tab-button.active {
-  border-bottom-color: #1890ff;
-  color: #1890ff;
+  border-bottom-color: var(--secondary-color);
+  color: var(--secondary-color);
+  background-color: var(--bg-card);
 }
 
 .card {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  margin-bottom: 20px;
+  background: var(--bg-card);
+  border-radius: 12px;
+  box-shadow: 0 6px 20px var(--shadow-medium);
+  margin-bottom: 25px;
+  overflow: hidden;
+  animation: slideInUp 0.7s ease-out;
 }
 
 .card-header {
-  padding: 15px 20px;
-  border-bottom: 1px solid #eee;
+  padding: 20px 25px;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
   justify-content: space-between;
   align-items: center;
+  background-color: var(--bg-light);
+}
+
+.card-header h3 {
+  margin: 0;
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .card-body {
-  padding: 20px;
+  padding: 25px;
 }
 
 .grades-table {
   width: 100%;
-  border-collapse: collapse;
+  border-collapse: separate; /* Para bordes redondeados en celdas */
+  border-spacing: 0; /* Elimina espacio entre celdas */
+  margin-top: 15px;
 }
 
 .grades-table th, .grades-table td {
-  padding: 12px 15px;
+  padding: 15px 20px;
   text-align: left;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--border-color);
 }
 
 .grades-table th {
-  background-color: #f8f9fa;
+  background-color: #eef2f6;
+  color: var(--text-color-dark);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.grades-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.grades-table tbody tr:hover {
+  background-color: #f6f9fc;
 }
 
 .grade-input {
-  width: 50px;
-  padding: 5px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  width: 60px;
+  padding: 8px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: border-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease;
+}
+
+.grade-input:focus {
+  border-color: var(--secondary-color);
+  box-shadow: 0 0 0 3px rgba(var(--secondary-color), 0.2);
+  outline: none;
 }
 
 .total-grade {
   font-weight: bold;
-  color: #1890ff;
+  color: var(--primary-color);
+  font-size: 1.1rem;
 }
 
 .action-button {
-  padding: 5px 10px;
-  border-radius: 4px;
+  padding: 10px 20px;
+  border-radius: 8px;
   border: none;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
+  font-weight: 600;
+  transition: all var(--transition-speed) ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .action-button.edit {
-  background-color: #1890ff;
+  background-color: var(--secondary-color);
   color: white;
+}
+
+.action-button.edit:hover {
+  background-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .action-button.save {
-  background-color: #52c41a;
+  background-color: #28a745; /* Verde para guardar */
   color: white;
 }
 
-.info-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-}
-
-.info-item {
-  display: flex;
-  justify-content: space-between;
-}
-
-.info-label {
-  font-weight: bold;
+.action-button.save:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
 }
 
 .grades-summary {
   display: flex;
   gap: 20px;
   margin-bottom: 20px;
+  flex-wrap: wrap; /* Permite que los elementos se envuelvan */
 }
 
 .summary-item {
-  background: #f8f9fa;
-  padding: 10px 15px;
-  border-radius: 4px;
+  background: var(--bg-light);
+  padding: 12px 18px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 2px 8px var(--shadow-light);
 }
 
 .summary-label {
   font-weight: bold;
-  margin-right: 10px;
+  color: var(--text-color-medium);
+}
+
+.summary-value {
+  color: var(--primary-color);
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Columnas más flexibles */
+  gap: 20px;
+}
+
+.info-item {
+  display: flex;
+  flex-direction: column; /* Apila label y value */
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border-color); /* Borde punteado */
+}
+
+.info-item:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  font-weight: 600;
+  color: var(--text-color-dark);
+  margin-bottom: 5px;
+  font-size: 0.95rem;
+}
+
+.info-value {
+  color: var(--text-color-medium);
+  font-size: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .docente-container {
+    padding: 10px;
+  }
+
+  .paralelo-header {
+    padding: 20px 15px;
+    margin-bottom: 20px;
+  }
+
+  .paralelo-info h2 {
+    font-size: 1.8rem;
+  }
+
+  .paralelo-info p {
+    font-size: 1rem;
+  }
+
+  .paralelo-selector {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .nav-button {
+    padding: 8px 12px;
+  }
+
+  .tabs-nav {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .tab-button {
+    padding: 12px 15px;
+    font-size: 0.9rem;
+  }
+
+  .card {
+    margin-bottom: 15px;
+  }
+
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 15px 20px;
+  }
+
+  .card-header h3 {
+    font-size: 1.1rem;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+
+  .grades-table th, .grades-table td {
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+
+  .grades-table th {
+    font-size: 0.8rem;
+  }
+
+  .grade-input {
+    width: 45px;
+    padding: 6px;
+    font-size: 0.9rem;
+  }
+
+  .action-button {
+    width: 100%;
+    justify-content: center;
+    padding: 10px;
+  }
+
+  .grades-summary {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .summary-item {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .docente-container {
+    padding: 5px;
+  }
+
+  .paralelo-header {
+    border-radius: 0;
+  }
+
+  .card {
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .tabs-container {
+    border-radius: 0;
+    box-shadow: none;
+  }
 }

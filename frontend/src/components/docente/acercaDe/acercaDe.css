@@ -1,20 +1,102 @@
+/* Variables CSS para colores y transiciones */
+:root {
+  --primary-color: #0077B6; /* Azul oscuro */
+  --secondary-color: #1398de; /* Azul brillante */
+  --accent-color: #1398de; /* Naranja para detalles */
+  --text-color-dark: #1e293b; /* Gris muy oscuro */
+  --text-color-medium: #475569; /* Gris medio */
+  --text-color-light: #64748b; /* Gris claro */
+  --bg-light: #f8fafc; /* Fondo muy claro */
+  --bg-card: #ffffff; /* Fondo de tarjeta blanco */
+  --border-color: #e2e8f0; /* Borde gris claro */
+  --shadow-light: rgba(0, 0, 0, 0.08);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --shadow-card: rgba(0, 0, 0, 0.05); /* Sombra suave para tarjetas */
+  --transition-speed: 0.3s;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 .perfil-docente-container {
   max-width: 900px;
-  margin: 0 auto;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin: 2rem auto; /* Añade margen superior e inferior para separación */
+  background: var(--bg-light); /* Fondo general más claro */
+  border-radius: 16px; /* Bordes más redondeados */
+  box-shadow: 0 8px 30px var(--shadow-light); /* Sombra más pronunciada */
   overflow: hidden;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Inter', sans-serif;
+  animation: fadeIn 0.8s ease-out;
+  padding: 1.5rem; /* Padding interno para el contenedor general */
 }
 
 .perfil-header {
   display: flex;
   align-items: center;
   padding: 2rem;
-  background: linear-gradient(135deg, #1e3a8a, #3b82f6);
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: white;
   gap: 2rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px; /* Bordes redondeados para el header */
+  margin-bottom: 1.5rem; /* Espacio debajo del header */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.perfil-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  mix-blend-mode: overlay;
+  pointer-events: none;
 }
 
 .perfil-avatar {
@@ -22,8 +104,13 @@
   height: 120px;
   border-radius: 50%;
   overflow: hidden;
-  border: 4px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 4px solid rgba(255, 255, 255, 0.4); /* Borde más visible */
+  box-shadow: 0 6px 16px var(--shadow-medium);
+  transition: transform var(--transition-speed) ease;
+}
+
+.perfil-avatar:hover {
+  transform: scale(1.08) rotate(2deg); /* Efecto más dinámico en hover */
 }
 
 .avatar-img {
@@ -34,22 +121,25 @@
 
 .perfil-titulo h1 {
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.5rem; /* Ligeramente más grande */
   font-weight: 600;
   opacity: 0.9;
+  animation: slideInLeft 0.6s ease-out 0.2s backwards;
 }
 
 .perfil-titulo h2 {
   margin: 0.5rem 0;
-  font-size: 1.8rem;
+  font-size: 2.2rem; /* Más grande y prominente */
   font-weight: 700;
+  animation: slideInLeft 0.6s ease-out 0.3s backwards;
 }
 
 .perfil-institucion {
   display: flex;
   flex-direction: column;
-  font-size: 0.95rem;
+  font-size: 1rem; /* Ligeramente más grande */
   opacity: 0.9;
+  animation: slideInLeft 0.6s ease-out 0.4s backwards;
 }
 
 .perfil-departamento {
@@ -58,138 +148,181 @@
 
 .perfil-contacto {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 1.5rem;
   padding: 1rem 2rem;
-  background-color: #f8fafc;
-  border-bottom: 1px solid #e2e8f0;
+  background-color: var(--bg-light);
+  border-bottom: 1px solid var(--border-color);
+  border-radius: 12px; /* Bordes redondeados */
+  margin-bottom: 1.5rem; /* Espacio debajo */
+  box-shadow: 0 2px 10px var(--shadow-card);
 }
 
 .contacto-item {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  font-size: 0.9rem;
-  color: #334155;
+  gap: 0.6rem; /* Mayor espacio entre icono y texto */
+  font-size: 0.95rem; /* Ligeramente más grande */
+  color: var(--text-color-medium);
+  transition: color var(--transition-speed) ease, transform var(--transition-speed) ease;
+  cursor: pointer;
+  padding: 0.5rem 1rem; /* Padding para hacerlos más clicables */
+  border-radius: 8px;
+  background-color: transparent;
 }
 
-.perfil-seccion {
-  padding: 1.5rem 2rem;
-  border-bottom: 1px solid #f1f5f9;
+.contacto-item:hover {
+  color: var(--primary-color);
+  transform: translateY(-3px) scale(1.02);
+  background-color: rgba(var(--secondary-color), 0.1); /* Fondo sutil en hover */
 }
 
-.perfil-seccion:last-child {
-  border-bottom: none;
+/* Estilo general para las tarjetas de sección */
+.section-card {
+  background: var(--bg-card);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px var(--shadow-card);
+  padding: 2rem;
+  margin-bottom: 1.5rem; /* Espacio entre tarjetas */
+  animation: fadeIn 0.8s ease-out; /* Animación de entrada para cada tarjeta */
+  transition: transform 0.2s ease-out;
+}
+
+.section-card:hover {
+    transform: translateY(-5px); /* Efecto de elevación en hover */
 }
 
 .perfil-seccion h3 {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin: 0 0 1rem 0;
-  color: #1e40af;
-  font-size: 1.2rem;
+  margin: 0 0 1.2rem 0; /* Mayor espacio debajo del título */
+  color: var(--primary-color);
+  font-size: 1.4rem; /* Tamaño de fuente más grande */
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--accent-color); /* Línea de acento más llamativa */
+  animation: slideInRight 0.6s ease-out 0.1s backwards;
 }
 
 .icono-seccion {
-  color: #3b82f6;
+  color: var(--secondary-color);
+  transition: transform var(--transition-speed) ease;
+}
+
+.perfil-seccion h3:hover .icono-seccion {
+  transform: rotate(-5deg) scale(1.15); /* Efecto más pronunciado en hover */
+  color: var(--accent-color);
 }
 
 .perfil-descripcion {
   margin: 0;
-  line-height: 1.6;
-  color: #334155;
-}
-
-.timeline {
-  position: relative;
-  padding-left: 1.5rem;
-}
-
-.timeline::before {
-  content: '';
-  position: absolute;
-  left: 0.35rem;
-  top: 0;
-  bottom: 0;
-  width: 2px;
-  background: #e2e8f0;
-}
-
-.timeline-item {
-  position: relative;
-  padding-bottom: 1.5rem;
-}
-
-.timeline-item:last-child {
-  padding-bottom: 0;
-}
-
-
-
-.timeline-periodo {
-  font-weight: 600;
-  color: #1e40af;
-  margin-bottom: 0.25rem;
-  font-size: 0.9rem;
-}
-
-.timeline-content {
-  padding-left: 1.5rem;
-}
-
-.timeline-content h4 {
-  margin: 0 0 0.25rem 0;
-  color: #1e293b;
+  line-height: 1.8; /* Mayor interlineado */
+  color: var(--text-color-dark);
   font-size: 1rem;
+  animation: fadeIn 0.8s ease-out 0.2s backwards;
 }
 
-.timeline-departamento {
+/* Estilo para las tarjetas de experiencia (reemplaza la línea de tiempo) */
+.experiencia-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* Columnas flexibles */
+  gap: 1.5rem; /* Espacio entre tarjetas */
+  margin-top: 1.5rem;
+}
+
+.experience-card {
+  background: var(--bg-card);
+  border-radius: 10px;
+  box-shadow: 0 2px 10px var(--shadow-card);
+  padding: 1.5rem;
+  border-left: 5px solid var(--secondary-color); /* Borde de color para destacar */
+  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
+  animation: bounceIn 0.7s ease-out backwards; /* Animación de rebote al aparecer */
+}
+
+.experience-card:hover {
+  transform: translateY(-7px); /* Efecto de elevación más notorio */
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-color); /* Cambio de color en hover */
+}
+
+.experience-card .periodo {
+  font-weight: 700;
+  color: var(--accent-color); /* Color de acento para el periodo */
+  margin-bottom: 0.5rem;
+  font-size: 0.95rem;
+}
+
+.experience-card h4 {
+  margin: 0 0 0.25rem 0;
+  color: var(--text-color-dark);
+  font-size: 1.1rem;
+}
+
+.experience-card .departamento {
   margin: 0;
-  color: #475569;
+  color: var(--text-color-medium);
   font-size: 0.9rem;
 }
 
-.timeline-cargo {
-  margin: 0.25rem 0 0 0;
-  color: #64748b;
+.experience-card .cargo {
+  margin: 0.5rem 0 0 0;
+  color: var(--text-color-light);
   font-size: 0.85rem;
+  font-style: italic;
 }
 
 .asignaturas-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.2rem;
   margin-top: 1rem;
 }
 
 .asignatura-card {
-  padding: 1rem;
-  background: #f8fafc;
-  border-radius: 8px;
-  border-left: 3px solid #3b82f6;
+  padding: 1.2rem;
+  background: var(--bg-card); /* Fondo de tarjeta */
+  border-radius: 10px;
+  border-left: 4px solid var(--secondary-color);
+  box-shadow: 0 2px 8px var(--shadow-card);
+  transition: transform var(--transition-speed) ease, box-shadow var(--transition-speed) ease, border-color var(--transition-speed) ease;
+  cursor: pointer;
+}
+
+.asignatura-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  border-color: var(--primary-color);
 }
 
 .asignatura-card h4 {
   margin: 0 0 0.25rem 0;
-  color: #1e293b;
+  color: var(--text-color-dark);
+  font-size: 1.1rem;
 }
 
 .asignatura-card p {
   margin: 0;
-  color: #475569;
+  color: var(--text-color-medium);
   font-size: 0.9rem;
 }
 
 .asignatura-meta {
   display: flex;
   justify-content: space-between;
-  margin-top: 0.5rem;
-  font-size: 0.8rem;
-  color: #64748b;
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--text-color-light);
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+  .perfil-docente-container {
+    margin: 1rem auto;
+    padding: 1rem;
+  }
+
   .perfil-header {
     flex-direction: column;
     text-align: center;
@@ -197,13 +330,53 @@
     gap: 1.5rem;
   }
 
+  .perfil-titulo h2 {
+    font-size: 1.8rem;
+  }
+
   .perfil-contacto {
     flex-direction: column;
     gap: 0.75rem;
     padding: 1rem;
+    align-items: flex-start;
   }
 
+  .section-card {
+    padding: 1.5rem;
+  }
+
+  .perfil-seccion h3 {
+    font-size: 1.2rem;
+  }
+
+  .experiencia-grid,
   .asignaturas-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .perfil-docente-container {
+    border-radius: 0;
+    margin: 0; /* Elimina margen en pantallas muy pequeñas */
+  }
+
+  .perfil-header {
+    padding: 1rem;
+  }
+
+  .perfil-avatar {
+    width: 90px;
+    height: 90px;
+  }
+
+  .perfil-titulo h2 {
+    font-size: 1.6rem;
+  }
+
+  .section-card {
+    border-radius: 0; /* Sin bordes redondeados en tarjetas en móvil */
+    box-shadow: none; /* Sin sombra en móvil para un look más limpio */
+    margin-bottom: 1rem;
   }
 }

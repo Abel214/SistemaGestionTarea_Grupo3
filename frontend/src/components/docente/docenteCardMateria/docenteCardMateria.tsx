@@ -1,3 +1,4 @@
+// @ts-ignore
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {Book, CheckSquare, FileText, Users} from "lucide-react";
