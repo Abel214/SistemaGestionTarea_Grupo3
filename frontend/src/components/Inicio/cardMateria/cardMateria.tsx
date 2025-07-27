@@ -65,6 +65,7 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject, isTeacher, imagen })
     <div
       ref={cardRef}
       className="subject-card-large"
+      onClick={handleButtonClick}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       style={{
@@ -105,13 +106,6 @@ const SubjectCard: React.FC<SubjectCardProps> = ({ subject, isTeacher, imagen })
             {subject.description || 'Se enfoca en la gestión de contenido, estudiantes y evaluaciones de la materia.'}
           </p>
         )}
-        <button
-          className="subject-button"
-          onClick={handleButtonClick}
-          disabled={isTeacher} // Opcional: deshabilitar el botón para profesores
-        >
-          {isTeacher ? 'Gestionar Materia' : 'Ir a Materia'}
-        </button>
       </div>
     </div>
   );

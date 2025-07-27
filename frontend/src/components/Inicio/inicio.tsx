@@ -151,8 +151,15 @@ const DashboardPanel = ({
             </button>
           ))}
           {/* Toggle button for sidebar at the bottom */}
-          <button className="sidebar-toggle-button-bottom" onClick={toggleSidebar}>
-            {isSidebarOpen ? <ChevronLeft size={24} /> : <ChevronRight size={24} />}
+          <button className="sidebar-toggle" onClick={toggleSidebar}>
+            {isSidebarOpen ? (
+              <>
+                <ChevronLeft size={24} />
+                <span className="sidebar-toggle-text">Ocultar</span> {/* Added text here */}
+              </>
+            ) : (
+              <ChevronRight size={24} />
+            )}
           </button>
         </div>
       </div>
