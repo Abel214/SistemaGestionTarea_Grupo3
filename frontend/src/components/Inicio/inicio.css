@@ -6,11 +6,12 @@
   min-height: 100vh;
   background: linear-gradient(to top, #ffffff, #ffffff, #ffffff, #048ABF);
   font-family: 'Inter', sans-serif; /* Changed to a more modern font */
+  transition: margin-left 0.3s ease; /* Smooth transition for main content */
 }
 
 /* Sidebar */
 .sidebar {
-  width: 280px;
+  width: 280px; /* Default open width */
   background-color: #ffffff; /* Changed to white/light background */
   color: #334155; /* Changed text color for better contrast */
   padding: 20px 0;
@@ -20,19 +21,68 @@
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Added subtle shadow */
   border-radius: 12px; /* Added rounded corners */
   margin: 10px; /* Added margin to make it float */
+  transition: width 0.3s ease, margin 0.3s ease; /* Smooth transition for width and margin */
+  flex-shrink: 0; /* Prevent sidebar from shrinking */
+}
+
+.sidebar.closed {
+  width: 80px; /* Collapsed width */
+  margin-right: 0; /* Remove right margin when closed */
+}
+
+.sidebar-logo {
+  width: 50px; /* Ajusta el tamaño según sea necesario */
+  height: 50px; /* Ajusta el tamaño según sea necesario */
+  object-fit: contain; /* Asegura que la imagen se ajuste sin cortarse */
+  margin-right: 8px; /* Espacio entre la imagen y el texto si lo necesitas */
 }
 
 .sidebar-header {
   padding: 0 20px 20px;
   border-bottom: 1px solid #e2e8f0; /* Lighter border */
+  display: flex; /* Added for alignment */
+  justify-content: space-between; /* Space between title and toggle button */
+  align-items: center; /* Vertically align items */
 }
+
+/* inicio.css */
 
 .sidebar-title {
   display: flex;
-  align-items: center;
+  align-items: center; /* Alinea el ícono con el centro del grupo de texto */
   gap: 12px;
   padding: 10px 0;
-  color: #1e293b; /* Darker title color */
+  color: #1e293b;
+  flex-grow: 1; /* Allow title to take available space */
+}
+
+.sidebar.closed .sidebar-title .sidebar-text-group {
+  display: none; /* Hide text group when sidebar is closed */
+}
+
+.sidebar-text-group {
+  display: flex;
+  flex-direction: column; /* Apila los elementos de texto verticalmente */
+  justify-content: center; /* Centra el texto si es necesario */
+  transition: opacity 0.3s ease; /* Smooth transition for text opacity */
+}
+
+.sidebar.closed .sidebar-text-group {
+  opacity: 0;
+}
+
+.sidebar-main-title {
+  font-size: 18px; /* Tamaño para SGTTA */
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 2px; /* Pequeño espacio entre SGTTA y el rol */
+}
+
+.sidebar-user-role {
+  margin: 0; /* Elimina márgenes por defecto del h1 */
+  font-size: 14px; /* Tamaño para el rol */
+  font-weight: 500;
+  color: #475569; /* Un color ligeramente más suave para el rol */
 }
 
 .sidebar-title h1 {
@@ -41,12 +91,21 @@
   margin: 0;
 }
 
+/* Sidebar Toggle Button (removed from header, now at bottom) */
+.sidebar-toggle-button {
+  display: none; /* Hide this button as it's replaced by sidebar-toggle-button-bottom */
+}
+
 /* Search Section */
 .sidebar-search-section {
   padding: 8px 10px;
   border-bottom: 1px solid #e2e8f0; /* Lighter border */
   width: 100%; /* Ensure it takes full width of sidebar */
   box-sizing: border-box; /* Include padding in width */
+}
+
+.sidebar.closed .sidebar-search-section {
+  padding: 8px; /* Adjust padding when collapsed */
 }
 
 .sidebar-search {
@@ -65,6 +124,14 @@
   font-size: 14px;
   outline: none;
   box-sizing: border-box; /* Include padding in width */
+  transition: width 0.3s ease, opacity 0.3s ease;
+}
+
+.sidebar.closed .search-input {
+  width: 0; /* Hide input when collapsed */
+  opacity: 0;
+  padding: 0;
+  border: none;
 }
 
 .search-input::placeholder {
@@ -84,6 +151,11 @@
   flex: 1;
 }
 
+.sidebar.closed .sidebar-nav {
+  padding: 10px; /* Adjust padding when collapsed */
+  align-items: center; /* Center icons when collapsed */
+}
+
 .sidebar-nav-item {
   display: flex;
   align-items: center;
@@ -98,17 +170,43 @@
   font-size: 15px; /* Slightly larger font */
   text-align: left;
   font-weight: 500; /* Slightly bolder */
+  animation: slideIn 0.3s ease-out;
+  animation-fill-mode: both;
+  width: 100%; /* Ensure full width for consistent padding */
+  box-sizing: border-box;
+}
+
+.sidebar.closed .sidebar-nav-item {
+  justify-content: center; /* Center icon when collapsed */
+  padding: 12px; /* Equal padding for icon-only */
+  gap: 0;
+}
+
+.sidebar-item-label {
+  transition: opacity 0.3s ease, width 0.3s ease; /* Smooth transition for label */
+  white-space: nowrap; /* Prevent text wrap */
+  overflow: hidden; /* Hide overflow when collapsed */
+}
+
+.sidebar.closed .sidebar-item-label {
+  opacity: 0;
+  width: 0;
+  display: none; /* Hide element completely when collapsed */
 }
 
 .sidebar-nav-item:hover {
   background-color: #f1f5f9; /* Light hover background */
   color: #1e293b; /* Darker text on hover */
+  transform: translateX(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .sidebar-nav-item.active {
   background-color: #0077B6; /* Blue active background */
   color: white; /* White text for active item */
   box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2); /* Subtle shadow for active item */
+  transform: translateX(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Sidebar Bottom */
@@ -116,6 +214,38 @@
   padding: 20px;
   border-top: 1px solid #e2e8f0; /* Lighter border */
   margin-top: auto;
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  gap: 10px; /* Space between bottom items and toggle button */
+}
+
+.sidebar.closed .sidebar-bottom {
+  padding: 10px; /* Adjust padding when collapsed */
+  justify-content: center;
+}
+
+/* New Toggle Button at the bottom */
+.sidebar-toggle-button-bottom {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #475569;
+  padding: 8px;
+  border-radius: 50%; /* Circular button */
+  transition: color 0.2s ease, background-color 0.2s ease, transform 0.3s ease;
+  align-self: flex-end; /* Align to the right within sidebar-bottom */
+  margin-top: 10px; /* Space from other bottom items */
+}
+
+.sidebar.closed .sidebar-toggle-button-bottom {
+  align-self: center; /* Center when collapsed */
+}
+
+.sidebar-toggle-button-bottom:hover {
+  background-color: #f1f5f9;
+  color: #1e293b;
+  transform: scale(1.1); /* Slight scale on hover */
 }
 
 /* Main content */
@@ -123,6 +253,12 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  transition: margin-left 0.3s ease; /* Smooth transition for main content margin */
+  margin-left: 10px; /* Initial margin to match sidebar float */
+}
+
+.dashboard-container.sidebar-closed .main-content {
+  margin-left: 80px; /* Adjust margin when sidebar is closed */
 }
 
 /* Header */
@@ -230,7 +366,7 @@
 }
 
 .dropdown-icon {
-  color: #647748b;
+  color: #317ed9;
 }
 
 /* Content area */
@@ -364,10 +500,15 @@
 
 /* Forms */
 .section-content {
-  background-color: white;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-  padding: 30px;
+}
+
+/* H2*/
+.section-content h2 {
+  margin: 0 0 20px 0;
+  font-size: 24px;
+  color: #ffffff;
+  font-weight: 600;
 }
 
 .assignment-form {
@@ -545,85 +686,120 @@
 }
 
 /* Grades Cards */
+/* inicio.css */
+
+/* ... (previous CSS rules) ... */
+
+/* Grades Cards - Modified for table-like view */
 .grades-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  display: flex; /* Changed to flex for easier column control */
+  flex-direction: column; /* Stack grade cards vertically */
   gap: 20px;
 }
 
 .grade-card {
-  padding: 20px;
+  padding: 0; /* Remove padding from card itself, apply to inner elements */
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   background-color: #f8f9fa;
+  overflow: hidden; /* Ensure rounded corners clip content */
 }
 
 .grade-card-header {
   display: flex;
   align-items: center;
   gap: 12px;
-  margin-bottom: 16px;
+  padding: 16px 20px; /* Add padding to header */
+  border-bottom: 1px solid #e0e0e0; /* Separator for header */
+  background-color: #eaf1f8; /* Light background for header */
 }
 
 .grade-card-icon {
-  width: 40px;
-  height: 40px;
-  background-color: #3498db;
-  border-radius: 8px;
+  width: 32px; /* Slightly smaller icon */
+  height: 32px;
+  background-color: #0077B6; /* Blue icon background */
+  border-radius: 6px; /* Slightly less rounded */
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .grade-card-icon img {
-  width: 24px;
-  height: 24px;
-  object-fit: cover;
-  border-radius: 4px;
+  width: 20px; /* Smaller image within icon */
+  height: 20px;
 }
 
 .grade-card-title {
   margin: 0;
-  font-size: 18px;
+  font-size: 16px; /* Slightly smaller title */
   font-weight: 600;
   color: #1f2937;
 }
 
-.grade-item {
+.grade-content-table { /* New wrapper for table-like content */
+  padding: 0 20px; /* Padding for the "table" area */
+}
+
+.grade-table-row { /* Style for each grade item row */
   display: flex;
   justify-content: space-between;
-  margin-bottom: 8px;
+  padding: 12px 0; /* Padding for rows */
+  border-bottom: 1px dashed #e0e0e0; /* Dashed separator for items */
+}
+
+.grade-table-row:last-of-type {
+  border-bottom: none; /* No border for the last row */
 }
 
 .grade-item-label {
   font-size: 14px;
-  color: #6b7280;
+  color: #475569; /* Darker grey for labels */
+  flex: 1; /* Allow label to take available space */
 }
 
 .grade-item-value {
   font-size: 14px;
   font-weight: 500;
   color: #1f2937;
+  text-align: right; /* Align value to the right */
+  min-width: 50px; /* Ensure some minimum width for values */
 }
 
 .grade-total {
-  padding-top: 12px;
-  margin-top: 8px;
-  border-top: 1px solid #ddd;
+  padding: 16px 20px; /* Padding for total row */
+  margin-top: 0; /* Remove extra top margin */
+  border-top: 1px solid #e0e0e0; /* Solid border for total */
   display: flex;
   justify-content: space-between;
+  background-color: #eaf1f8; /* Light background for total row */
+  border-bottom-left-radius: 12px; /* Apply border-radius to bottom of total row */
+  border-bottom-right-radius: 12px;
 }
 
 .grade-total-label {
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600; /* Bolder label */
   color: #1f2937;
 }
 
 .grade-total-value {
   font-size: 16px;
-  font-weight: 600;
-  color: #2563eb;
+  font-weight: 700; /* Even bolder value */
+  color: #0077B6; /* Use the primary blue color for total */
+}
+
+/* Responsive adjustments for grades */
+@media (max-width: 768px) {
+  .grades-grid {
+    gap: 15px; /* Slightly smaller gap on smaller screens */
+  }
+
+  .grade-card-header,
+  .grade-content-table,
+  .grade-total {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
 }
 
 /* Common */
@@ -638,22 +814,70 @@
 @media (max-width: 768px) {
   .dashboard-container {
     flex-direction: column;
+    position: relative; /* For sidebar overlay */
   }
 
   .sidebar {
-    width: 100%;
-    height: auto;
-    margin: 0; /* Remove margin on small screens */
-    border-radius: 0; /* Remove border-radius on small screens */
+    position: fixed; /* Fixed position for mobile sidebar */
+    top: 0;
+    left: -280px; /* Start off-screen */
+    height: 100vh;
+    width: 280px;
+    margin: 0;
+    border-radius: 0;
+    z-index: 100; /* Ensure it's above other content */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    transition: left 0.3s ease-in-out; /* Smooth slide-in/out */
+  }
+
+  .sidebar.open {
+    left: 0; /* Slide in */
+  }
+
+  .sidebar.closed {
+    width: 0; /* Fully collapse on mobile when closed */
+    overflow: hidden; /* Hide content */
+  }
+
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99; /* Below sidebar, above content */
+    display: block; /* Show overlay when sidebar is open */
+    animation: fadeIn 0.3s ease-out;
+  }
+
+  .dashboard-container.sidebar-closed .main-content {
+    margin-left: 0; /* No margin when sidebar is closed */
   }
 
   .dashboard-header {
-    flex-direction: column;
-    gap: 16px;
+    flex-direction: row; /* Keep header elements in a row */
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+  }
+
+  .header-content {
+    flex-direction: row; /* Keep header content in a row */
+    align-items: center;
+    gap: 10px;
+  }
+
+  .main-title {
+    font-size: 20px;
+  }
+
+  .welcome-section {
+    display: none; /* Hide welcome message on small screens */
   }
 
   .user-controls {
-    width: 100%;
+    width: auto;
     justify-content: flex-end;
   }
 
@@ -666,30 +890,74 @@
   }
 
   .sidebar-nav {
-    flex-direction: row;
-    overflow-x: auto;
+    flex-direction: column; /* Keep vertical on mobile */
+    overflow-x: hidden; /* Prevent horizontal scroll */
     padding: 10px 20px;
   }
 
   .sidebar-nav-item {
     flex-shrink: 0;
+    justify-content: flex-start; /* Align text to left */
+  }
+
+  .sidebar.closed .sidebar-nav-item {
+    justify-content: center; /* Center icon when collapsed */
   }
 
   .sidebar-bottom {
     padding: 10px 20px;
-    border-top: none;
-    border-left: 1px solid #334155;
+    border-top: 1px solid #e2e8f0; /* Re-add border for mobile */
+    border-left: none; /* Remove left border */
+  }
+
+  /* Hide the old toggle button on mobile */
+  .sidebar-toggle-button {
+    display: none;
+  }
+
+  /* Show the new bottom toggle button on mobile */
+  .sidebar-toggle-button-bottom {
+    display: block;
+    align-self: center; /* Center it when sidebar is open on mobile */
+    margin-top: 10px;
   }
 }
+
+@media (min-width: 769px) {
+  /* Hide the old toggle button on desktop */
+  .sidebar-toggle-button {
+    display: none;
+  }
+
+  /* Show the new bottom toggle button on desktop */
+  .sidebar-toggle-button-bottom {
+    display: block;
+    align-self: flex-end; /* Align to right when sidebar is open */
+    margin-top: 10px;
+  }
+
+  .dashboard-container.sidebar-closed .sidebar {
+    width: 80px; /* Collapsed width for desktop */
+  }
+
+  .dashboard-container.sidebar-closed .main-content {
+    margin-left: 80px; /* Adjust margin for collapsed sidebar */
+  }
+
+  .sidebar-overlay {
+    display: none; /* Hide overlay on desktop */
+  }
+}
+
 /* Estilos para el Área Personal del Estudiante */
 .personal-area {
-  padding: 20px;
-  max-width: 1200px;
+  padding: 10px;
+  /* Eliminado max-width para permitir que se extienda */
   margin: 0 auto;
 }
 
 .personal-area h2 {
-  color: #2d5016;
+  color: #333; /* Changed from #2d5016 */
   font-size: 28px;
   margin-bottom: 30px;
   font-weight: 600;
@@ -697,16 +965,16 @@
 
 /* Timeline de tareas */
 .timeline-section {
-  background: white;
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 12px; /* Slightly more rounded */
   padding: 24px;
   margin-bottom: 30px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08); /* More prominent shadow */
 }
 
 .timeline-section h3 {
-  color: #2d5016;
-  font-size: 20px;
+  color: #333; /* Changed from #2d5016 */
+  font-size: 22px; /* Slightly larger */
   margin-bottom: 20px;
   font-weight: 600;
 }
@@ -714,15 +982,29 @@
 .timeline-filter {
   display: flex;
   gap: 15px;
-  margin-bottom: 20px;
+  margin-bottom: 25px; /* More space below filters */
+  flex-wrap: wrap; /* Allow wrapping on small screens */
 }
 
 .filter-select {
-  padding: 8px 12px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 10px 15px; /* Increased padding */
+  border: 1px solid #ced4da; /* Softer border color */
+  border-radius: 8px; /* More rounded */
   background: white;
-  font-size: 14px;
+  font-size: 15px; /* Slightly larger font */
+  color: #495057;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-select:hover {
+  border-color: #2980b9;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #2980b9;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 
 .timeline-tasks {
@@ -733,29 +1015,42 @@
 
 .timeline-task {
   display: flex;
+  align-items: flex-start; /* Align items to the start for better date positioning */
   gap: 20px;
-  padding: 16px;
-  background: #f8f9fa;
-  border-radius: 8px;
-  border-left: 4px solid #2d5016;
+  padding: 20px; /* Increased padding */
+  background: #ffffff; /* White background for task cards */
+  border-radius: 12px; /* More rounded */
+  border-left: 5px solid #0077B6; /* Changed color and thickness */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05); /* Subtle shadow for each task */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.timeline-task:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .task-date {
-  min-width: 150px;
-  text-align: center;
+  min-width: 120px; /* Adjust min-width for better alignment */
+  text-align: left; /* Align text to the left */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-right: 15px;
 }
 
 .task-day {
-  font-weight: 600;
-  color: #2d5016;
-  font-size: 14px;
+  font-weight: 700; /* Bolder */
+  color: #0077B6; /* Highlighted color */
+  font-size: 1.1em; /* Larger font */
   text-transform: capitalize;
+  margin-bottom: 4px;
 }
 
 .task-time {
-  color: #666;
-  font-size: 12px;
-  margin-top: 4px;
+  color: #6c757d; /* Softer grey */
+  font-size: 0.9em; /* Slightly smaller */
+  margin-top: 0;
 }
 
 .task-content {
@@ -765,38 +1060,45 @@
 .task-header {
   display: flex;
   justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 8px;
+  align-items: center; /* Vertically align items */
+  margin-bottom: 10px;
 }
 
 .task-title {
-  font-size: 16px;
+  font-size: 1.15em; /* Larger font */
   font-weight: 600;
-  color: #333;
+  color: #343a40; /* Darker text */
   margin: 0;
 }
 
 .task-status-badge {
-  background: #e3f2fd;
-  color: #1976d2;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 500;
+  background: #e9f5ff; /* Lighter blue background */
+  color: #0077B6; /* Blue text */
+  padding: 6px 14px; /* More padding */
+  border-radius: 18px; /* More rounded, pill-like */
+  font-size: 0.85em; /* Slightly smaller */
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .task-details {
-  color: #666;
-  font-size: 14px;
-  margin-bottom: 12px;
+  color: #6c757d; /* Softer grey */
+  font-size: 0.95em;
+  margin-bottom: 15px; /* More space below details */
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between subject and course */
 }
 
 .task-subject {
   font-weight: 500;
+  color: #495057; /* Darker for subject */
 }
 
 .task-course {
   color: #999;
+  font-size: 0.9em;
 }
 
 .task-actions {
@@ -805,22 +1107,34 @@
 }
 
 .btn-task-action {
-  padding: 6px 12px;
-  border: 1px solid #ddd;
+  padding: 8px 16px; /* Increased padding */
+  border: 1px solid #0077B6; /* Blue border */
   background: white;
-  border-radius: 4px;
-  font-size: 14px;
+  color: #0077B6; /* Blue text */
+  border-radius: 8px; /* More rounded */
+  font-size: 1em;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-task-action:hover {
+  background: #e9f5ff;
+  color: #0056b3;
 }
 
 .btn-task-primary {
-  padding: 6px 12px;
-  background: #2d5016;
+  padding: 8px 16px; /* Increased padding */
+  background: #0077B6; /* Blue background */
   color: white;
   border: none;
-  border-radius: 4px;
-  font-size: 14px;
+  border-radius: 8px; /* More rounded */
+  font-size: 1em;
   cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.btn-task-primary:hover {
+  background: #0077B6; /* Darker blue on hover */
 }
 
 /* Vista general del curso */
@@ -832,7 +1146,7 @@
 }
 
 .course-overview h3 {
-  color: #2d5016;
+  color: #333; /* Changed from #2d5016 */
   font-size: 20px;
   margin-bottom: 20px;
   font-weight: 600;
@@ -987,6 +1301,7 @@
   .task-date {
     min-width: auto;
     text-align: left;
+    padding-right: 0;
   }
 
   .course-filter {
@@ -1161,4 +1476,269 @@
 .all-tasks-button:hover {
   background-color: #2d5016;
   color: white;
+}
+
+/* Animaciones para la sidebar */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.sidebar-nav-item {
+  animation: slideIn 0.3s ease-out;
+  animation-fill-mode: both;
+}
+
+/* Aplicar retraso a cada elemento de manera incremental */
+.sidebar-nav-item:nth-child(1) { animation-delay: 0.1s; }
+.sidebar-nav-item:nth-child(2) { animation-delay: 0.2s; }
+.sidebar-nav-item:nth-child(3) { animation-delay: 0.3s; }
+.sidebar-nav-item:nth-child(4) { animation-delay: 0.4s; }
+.sidebar-nav-item:nth-child(5) { animation-delay: 0.5s; }
+.sidebar-nav-item:nth-child(6) { animation-delay: 0.6s; }
+
+.sidebar-nav-item:hover {
+  transform: translateX(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.sidebar-nav-item.active {
+  transform: translateX(8px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Animación para el ícono dentro del elemento activo */
+.sidebar-nav-item.active svg {
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* inicio.css */
+
+/* ... (previous CSS rules) ... */
+
+/* Notifications Section (New) */
+.notification-center {
+  background-color: transparent; /* Changed from white for consistency with other sections */
+  border-radius: 0;
+  box-shadow: none;
+  padding: 0; /* Remove padding here, apply to inner elements */
+}
+
+.notification-center h2 {
+  margin: 0 0 20px 0;
+  font-size: 24px;
+  color: #f4f8fc; /* Use the main title color */
+  font-weight: 600;
+}
+
+.notification-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.filter-button {
+  padding: 8px 18px;
+  border: 1px solid #c9d6e4; /* Light border */
+  border-radius: 20px; /* Pill shape */
+  background-color: #f0f4f7; /* Light background */
+  color: #475569; /* Dark grey text */
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+.filter-button:hover {
+  background-color: #e2e8f0;
+  border-color: #aebfd1;
+}
+
+.filter-button.active {
+  background-color: #0077B6; /* Blue active background */
+  color: white;
+  border-color: #0077B6;
+  box-shadow: 0 2px 5px rgba(0, 119, 182, 0.2);
+}
+
+.notifications-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between notifications */
+}
+
+.notification-item {
+  display: flex;
+  align-items: flex-start; /* Align icon and content to top */
+  gap: 15px;
+  padding: 18px 20px; /* Generous padding */
+  background-color: rgba(255, 255, 255, 0.6); /* White background for each notification */
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06); /* Soft shadow */
+  border-left: 5px solid transparent; /* Default no accent color */
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.notification-item.unread {
+  border-left-color: #0077B6; /* Blue accent for unread */
+  background-color: rgba(240, 248, 255, 0.6); /* Lighter background for unread */
+}
+
+.notification-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.notification-icon-wrapper {
+  flex-shrink: 0; /* Prevent icon from shrinking */
+  width: 36px; /* Fixed width for icon container */
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #e0f2fe; /* Light blue for icons */
+  border-radius: 50%;
+  color: #0077B6; /* Icon color */
+}
+
+.notification-item.unread .notification-icon-wrapper {
+  background-color: #d1ecf1; /* Slightly different background for unread icons */
+  color: #0056b3;
+}
+
+.notification-content {
+  flex: 1; /* Allows content to take up remaining space */
+  display: flex;
+  flex-direction: column;
+}
+
+.notification-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.notification-title {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1f2937;
+  line-height: 1.2; /* Adjust line height */
+}
+
+.notification-message {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.notification-time {
+  font-size: 12px;
+  color: #6b7280;
+  text-align: right;
+  align-self: flex-end; /* Align time to the right within its flex container */
+}
+
+.notification-status-new {
+  background-color: #ef4444; /* Red badge for 'Nuevo' */
+  color: white;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-left: 10px; /* Space from title */
+}
+
+.notification-actions {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mark-as-read-button {
+  padding: 8px 12px;
+  background-color: #0077B6;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.mark-as-read-button:hover {
+  background-color: #0056b3;
+}
+
+/* Animaciones para las secciones principales */
+@keyframes sectionFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Aplicar animación a las secciones principales */
+.timeline-section,
+.grades-grid,
+.notifications-list {
+  animation: sectionFadeIn 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* Retraso escalonado para cada sección */
+.timeline-section {
+  animation-delay: 0.2s;
+}
+
+.grades-grid {
+  animation-delay: 0.3s;
+}
+
+.notifications-list {
+  animation-delay: 0.4s;
+}
+
+/* Animar elementos individuales dentro de cada sección */
+.timeline-task,
+.grade-card,
+.notification-item {
+  opacity: 0;
+  animation: sectionFadeIn 0.5s ease-out forwards;
+}
+
+/* Retrasos para elementos individuales */
+.timeline-task:nth-child(n),
+.grade-card:nth-child(n),
+.notification-item:nth-child(n) {
+  animation-delay: calc(0.1s * var(--item-index, 1));
 }

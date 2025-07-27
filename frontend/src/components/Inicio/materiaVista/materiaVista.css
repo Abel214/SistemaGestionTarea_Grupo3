@@ -119,9 +119,62 @@
 .progress-percentage {
   font-size: 18px;
   font-weight: bold;
-  color: white;
+  color: #44A08D;
   z-index: 1;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+ /* Animaciones para las secciones principales */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Aplicar animaciones a las secciones principales */
+.materia-banner-container,
+.tareas-container,
+.calendar-container,
+.unidades-menu {
+  animation: slideInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+/* Retrasos escalonados para cada sección */
+.materia-banner-container {
+  animation-delay: 0.2s;
+}
+
+.tareas-container {
+  animation-delay: 0.4s;
+}
+
+.calendar-container {
+  animation-delay: 0.5s;
+}
+
+.unidades-menu {
+  animation-delay: 0.6s;
+}
+
+/* Animar elementos individuales dentro de cada sección */
+.tarea-item,
+.calendar-event,
+.unidad-item {
+  opacity: 0;
+  animation: slideInUp 0.5s ease-out forwards;
+}
+
+/* Retrasos para elementos individuales */
+.tarea-item:nth-child(n),
+.calendar-event:nth-child(n),
+.unidad-item:nth-child(n) {
+  animation-delay: calc(0.1s * var(--item-index, 1));
 }
 
 /* Responsive design */
@@ -180,5 +233,242 @@
 
   .progress-percentage {
     font-size: 14px;
+  }
+}
+
+
+/* --- Tareas Pendientes Section Styles --- */
+.tareas-container {
+  background-color: rgba(255, 255, 255, 0.6);
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  padding: 24px;
+  margin: 0px 24px; /* Consistent margin with banner */
+  font-family: 'Inter', sans-serif;
+  animation: slideInUp 0.6s ease-out forwards;
+  opacity: 0; /* Initial state for animation */
+}
+
+.tareas-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #e2e8f0; /* Subtle separator */
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tareas-title::before {
+  content: '';
+  display: inline-block;
+  width: 6px;
+  height: 24px;
+  background-color: #0077B6; /* Accent color */
+  border-radius: 3px;
+}
+
+.tareas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px; /* Space between task items */
+}
+
+.tarea-item {
+  display: flex;
+  align-items: center;
+  padding: 16px;
+  border-radius: 8px;
+  background-color: #f8fafc; /* Light background for each task */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  border-left: 5px solid; /* For status indication */
+  cursor: pointer;
+}
+
+.tarea-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tarea-item.pending {
+  border-color: #f97316; /* Orange for pending */
+  background-color: #fff7ed;
+}
+
+.tarea-item.completed {
+  border-color: #22c55e; /* Green for completed */
+  background-color: #f0fdf4;
+}
+
+.tarea-icon {
+  flex-shrink: 0;
+  margin-right: 16px;
+  color: #6b7280; /* Default icon color */
+}
+
+.tarea-item.pending .tarea-icon {
+  color: #f97316;
+}
+
+.tarea-item.completed .tarea-icon {
+  color: #22c55e;
+}
+
+.tarea-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Hide overflow for title ellipsis */
+}
+
+.tarea-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #1f2937;
+  margin-bottom: 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tarea-meta {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Space between status and date */
+  font-size: 14px;
+  color: #4b5563;
+}
+
+.tarea-status,
+.tarea-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.tarea-status.pending {
+  background-color: #fed7aa; /* Light orange background */
+  color: #9a3412; /* Dark orange text */
+}
+
+.tarea-status.completed {
+  background-color: #dcfce7; /* Light green background */
+  color: #166534; /* Dark green text */
+}
+
+.tarea-date {
+  background-color: #e2e8f0; /* Light grey background */
+  color: #475569; /* Dark grey text */
+}
+
+.tarea-button {
+  flex-shrink: 0;
+  margin-left: 20px;
+  padding: 10px 18px;
+  background-color: #0077B6; /* Primary blue */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.tarea-button:hover {
+  background-color: #2563eb; /* Darker blue on hover */
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(59, 130, 246, 0.4);
+}
+
+.tarea-button:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 5px rgba(59, 130, 246, 0.2);
+}
+
+/* Responsive adjustments for Tareas Pendientes */
+@media (max-width: 768px) {
+  .tareas-container {
+    padding: 18px;
+    margin: 16px;
+  }
+
+  .tareas-title {
+    font-size: 20px;
+    margin-bottom: 16px;
+  }
+
+  .tarea-item {
+    flex-direction: column; /* Stack elements on smaller screens */
+    align-items: flex-start;
+    padding: 12px;
+  }
+
+  .tarea-icon {
+    margin-right: 0;
+    margin-bottom: 8px;
+  }
+
+  .tarea-title {
+    font-size: 16px;
+    margin-bottom: 6px;
+  }
+
+  .tarea-meta {
+    flex-direction: column; /* Stack meta items */
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    width: 100%; /* Take full width */
+  }
+
+  .tarea-status,
+  .tarea-date {
+    width: fit-content; /* Adjust width to content */
+  }
+
+  .tarea-button {
+    margin-left: 0;
+    margin-top: 12px;
+    width: 100%; /* Full width button */
+    text-align: center;
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tareas-container {
+    padding: 12px;
+    margin: 12px;
+  }
+
+  .tareas-title {
+    font-size: 18px;
+    margin-bottom: 12px;
+  }
+
+  .tarea-item {
+    padding: 10px;
+  }
+
+  .tarea-title {
+    font-size: 15px;
+  }
+
+  .tarea-meta {
+    font-size: 12px;
+    gap: 6px;
+  }
+
+  .tarea-button {
+    font-size: 14px;
+    padding: 7px 12px;
   }
 }

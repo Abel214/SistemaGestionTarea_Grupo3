@@ -40,7 +40,23 @@ const AcademicCalendar = ({ assignments = [] }) => {
       status: "pending",
       subject: "Historia",
       type: "presentation"
-    }
+    },
+    {
+      id: 5,
+      title: "Examen de Física",
+      dueDate: "2025-07-18",
+      status: "pending",
+      subject: "Física",
+      type: "exam"
+    },
+    {
+      id: 6,
+      title: "Informe de Química",
+      dueDate: "2025-07-22",
+      status: "completed",
+      subject: "Química",
+      type: "essay"
+    },
   ];
 
   const academicMonths = [
@@ -169,18 +185,6 @@ const AcademicCalendar = ({ assignments = [] }) => {
 
   return (
     <div className="calendar-container">
-      {/* Header Card */}
-      <div className="calendar-header-card">
-        <div className="header-content">
-          <div className="header-title-section">
-            <Calendar className="header-icon" size={32} />
-            <h2 className="header-title">Calendario Académico</h2>
-          </div>
-          <div className="header-period">
-            Período 2025
-          </div>
-        </div>
-      </div>
 
       {/* Calendar Card */}
       <div className="calendar-card">
@@ -225,7 +229,6 @@ const AcademicCalendar = ({ assignments = [] }) => {
       </div>
 
       {/* Popup para mostrar tareas del día */}
-      {/*
       {showPopup && selectedDay && (
         <div className="popup-overlay" onClick={() => setShowPopup(false)}>
           <div className="popup-content" onClick={(e) => e.stopPropagation()}>
@@ -266,7 +269,6 @@ const AcademicCalendar = ({ assignments = [] }) => {
           </div>
         </div>
       )}
-      */}
     </div>
   );
 };

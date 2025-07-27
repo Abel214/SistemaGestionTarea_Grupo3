@@ -1,17 +1,17 @@
 // @ts-ignore
 import React, { useState } from 'react';
-import { User, ChevronDown, Search } from 'lucide-react';
+import { User, ChevronDown, Search, Bell, Mail, AlertCircle, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react'; // Import ChevronLeft and ChevronRight
 import { getDashboardConfig } from '../sidebar/sidebar';
 import SubjectCard from './cardMateria/cardMateria';
 import './inicio.css';
-import { useNavigate } from 'react-router-dom';
 import MenuDesplegable from "../menuDesplegable/menu";
+import SGTTABlack from '../../assets/Common/SGTTABlack.png';
 
 const DashboardPanel = ({
   userType = '',
   userName = 'Alyce Maldonado',
   userEmail = 'alycemaldonado@uni.com',
-  imagenesMateria = {},
+  imagenesMateria = { rural: 'ruta/a/imagen_rural.png' }, // Example for grades section
   sections = [],
   assignments = [],
   grades = [],
@@ -22,6 +22,7 @@ const DashboardPanel = ({
   const [selectedSubject, setSelectedSubject] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [showSearch, setShowSearch] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State for sidebar visibility
 
   const config = getDashboardConfig(userType);
   const currentSubjects = subjects || [];
@@ -32,6 +33,10 @@ const DashboardPanel = ({
     } else {
       setSelectedSection(itemId);
       setShowSearch(false);
+      // Close sidebar on item click for mobile view
+      if (window.innerWidth <= 768) {
+        setIsSidebarOpen(false);
+      }
     }
   };
 
@@ -39,29 +44,74 @@ const DashboardPanel = ({
     setShowSearch(!showSearch);
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  // Dummy notification data for demonstration
+  const notifications = [
+    {
+      id: 1,
+      type: 'assignment',
+      title: 'Nueva Tarea: Análisis de Datos',
+      message: 'Se ha publicado una nueva tarea en la materia de Estadística.',
+      time: 'Hace 5 minutos',
+      read: false,
+      icon: <Bell size={20} />,
+      status: 'new'
+    },
+    {
+      id: 2,
+      type: 'grade',
+      title: 'Calificación de Examen Final',
+      message: 'Tu calificación del examen final de Matemáticas ha sido publicada.',
+      time: 'Hace 1 hora',
+      read: false,
+      icon: <CheckCircle size={20} />,
+      status: 'new'
+    },
+    {
+      id: 3,
+      type: 'announcement',
+      title: 'Anuncio: Cambio de Horario',
+      message: 'La clase de Física se ha movido al aula 301 para este viernes.',
+      time: 'Ayer',
+      read: true,
+      icon: <AlertCircle size={20} />
+    },
+    {
+      id: 4,
+      type: 'message',
+      title: 'Mensaje del Profesor Juan',
+      message: 'Revisa el feedback de tu entrega de proyecto.',
+      time: 'Hace 2 días',
+      read: true,
+      icon: <Mail size={20} />
+    },
+  ];
+
   return (
-    <div className="dashboard-container">
+    <div className={`dashboard-container ${isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}`}>
       {/* Sidebar */}
-      <div className="sidebar">
+      <div className={`sidebar ${isSidebarOpen ? 'open' : 'closed'}`}>
         <div className="sidebar-header">
           <div className="sidebar-title">
-            <User size={24}/>
-            <h1>
-              {userType === 'teacher'
-                  ? 'Docente'
-                  : userType === 'student' || userType === 'studentMateria'
-                      ? 'Estudiante'
-                      : 'Administrador'}
-            </h1>
-
-
+            <img src={SGTTABlack} alt="Logo SGTTA" className="sidebar-logo" /> {/* CAMBIO AQUÍ */}
+            <div className="sidebar-text-group"> {/* Nuevo contenedor para el texto */}
+              <span className="sidebar-main-title">SGTTA</span>
+              <h1 className="sidebar-user-role">
+                {userType === 'teacher'
+                    ? 'Docente'
+                    : userType === 'student' || userType === 'studentMateria'
+                        ? 'Estudiante'
+                        : 'Administrador'}
+              </h1>
+            </div>
           </div>
-
         </div>
 
         {/* Search Section */}
         <div className="sidebar-search-section">
-
           <div className="sidebar-search">
             <input
                 type="text"
@@ -83,7 +133,7 @@ const DashboardPanel = ({
               }`}
             >
               <item.icon size={18} />
-              {item.label}
+              <span className="sidebar-item-label">{item.label}</span> {/* Wrap text in span */}
             </button>
           ))}
         </nav>
@@ -97,9 +147,13 @@ const DashboardPanel = ({
               className={`sidebar-nav-item ${selectedSection === item.id ? 'active' : ''}`}
             >
               <item.icon size={18} />
-              {item.label}
+              <span className="sidebar-item-label">{item.label}</span> {/* Wrap text in span */}
             </button>
           ))}
+          {/* Toggle button for sidebar at the bottom */}
+          <button className="sidebar-toggle-button-bottom" onClick={toggleSidebar}>
+            {isSidebarOpen ? <ChevronLeft size={24} /> : <ChevronRight size={24} />}
+          </button>
         </div>
       </div>
 
@@ -108,7 +162,8 @@ const DashboardPanel = ({
         {/* Header */}
         <header className="dashboard-header">
           <div className="header-content">
-            <h1 className="main-title">Gestor de tareas</h1>
+            {/* The main title that will now also toggle the sidebar */}
+            <h1 className="main-title" onClick={toggleSidebar} style={{ cursor: 'pointer' }}>Gestor de tareas</h1>
             <div className="welcome-section">
               <h2 className="welcome-title">Bienvenido {userName}</h2>
               <p className="welcome-subtitle">{config.welcomeMessage}</p>
@@ -117,7 +172,6 @@ const DashboardPanel = ({
 
           <div className="user-controls">
             <div className="user-profile">
-              
               <div className="user-info">
                   <span className="user-name">{userName}</span>
                 <span className="user-email">{userEmail}</span>
@@ -315,14 +369,12 @@ const DashboardPanel = ({
 
               {/* Área Personal movida aquí */}
               <div className="personal-area">
-                <h3>Área Personal</h3>
-
                 {/* Línea de tiempo de tareas */}
                 <div className="timeline-section">
                   <h4>Próximas Tareas</h4>
                   <div className="timeline-filter">
                     <select className="filter-select">
-                      <option>Próximas 7 días</option>
+                      <option>Próximos 7 días</option>
                       <option>Próximas 2 semanas</option>
                       <option>Todo el mes</option>
                     </select>
@@ -370,8 +422,6 @@ const DashboardPanel = ({
                   </div>
                 </div>
               </div>
-
-
             </div>
           )}
 
@@ -393,18 +443,38 @@ const DashboardPanel = ({
                                 alt={`Imagen de ${subject.name}`}
                               />
                             ) : (
-                              <subject.icon size={24} color="white" />
+                              // Fallback icon if no image
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="24"
+                                height="24"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="white"
+                                strokeWidth="2"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                className="lucide lucide-book-open-text"
+                              >
+                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
+                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
+                                <path d="M9 8h6" />
+                                <path d="M9 12h6" />
+                                <path d="M9 16h6" />
+                              </svg>
                             )}
                           </div>
                           <h3 className="grade-card-title">{subject.name}</h3>
                         </div>
-                        <div className="grade-item">
-                          <span className="grade-item-label">Tarea 1</span>
-                          <span className="grade-item-value">85%</span>
-                        </div>
-                        <div className="grade-item">
-                          <span className="grade-item-label">Tarea 2</span>
-                          <span className="grade-item-value">92%</span>
+                        <div className="grade-content-table">
+                          <div className="grade-table-row">
+                            <span className="grade-item-label">Tarea 1</span>
+                            <span className="grade-item-value">85%</span>
+                          </div>
+                          <div className="grade-table-row">
+                            <span className="grade-item-label">Tarea 2</span>
+                            <span className="grade-item-value">92%</span>
+                          </div>
                         </div>
                         <div className="grade-total">
                           <span className="grade-total-label">Promedio</span>
@@ -422,25 +492,38 @@ const DashboardPanel = ({
             </div>
           )}
 
-          {/* Messages for Student */}
+          {/* Messages/Notifications for Student */}
           {selectedSection === 'messages' && userType === 'student' && (
-            <div className="section-content">
-              <h2>Mensajes</h2>
-              <div className="messages-section">
-                <div className="message-item">
-                  <div className="message-header">
-                    <h3>Recordatorio: Tarea de Matemáticas</h3>
-                    <span className="message-date">Hace 2 horas</span>
-                  </div>
-                  <p>No olvides entregar la tarea de álgebra antes del viernes.</p>
-                </div>
-                <div className="message-item">
-                  <div className="message-header">
-                    <h3>Calificación disponible</h3>
-                    <span className="message-date">Hace 1 día</span>
-                  </div>
-                  <p>Ya está disponible la calificación de tu ensayo de Historia.</p>
-                </div>
+            <div className="section-content notification-center">
+              <h2>Centro de Notificaciones</h2>
+              <div className="notification-filters">
+                <button className="filter-button active">Todas</button>
+                <button className="filter-button">No Leídas</button>
+                <button className="filter-button">Importantes</button>
+              </div>
+              <div className="notifications-list">
+                {notifications.length > 0 ? (
+                  notifications.map(notification => (
+                    <div key={notification.id} className={`notification-item ${notification.read ? 'read' : 'unread'}`}>
+                      <div className="notification-icon-wrapper">
+                        {notification.icon}
+                      </div>
+                      <div className="notification-content">
+                        <div className="notification-header">
+                          <h3 className="notification-title">{notification.title}</h3>
+                          {notification.status === 'new' && <span className="notification-status-new">Nuevo</span>}
+                        </div>
+                        <p className="notification-message">{notification.message}</p>
+                        <span className="notification-time">{notification.time}</span>
+                      </div>
+                      <div className="notification-actions">
+                        {!notification.read && <button className="mark-as-read-button">Marcar como leído</button>}
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <p className="no-content-message">No hay notificaciones</p>
+                )}
               </div>
             </div>
           )}
@@ -479,6 +562,10 @@ const DashboardPanel = ({
           )}
         </div>
       </div>
+      {/* Overlay for mobile when sidebar is open */}
+      {isSidebarOpen && window.innerWidth <= 768 && (
+        <div className="sidebar-overlay" onClick={toggleSidebar}></div>
+      )}
     </div>
   );
 };

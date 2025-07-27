@@ -1,3 +1,4 @@
+// @ts-ignore
 import React, { useState } from 'react';
 import {User, ChevronDown, Search, FileText, CheckCircle, Clock, BookOpen} from 'lucide-react';
 import { getDashboardConfig } from '../../sidebar/sidebar';
@@ -6,6 +7,7 @@ import '../inicio.css';
 import '../calendario/calendario.css'
 import '../materiaVista/materiaVista.css';
 import AcademicCalendar from "../calendario/calendario";
+import SGTTABlack from '../../../assets/Common/SGTTABlack.png';
 
 const DashboardPanelMateria = ({
   userType = 'studentMateria',
@@ -157,6 +159,24 @@ const DashboardPanelMateria = ({
       title: 'ACD: Taller de revisión bibliográfica',
       status: 'pending',
       dueDate: '2025-07-20'
+    },
+    {
+      id: 4,
+      title: 'Exposición: Modelos de Ciclo de Vida del Software',
+      status: 'pending',
+      dueDate: '2025-07-25'
+    },
+    {
+      id: 5,
+      title: 'Foro: Debate sobre metodologías ágiles vs. tradicionales',
+      status: 'pending',
+      dueDate: '2025-07-28'
+    },
+    {
+      id: 6,
+      title: 'Práctica 1: Implementación de un Sprint en Scrum',
+      status: 'completed',
+      dueDate: '2025-07-10'
     }
   ];
 
@@ -189,15 +209,15 @@ const DashboardPanelMateria = ({
             <h3 className="tareas-title">Tareas Pendientes</h3>
             <div className="tareas-list">
               {subjectAssignments.map(task => (
-                <div key={task.id} className="tarea-item">
+                <div key={task.id} className={`tarea-item ${task.status}`}> {/* Add task.status class */}
                   <div className="tarea-icon">
                     <FileText size={18}/>
                   </div>
                   <div className="tarea-content">
                     <h4 className="tarea-title">{task.title}</h4>
                     <div className="tarea-meta">
-                      <span className="tarea-status">
-                        <CheckCircle size={14}/> Pendiente
+                      <span className={`tarea-status ${task.status}`}> {/* Add task.status class */}
+                        <CheckCircle size={14}/> {task.status === 'pending' ? 'Pendiente' : 'Completada'}
                       </span>
                       <span className="tarea-date">
                         <Clock size={14}/> Entrega: {task.dueDate}
@@ -218,17 +238,19 @@ const DashboardPanelMateria = ({
       {/* Sidebar */}
       <div className="sidebar">
         <div className="sidebar-header">
-          <div className="sidebar-title">
-            <User size={24}/>
-            <h1>
-              {userType === 'teacher'
-                  ? 'Docente'
-                  : userType === 'student' || userType === 'studentMateria'
-                      ? 'Estudiante'
-                      : 'Administrador'}
-            </h1>
-
-          </div>
+<div className="sidebar-title">
+      <img src={SGTTABlack} alt="Logo SGTTA" className="sidebar-logo" /> {/* CAMBIO AQUÍ */}
+  <div className="sidebar-text-group"> {/* Nuevo contenedor para el texto */}
+    <span className="sidebar-main-title">SGTTA</span>
+    <h1 className="sidebar-user-role">
+      {userType === 'teacher'
+          ? 'Docente'
+          : userType === 'student' || userType === 'studentMateria'
+              ? 'Estudiante'
+              : 'Administrador'}
+    </h1>
+  </div>
+</div>
         </div>
 
         {/* Search Section */}

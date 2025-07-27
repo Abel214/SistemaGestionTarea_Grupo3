@@ -2,6 +2,8 @@
           font-family: Arial, sans-serif;
           background-color: #f5f5f5;
           min-height: 100vh;
+          /* Bordes redondeados */
+            border-radius: 12px;
         }
 
         .unit-header {
@@ -9,6 +11,7 @@
           padding: 20px;
           border-bottom: 1px solid #e0e0e0;
           margin-bottom: 20px;
+            border-radius: 12px;
         }
 
         .unit-title {
@@ -40,7 +43,7 @@
           padding: 8px 16px;
           border: 1px solid #ddd;
           background: white;
-          border-radius: 4px;
+          border-radius: 12px;
           cursor: pointer;
           transition: all 0.2s;
         }
@@ -50,9 +53,9 @@
         }
 
         .unit-selector-button.active {
-          background: #007bff;
+          background: #2980b9;
           color: white;
-          border-color: #007bff;
+          border-color: #2980b9;
         }
 
         .tabs-container {
@@ -83,8 +86,8 @@
         }
 
         .tab-button.active {
-          border-bottom-color: #007bff;
-          color: #007bff;
+          border-bottom-color: #2980b9;
+          color: #2980b9;
         }
 
         .content-grid {
@@ -122,7 +125,7 @@
         .tema-title {
           font-size: 16px;
           font-weight: 600;
-          color: #007bff;
+          color: #2980b9;
           margin: 0 0 10px 0;
         }
 
@@ -139,7 +142,7 @@
         }
 
         .subtema-item:hover {
-          color: #007bff;
+          color: #2980b9;
         }
 
         .actividad-item {
@@ -242,7 +245,7 @@
 
         .progress-bar {
           height: 100%;
-          background: #007bff;
+          background: #2980b9;
           transition: width 0.3s ease;
         }
 
@@ -287,7 +290,7 @@
 
         .participante-role {
           font-size: 12px;
-          color: #007bff;
+          color: #2980b9;
         }
 
         .anuncio-item {
@@ -304,7 +307,7 @@
         }
 
         .anuncio-icon {
-          color: #007bff;
+          color: #2980b9;
           margin-top: 2px;
         }
 
@@ -381,7 +384,7 @@
 .docente-titulo {
   font-size: 16px;
   font-weight: 600;
-  color: #007bff;
+  color: #2980b9;
   margin: 0 0 8px 0;
 }
 
@@ -406,7 +409,7 @@
   padding: 16px;
   background: #f8f9fa;
   border-radius: 8px;
-  border-left: 4px solid #007bff;
+  border-left: 4px solid #2980b9;
 }
 
 .docente-description h5,
@@ -444,7 +447,7 @@
 }
 
 .contact-item a {
-  color: #007bff;
+  color: #2980b9;
   text-decoration: none;
 }
 
@@ -476,12 +479,122 @@
 }
 
 .interest-tag {
-  background: #007bff;
+  background: #2980b9;
   color: white;
   padding: 4px 12px;
   border-radius: 16px;
   font-size: 12px;
   font-weight: 500;
+}
+
+/* Animaciones para las secciones de Unidades */
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Animación para el contenedor principal */
+.unidades-container {
+  animation: fadeSlideIn 0.6s ease-out forwards;
+}
+
+/* Animación para el encabezado de la unidad */
+.unit-header {
+  animation: fadeSlideIn 0.5s ease-out forwards;
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+/* Animación para los botones del selector de unidades */
+.unit-selector-button {
+  animation: scaleIn 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.unit-selector-button:nth-child(1) { animation-delay: 0.3s; }
+.unit-selector-button:nth-child(2) { animation-delay: 0.4s; }
+.unit-selector-button:nth-child(3) { animation-delay: 0.5s; }
+
+/* Animación para las pestañas */
+.tab-button {
+  animation: fadeSlideIn 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.tab-button:nth-child(1) { animation-delay: 0.4s; }
+.tab-button:nth-child(2) { animation-delay: 0.5s; }
+.tab-button:nth-child(3) { animation-delay: 0.6s; }
+
+/* Animación para las tarjetas de contenido */
+.card {
+  animation: scaleIn 0.5s ease-out forwards;
+  opacity: 0;
+  animation-delay: 0.6s;
+}
+
+/* Animaciones para los temas y subtemas */
+.tema-item {
+  animation: fadeSlideIn 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.tema-item:nth-child(n) {
+  animation-delay: calc(0.7s + (0.1s * var(--item-index, 1)));
+}
+
+.subtema-item {
+  animation: fadeSlideIn 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+.subtema-item:nth-child(n) {
+  animation-delay: calc(0.8s + (0.05s * var(--item-index, 1)));
+}
+
+/* Animaciones para las actividades */
+.actividad-item {
+  animation: fadeSlideIn 0.4s ease-out forwards;
+  opacity: 0;
+}
+
+.actividad-item:nth-child(n) {
+  animation-delay: calc(0.7s + (0.1s * var(--item-index, 1)));
+}
+
+/* Mejorar las transiciones existentes */
+.unit-selector-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.tab-button {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.actividad-item {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Efecto hover mejorado para las actividades */
+.actividad-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 /* Responsive */
